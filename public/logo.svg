@@ -1,0 +1,28 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景卡片：暖白色 #faf9f5，MD3 大圆角 24px -->
+  <rect width="120" height="120" rx="24" fill="#faf9f5"/>
+  <!-- 2. 不规则五边形 (Wabi-sabi 风格) -->
+  <!-- 线条颜色：#757575 (次级灰)，线条端点圆润 -->
+  <path d="M55 20 Q35 35 20 55 Q25 80 35 95 L85 90 L105 50 Q80 30 55 20"
+        stroke="#757575" stroke-width="3.5" fill="none"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 3. 普通节点：#424242 (强调灰) -->
+  <circle cx="55" cy="20" r="4" fill="#424242"/>
+  <circle cx="20" cy="55" r="4" fill="#424242"/>
+  <circle cx="35" cy="95" r="4" fill="#424242"/>
+  <circle cx="105" cy="50" r="4" fill="#424242"/>
+  <!-- 4. 右下角 Puppy 节点 -->
+  <!-- 旋转 10度，产生不完美的可爱感 -->
+  <g transform="translate(85, 90) rotate(10) scale(0.32) translate(-60, -65)">
+      <!-- 耳朵 #424242 -->
+      <path d="M30 45 L15 70 L45 70 Z" fill="#424242" />
+      <path d="M90 45 L75 70 L105 70 Z" fill="#424242" />
+      <!-- 脸部 #424242 -->
+      <rect x="30" y="55" width="60" height="45" rx="12" fill="#424242"/>
+      <!-- 眼睛 #F5F5F5 (反白) -->
+      <circle cx="45" cy="75" r="4" fill="#F5F5F5"/>
+      <circle cx="75" cy="75" r="4" fill="#F5F5F5"/>
+      <!-- 鼻子 #F5F5F5 (反白，带透明度以示区别) -->
+      <path d="M55 85 L65 85 L60 92 Z" fill="#F5F5F5" opacity="0.9"/>
+  </g>
+</svg>

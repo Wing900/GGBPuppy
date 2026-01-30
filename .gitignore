@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.vscode/
+.DS_Store
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env
+.env.*
+iflow.md
+.claude
