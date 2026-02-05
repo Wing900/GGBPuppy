@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Share2, Link, Copy, Check, Code, Globe } from 'lucide-react';
-import { buildShareUrl, buildEmbedUrl, buildEmbedHtml } from '../lib/url';
+import { X, Share2, Link, Copy, Check, Code, Globe, Maximize2 } from 'lucide-react';
+import { buildShareUrl, buildEmbedUrl, buildEmbedHtml, buildFullscreenEmbedUrl, buildFullscreenEmbedHtml } from '../lib/url';
 
 const ShareDialog = ({ isOpen, onClose, shareId }) => {
   const [copiedType, setCopiedType] = useState(null);
@@ -11,6 +11,8 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
   const shareUrl = shareId ? buildShareUrl(shareId) : '';
   const embedUrl = shareId ? buildEmbedUrl(shareId) : '';
   const embedHtml = shareId ? buildEmbedHtml(shareId, { width, height }) : '';
+  const fullscreenEmbedUrl = shareId ? buildFullscreenEmbedUrl(shareId) : '';
+  const fullscreenEmbedHtml = shareId ? buildFullscreenEmbedHtml(shareId) : '';
 
   const copyToClipboard = useCallback(async (text, type) => {
     try {
@@ -230,7 +232,77 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
                       {copiedType === 'html' ? <Check size={16} /> : <Copy size={16} />}
                     </motion.button>
                   </div>
+
                 </div>
+
+                {/* Fullscreen Embed URL */}
+                <div>
+                  <div
+                    className="flex items-center gap-2 mb-2"
+                    style={{ color: 'var(--color-text-primary)' }}
+                  >
+                    <Maximize2 size={16} />
+                    <span className="text-sm font-medium">全屏嵌入链接</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 px-3 py-2.5 rounded-lg"
+                    style={{
+                      backgroundColor: 'var(--color-bg-primary)',
+                      border: '1px solid var(--color-bg-tertiary)'
+                    }}
+                  >
+                    <span
+                      className="flex-1 text-sm truncate"
+                      style={{ color: 'var(--color-text-secondary)' }}
+                    >
+                      {fullscreenEmbedUrl}
+                    </span>
+                    <motion.button
+                      onClick={() => copyToClipboard(fullscreenEmbedUrl, 'fullscreenUrl')}
+                      whileTap={{ scale: 0.9 }}
+                      className="p-1.5 rounded hover:bg-black/5"
+                      style={{ color: 'var(--color-text-secondary)' }}
+                      title="复制全屏嵌入链接"
+                    >
+                      {copiedType === 'fullscreenUrl' ? <Check size={16} /> : <Copy size={16} />}
+                    </motion.button>
+                  </div>
+                </div>
+
+                {/* Fullscreen Embed Frame */}
+                <div>
+                  <div
+                    className="flex items-center gap-2 mb-2"
+                    style={{ color: 'var(--color-text-primary)' }}
+                  >
+                    <Code size={16} />
+                    <span className="text-sm font-medium">全屏嵌入 Frame</span>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 px-3 py-2.5 rounded-lg"
+                    style={{
+                      backgroundColor: 'var(--color-bg-primary)',
+                      border: '1px solid var(--color-bg-tertiary)'
+                    }}
+                  >
+                    <span
+                      className="flex-1 text-xs font-mono truncate"
+                      style={{ color: 'var(--color-text-secondary)' }}
+                    >
+                      {fullscreenEmbedHtml}
+                    </span>
+                    <motion.button
+                      onClick={() => copyToClipboard(fullscreenEmbedHtml, 'fullscreenHtml')}
+                      whileTap={{ scale: 0.9 }}
+                      className="p-1.5 rounded hover:bg-black/5"
+                      style={{ color: 'var(--color-text-secondary)' }}
+                      title="复制全屏嵌入代码"
+                    >
+                      {copiedType === 'fullscreenHtml' ? <Check size={16} /> : <Copy size={16} />}
+                    </motion.button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </motion.div>

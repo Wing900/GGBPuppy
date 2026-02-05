@@ -1,9 +1,36 @@
 import { useEffect, useRef, useCallback } from 'react';
 
-const GGBViewer = ({ onReady, enable3D }) => {
+const GGBViewer = ({ onReady, enable3D, hideSidebar = false }) => {
   const containerRef = useRef(null);
   const appletRef = useRef(null);
   const isInitializedRef = useRef(false);
+
+  const applySidebarState = useCallback(() => {
+    if (!hideSidebar || !appletRef.current) return;
+
+    try {
+      const perspective = enable3D ? 'G3D' : 'G';
+      if (appletRef.current.setPerspective) {
+        appletRef.current.setPerspective(perspective);
+      }
+      if (appletRef.current.setShowView) {
+        appletRef.current.setShowView(1, false);
+        appletRef.current.setShowView(2, false);
+      }
+      if (appletRef.current.evalCommand) {
+        appletRef.current.evalCommand('ShowView(1, false)');
+        appletRef.current.evalCommand('ShowView(2, false)');
+      }
+      if (appletRef.current.setShowAlgebraInput) {
+        appletRef.current.setShowAlgebraInput(false);
+      }
+      if (appletRef.current.setShowToolBar) {
+        appletRef.current.setShowToolBar(false);
+      }
+    } catch (error) {
+      console.warn('隐藏侧边栏失败:', error);
+    }
+  }, [enable3D, hideSidebar]);
 
   const initGeoGebra = useCallback(() => {
     if (!containerRef.current || isInitializedRef.current) return;
@@ -19,7 +46,7 @@ const GGBViewer = ({ onReady, enable3D }) => {
       width: containerRef.current.clientWidth,
       height: containerRef.current.clientHeight,
       showToolBar: false,
-      showAlgebraInput: false,
+      showAlgebraInput: !hideSidebar,
       showMenuBar: false,
       showResetIcon: false,
       enable3D,
@@ -37,12 +64,18 @@ const GGBViewer = ({ onReady, enable3D }) => {
         if (enable3D && window.ggbApplet && window.ggbApplet.executeCommand) {
           window.ggbApplet.executeCommand('ShowView(5, true)');
         }
+        applySidebarState();
       }
     };
 
+
+    if (hideSidebar) {
+      params.showAlgebraView = false;
+    }
+
     const applet = new window.GGBApplet(params, true);
     applet.inject(containerRef.current);
-  }, [enable3D, onReady]);
+  }, [enable3D, onReady, applySidebarState]);
 
   useEffect(() => {
     const checkAndInit = () => {
@@ -55,6 +88,10 @@ const GGBViewer = ({ onReady, enable3D }) => {
     checkAndInit();
     return () => { isInitializedRef.current = false; };
   }, [initGeoGebra]);
+
+  useEffect(() => {
+    applySidebarState();
+  }, [applySidebarState]);
 
   useEffect(() => {
     const handleResize = () => {

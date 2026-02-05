@@ -3,7 +3,7 @@
  */
 
 /**
- * 解析当前 URL，判断是否为嵌入模式
+ * 从当前 URL 参数判断是否为嵌入模式
  * @returns {boolean}
  */
 export function getEmbedMode() {
@@ -16,10 +16,28 @@ export function getEmbedMode() {
 }
 
 /**
- * 解析当前 URL，获取分享 ID
- * 支持两种格式：
- * - 路径参数：/share/:id
- * - 查询参数：?share=xxx
+ * 获取嵌入配置
+ * @returns {{ isEmbed: boolean, isFullscreen: boolean, hideSidebar: boolean }}
+ */
+export function getEmbedConfig() {
+  if (typeof window === 'undefined') {
+    return { isEmbed: false, isFullscreen: false, hideSidebar: false };
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const isEmbed = urlParams.get('embed') === 'true';
+  const isFullscreen = urlParams.get('fullscreen') === 'true';
+  const sidebarParam = urlParams.get('sidebar');
+  const hideSidebar = sidebarParam === 'false' || sidebarParam === '0';
+
+  return { isEmbed, isFullscreen, hideSidebar };
+}
+
+/**
+ * 从当前 URL 中提取分享 ID
+ * 支持以下格式：
+ * - 路径参数 /share/:id
+ * - 查询参数 ?share=xxx
  * @returns {string|null}
  */
 export function getShareId() {
@@ -27,13 +45,13 @@ export function getShareId() {
     return null;
   }
 
-  // 先尝试从路径获取 /share/:id
+  // 先尝试从路径中提取 /share/:id
   const pathMatch = window.location.pathname.match(/^\/share\/([a-zA-Z0-9_-]+)$/);
   if (pathMatch) {
     return pathMatch[1];
   }
 
-  // 再尝试从查询参数获取 ?share=xxx
+  // 再尝试从查询参数中提取 ?share=xxx
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get('share');
 }
@@ -67,6 +85,20 @@ export function buildEmbedUrl(shareId) {
 }
 
 /**
+ * 构建全屏嵌入链接
+ * @param {string} shareId - 分享 ID
+ * @returns {string}
+ */
+export function buildFullscreenEmbedUrl(shareId) {
+  if (typeof window === 'undefined') {
+    return '';
+  }
+
+  const origin = window.location.origin;
+  return `${origin}/share/${shareId}?embed=true&fullscreen=true&sidebar=false`;
+}
+
+/**
  * 构建嵌入 HTML 代码
  * @param {string} shareId - 分享 ID
  * @param {object} options - 嵌入选项
@@ -79,4 +111,15 @@ export function buildEmbedHtml(shareId, options = {}) {
   const embedUrl = buildEmbedUrl(shareId);
 
   return `<iframe src="${embedUrl}" width="${width}" height="${height}" frameborder="0" allowfullscreen></iframe>`;
+}
+
+/**
+ * 构建全屏嵌入 iframe 代码
+ * @param {string} shareId - 分享 ID
+ * @returns {string}
+ */
+export function buildFullscreenEmbedHtml(shareId) {
+  const embedUrl = buildFullscreenEmbedUrl(shareId);
+
+  return `<iframe src="${embedUrl}" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen></iframe>`;
 }

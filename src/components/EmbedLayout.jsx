@@ -3,7 +3,7 @@ import { GGBViewer } from './index';
 import { ArrowUpRight, Maximize2 } from 'lucide-react';
 import { getShare, executeShareCode } from '../services/share';
 
-const EmbedLayout = ({ shareId }) => {
+const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
   const [ggbApplet, setGgbApplet] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,7 +25,7 @@ const EmbedLayout = ({ shareId }) => {
       try {
         const shareData = await getShare(shareId);
         if (!shareData) {
-          setError('未找到分享内容');
+          setError('未找到分享数据');
         } else {
           setData(shareData);
         }
@@ -39,7 +39,7 @@ const EmbedLayout = ({ shareId }) => {
     loadData();
   }, [shareId]);
 
-  // 监听 ggbApplet 就绪，自动加载代码
+  // 当 ggbApplet 变更时自动执行一次
   useEffect(() => {
     hasRunRef.current = false;
   }, [shareId]);
@@ -56,7 +56,7 @@ const EmbedLayout = ({ shareId }) => {
     setGgbApplet(applet);
   }, []);
 
-  // 构建编辑链接
+  // 返回编辑地址
   const buildEditUrl = () => {
     if (typeof window === 'undefined') return '';
     const origin = window.location.origin;
@@ -95,22 +95,23 @@ const EmbedLayout = ({ shareId }) => {
               }}
             >
               <ArrowUpRight size={16} />
-              在 GGBPuppy 中打开
+              在 GGBPuppy 打开
             </a>
           </div>
         </div>
       )}
 
-      {/* GeoGebra 画布 */}
+      {/* GeoGebra 画板 */}
       <div className="embed-layout-ggb">
         <GGBViewer
           enable3D={data?.enable3D || false}
+          hideSidebar={hideSidebar}
           onReady={handleGGBReady}
         />
       </div>
 
       {/* 编辑按钮 */}
-      {data && (
+      {data && !isFullscreen && (
         <div className="absolute top-4 right-4 z-10">
           <a
             href={buildEditUrl()}
@@ -125,7 +126,7 @@ const EmbedLayout = ({ shareId }) => {
             }}
           >
             <Maximize2 size={16} />
-            <span>在 GGBPuppy 中编辑</span>
+            <span>在 GGBPuppy 里编辑</span>
           </a>
         </div>
       )}

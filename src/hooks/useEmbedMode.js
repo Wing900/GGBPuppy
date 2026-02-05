@@ -1,17 +1,17 @@
 import { useMemo } from 'react';
-import { getEmbedMode, getShareId } from '../lib/url';
+import { getEmbedConfig, getShareId } from '../lib/url';
 
 /**
  * 嵌入模式 Hook
- * 检测 URL 参数并返回嵌入模式状态
- * @returns {object} { isEmbed, shareId }
+ * 根据 URL 参数返回嵌入配置
+ * @returns {object} { isEmbed, shareId, isFullscreen, hideSidebar }
  */
 export const useEmbedMode = () => {
   const result = useMemo(() => {
-    const isEmbed = getEmbedMode();
+    const { isEmbed, isFullscreen, hideSidebar } = getEmbedConfig();
     const shareId = getShareId();
 
-    return { isEmbed, shareId };
+    return { isEmbed, shareId, isFullscreen, hideSidebar };
   }, []);
 
   return result;
