@@ -60,9 +60,10 @@ export default {
           }
         );
       } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
         console.error('Share save failed:', error);
         return new Response(
-          JSON.stringify({ error: 'Share save failed.' }),
+          JSON.stringify({ error: 'Share save failed.', detail: message }),
           {
             status: 500,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -97,9 +98,10 @@ export default {
           }
         );
       } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
         console.error('Share fetch failed:', error);
         return new Response(
-          JSON.stringify({ error: 'Share fetch failed.' }),
+          JSON.stringify({ error: 'Share fetch failed.', detail: message }),
           {
             status: 500,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
