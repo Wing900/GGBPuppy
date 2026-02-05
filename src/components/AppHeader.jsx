@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Settings, Moon, Sun } from 'lucide-react';
+import { Settings, Moon, Sun, Share2 } from 'lucide-react';
 import SettingsPanel from './SettingsPanel';
 import { LAYOUT } from '../config/appConfig';
 
@@ -13,7 +13,8 @@ const AppHeader = ({
   interval,
   onIntervalChange,
   enable3D,
-  onEnable3DChange
+  onEnable3DChange,
+  onShare
 }) => {
   return (
     <header
@@ -34,6 +35,18 @@ const AppHeader = ({
       </div>
 
       <div className="absolute right-0 top-0 flex items-center gap-2">
+        {onShare && (
+          <motion.button
+            onClick={onShare}
+            whileTap={{ scale: 0.95 }}
+            className="p-2.5 rounded-xl transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+            style={{ color: 'var(--color-text-secondary)' }}
+            title="分享"
+          >
+            <Share2 size={20} />
+          </motion.button>
+        )}
+
         <motion.button
           onClick={onToggleSettings}
           whileTap={{ scale: 0.95 }}

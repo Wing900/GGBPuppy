@@ -11,3 +11,7 @@ pnpm-debug.log*
 .env.*
 iflow.md
 .claude
+
+# Cloudflare Workers
+wrangler.toml
+.dev.vars

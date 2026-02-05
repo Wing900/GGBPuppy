@@ -2,3 +2,6 @@ export { default as CodeEditor } from './CodeEditor';
 export { default as GGBViewer } from './GGBViewer';
 export { default as ControlPanel } from './ControlPanel';
 export { default as AppHeader } from './AppHeader';
+export { default as EditorLayout } from './EditorLayout';
+export { default as EmbedLayout } from './EmbedLayout';
+export { default as ShareDialog } from './ShareDialog';
