@@ -16,3 +16,11 @@ npm install
 npm run dev
 ```
 
+## Cloudflare Pages 部署
+
+启用分享需要 KV 作为存储，请在 Pages 设置中完成：
+
+1. 在 KV 绑定里添加 `GGBPuppy_SHARES`
+2. 在环境变量中添加 `VITE_STORAGE_MODE=cfkv`（Production）
+3. 保存后重新部署
+
