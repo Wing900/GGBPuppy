@@ -1,11 +1,12 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog } from './index';
 import { useGGBRunner, useDarkMode, useAppState } from '../hooks';
-import { createShare, getShare } from '../services/share';
+import { createShare, getShare, executeShareCode } from '../services/share';
 import { LAYOUT } from '../config/appConfig';
 
 const EditorLayout = ({ shareId: initialShareId }) => {
   const [ggbApplet, setGgbApplet] = useState(null);
+  const hasRunRef = useRef(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [shareId, setShareId] = useState(initialShareId || null);
   const {
@@ -25,6 +26,10 @@ const EditorLayout = ({ shareId: initialShareId }) => {
   const { isRunning, currentLine, progress, run, stop, reset } = useGGBRunner(ggbApplet);
 
   // 加载分享数据
+  useEffect(() => {
+    hasRunRef.current = false;
+  }, [initialShareId]);
+
   useEffect(() => {
     if (!initialShareId) return;
 
@@ -46,6 +51,15 @@ const EditorLayout = ({ shareId: initialShareId }) => {
 
     loadSharedData();
   }, [initialShareId, setCode, setEnable3D]);
+
+  useEffect(() => {
+    if (!initialShareId || !ggbApplet || hasRunRef.current) return;
+    if (!code.trim()) return;
+    const didRun = executeShareCode(ggbApplet, code);
+    if (didRun) {
+      hasRunRef.current = true;
+    }
+  }, [initialShareId, ggbApplet, code]);
 
   const handleGGBReady = useCallback((applet) => {
     setGgbApplet(applet);
