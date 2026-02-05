@@ -47,6 +47,38 @@ export async function getShare(shareId) {
   }
 }
 
+export function executeShareCode(ggbApplet, code) {
+  if (!ggbApplet || !code) return false;
+
+  const commands = code
+    .split('
+')
+    .map((line, index) => {
+      const commentIndex = line.indexOf('//');
+      const trimmed = (commentIndex === -1 ? line : line.slice(0, commentIndex)).trim();
+      return { line: trimmed, index };
+    })
+    .filter(({ line }) => line !== '');
+
+  if (commands.length === 0) return false;
+
+  try {
+    ggbApplet.reset();
+  } catch (e) {
+    console.warn('重置画布失败:', e);
+  }
+
+  commands.forEach(({ line, index }) => {
+    try {
+      ggbApplet.evalCommand(line);
+    } catch (e) {
+      console.warn(`执行指令失败 [第 ${index + 1} 行]:`, line, e);
+    }
+  });
+
+  return true;
+}
+
 /**
  * 加载分享数据并执行
  * @param {string} shareId - 分享 ID
@@ -67,9 +99,7 @@ export async function loadShareData(shareId, ggbApplet) {
       return false;
     }
 
-    // 执行代码
-    ggbApplet.evalCommand(shareData.code);
-    return true;
+    return executeShareCode(ggbApplet, shareData.code);
   } catch (error) {
     console.error('加载分享数据失败:', error);
     return false;

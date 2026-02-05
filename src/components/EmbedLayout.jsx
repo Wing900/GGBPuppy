@@ -1,13 +1,14 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { GGBViewer } from './index';
 import { ArrowUpRight, Maximize2 } from 'lucide-react';
-import { getShare } from '../services/share';
+import { getShare, executeShareCode } from '../services/share';
 
 const EmbedLayout = ({ shareId }) => {
   const [ggbApplet, setGgbApplet] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const hasRunRef = useRef(false);
 
   // 加载分享数据
   useEffect(() => {
@@ -27,10 +28,6 @@ const EmbedLayout = ({ shareId }) => {
           setError('未找到分享内容');
         } else {
           setData(shareData);
-          // 自动执行代码
-          if (shareData.code && ggbApplet) {
-            ggbApplet.evalCommand(shareData.code);
-          }
         }
       } catch (err) {
         setError('加载失败：' + err.message);
@@ -44,18 +41,20 @@ const EmbedLayout = ({ shareId }) => {
 
   // 监听 ggbApplet 就绪，自动加载代码
   useEffect(() => {
-    if (data?.code && ggbApplet) {
-      ggbApplet.evalCommand(data.code);
+    hasRunRef.current = false;
+  }, [shareId]);
+
+  useEffect(() => {
+    if (!data?.code || !ggbApplet || hasRunRef.current) return;
+    const didRun = executeShareCode(ggbApplet, data.code);
+    if (didRun) {
+      hasRunRef.current = true;
     }
   }, [data, ggbApplet]);
 
   const handleGGBReady = useCallback((applet) => {
     setGgbApplet(applet);
-    // 如果数据已加载，立即执行代码
-    if (data?.code) {
-      applet.evalCommand(data.code);
-    }
-  }, [data]);
+  }, []);
 
   // 构建编辑链接
   const buildEditUrl = () => {
