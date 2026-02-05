@@ -1,6 +1,5 @@
 /**
  * Cloudflare Pages Functions / Worker
- * 处理分享数据的存储和检索
  */
 
 export default {
@@ -8,31 +7,42 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    // 如果不是 API 请求，则返回 null（让 Pages 处理静态文件）
     if (!path.startsWith('/api/')) {
-      return null;
+      if (request.method !== 'GET' && request.method !== 'HEAD') {
+        return new Response('Method Not Allowed', { status: 405 });
+      }
+
+      const assetResponse = await env.ASSETS.fetch(request);
+      if (assetResponse.status !== 404) {
+        return assetResponse;
+      }
+
+      const shouldFallback = path.startsWith('/share/') || !path.includes('.');
+      if (!shouldFallback) {
+        return assetResponse;
+      }
+
+      const indexUrl = new URL('/index.html', request.url);
+      return env.ASSETS.fetch(new Request(indexUrl, request));
     }
 
-    // CORS headers
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
-    // Handle CORS preflight
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
 
-    // POST /api/share - 保存分享数据
     if (request.method === 'POST' && path === '/api/share') {
       try {
         const { key, data } = await request.json();
 
         if (!key || !data) {
           return new Response(
-            JSON.stringify({ error: '缺少必需参数' }),
+            JSON.stringify({ error: 'Missing share payload.' }),
             {
               status: 400,
               headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -40,7 +50,6 @@ export default {
           );
         }
 
-        // 保存到 KV
         await env.GGBPuppy_SHARES.put(key, JSON.stringify(data));
 
         return new Response(
@@ -51,9 +60,9 @@ export default {
           }
         );
       } catch (error) {
-        console.error('保存失败:', error);
+        console.error('Share save failed:', error);
         return new Response(
-          JSON.stringify({ error: '保存失败' }),
+          JSON.stringify({ error: 'Share save failed.' }),
           {
             status: 500,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -62,7 +71,6 @@ export default {
       }
     }
 
-    // GET /api/share/:id - 获取分享数据
     if (request.method === 'GET' && path.startsWith('/api/share/')) {
       const id = path.split('/api/share/')[1];
 
@@ -71,7 +79,7 @@ export default {
 
         if (!value) {
           return new Response(
-            JSON.stringify({ error: '未找到分享内容' }),
+            JSON.stringify({ error: 'Share not found.' }),
             {
               status: 404,
               headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -89,9 +97,9 @@ export default {
           }
         );
       } catch (error) {
-        console.error('获取失败:', error);
+        console.error('Share fetch failed:', error);
         return new Response(
-          JSON.stringify({ error: '获取失败' }),
+          JSON.stringify({ error: 'Share fetch failed.' }),
           {
             status: 500,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -100,9 +108,8 @@ export default {
       }
     }
 
-    // 404 - 未找到
     return new Response(
-      JSON.stringify({ error: '未找到请求的资源' }),
+      JSON.stringify({ error: 'Not found.' }),
       {
         status: 404,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
