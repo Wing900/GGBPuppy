@@ -2,6 +2,8 @@
   "name": "ggbpuppy",
   "private": true,
   "version": "0.0.0",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Bin (https://github.com/Wing900)",
   "type": "module",
   "scripts": {
     "dev": "vite",
