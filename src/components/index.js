@@ -5,3 +5,5 @@ export { default as AppHeader } from './AppHeader';
 export { default as EditorLayout } from './EditorLayout';
 export { default as EmbedLayout } from './EmbedLayout';
 export { default as ShareDialog } from './ShareDialog';
+export { default as DownloadMenu } from './DownloadMenu';
+export { default as PromptDialog } from './PromptDialog';

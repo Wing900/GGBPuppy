@@ -117,6 +117,8 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         enable3D={enable3D}
         onEnable3DChange={setEnable3D}
         onShare={handleShare}
+        ggbApplet={ggbApplet}
+        code={code}
       />
 
       <main
