@@ -1,65 +1,86 @@
 import { StorageProvider } from './base.js';
 
 /**
- * Cloudflare KV 存储实现
- * 通过 API 调用 Cloudflare Workers 后端来访问 KV
+ * Cloudflare KV storage implementation.
+ * Uses backend API endpoints provided by Worker/Pages.
  */
 export class CloudflareKVStorage extends StorageProvider {
   constructor() {
     super();
     this.apiBaseUrl = import.meta.env.VITE_API_BASE_URL || window.location.origin;
+    this.maxReadRetries = 4;
+    this.retryDelayMs = 350;
   }
 
   /**
-   * 保存数据到 Cloudflare KV
-   * @param {string} key - 存储键
-   * @param {object} data - 要存储的数据
-   * @returns {Promise<string>} - 返回存储的 ID
+   * Save share data to Cloudflare KV.
+   * @param {string} key
+   * @param {object} data
+   * @returns {Promise<string>}
    */
   async save(key, data) {
     try {
       const response = await fetch(`${this.apiBaseUrl}/api/share`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ key, data }),
+        body: JSON.stringify({ key, data })
       });
 
       if (!response.ok) {
-        throw new Error(`保存失败: ${response.statusText}`);
+        throw new Error(`Save failed: ${response.statusText}`);
       }
 
       const result = await response.json();
       return result.id;
     } catch (error) {
-      console.error('Cloudflare KV 保存失败:', error);
+      console.error('Cloudflare KV save failed:', error);
       throw error;
     }
   }
 
   /**
-   * 从 Cloudflare KV 加载数据
-   * @param {string} key - 存储键
-   * @returns {Promise<object|null>} - 返回存储的数据或 null
+   * Load share data from Cloudflare KV.
+   * Retries short-lived 404/propagation windows after creation.
+   * @param {string} key
+   * @returns {Promise<object|null>}
    */
   async load(key) {
-    try {
-      const response = await fetch(`${this.apiBaseUrl}/api/share/${key}`);
+    const encodedKey = encodeURIComponent(key);
+    let lastError = null;
 
-      if (response.status === 404) {
-        return null;
+    for (let attempt = 0; attempt <= this.maxReadRetries; attempt += 1) {
+      try {
+        const response = await fetch(`${this.apiBaseUrl}/api/share/${encodedKey}?t=${Date.now()}`, {
+          cache: 'no-store'
+        });
+
+        if (response.status === 404) {
+          if (attempt < this.maxReadRetries) {
+            await new Promise((resolve) => setTimeout(resolve, this.retryDelayMs * (attempt + 1)));
+            continue;
+          }
+          return null;
+        }
+
+        if (!response.ok) {
+          throw new Error(`Load failed: ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        return result.data;
+      } catch (error) {
+        lastError = error;
+        if (attempt < this.maxReadRetries) {
+          await new Promise((resolve) => setTimeout(resolve, this.retryDelayMs * (attempt + 1)));
+          continue;
+        }
+
+        console.error('Cloudflare KV load failed:', error);
       }
-
-      if (!response.ok) {
-        throw new Error(`加载失败: ${response.statusText}`);
-      }
-
-      const result = await response.json();
-      return result.data;
-    } catch (error) {
-      console.error('Cloudflare KV 加载失败:', error);
-      return null;
     }
+
+    throw lastError || new Error('Load failed after retries.');
   }
 }

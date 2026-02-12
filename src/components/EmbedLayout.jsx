@@ -1,20 +1,21 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { GGBViewer } from './index';
 import { ArrowUpRight, Maximize2 } from 'lucide-react';
-import { getShare, executeShareCode } from '../services/share';
+import { getShare, executeShareCode, restoreSceneData } from '../services/share';
 
 const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
   const [ggbApplet, setGgbApplet] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const [viewerEnable3D, setViewerEnable3D] = useState(false);
+  const [sceneRestored, setSceneRestored] = useState(false);
   const hasRunRef = useRef(false);
 
-  // 加载分享数据
   useEffect(() => {
     if (!shareId) {
       setLoading(false);
-      setError('未提供分享 ID');
+      setError('缺少分享 ID');
       return;
     }
 
@@ -30,7 +31,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
           setData(shareData);
         }
       } catch (err) {
-        setError('加载失败：' + err.message);
+        setError(`加载失败：${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -39,24 +40,66 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     loadData();
   }, [shareId]);
 
-  // 当 ggbApplet 变更时自动执行一次
   useEffect(() => {
     hasRunRef.current = false;
+    setViewerEnable3D(false);
+    setSceneRestored(false);
   }, [shareId]);
 
   useEffect(() => {
+    if (!data || !ggbApplet || hasRunRef.current) {
+      return;
+    }
+
+    if (typeof data.enable3D === 'boolean' && viewerEnable3D !== data.enable3D) {
+      return;
+    }
+
+    if (!data.scene) {
+      setSceneRestored(true);
+      return;
+    }
+
+    let cancelled = false;
+
+    const restore = async () => {
+      const restored = await restoreSceneData(ggbApplet, data.scene);
+      if (cancelled) {
+        return;
+      }
+
+      if (restored) {
+        hasRunRef.current = true;
+      }
+      setSceneRestored(true);
+    };
+
+    restore();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [data, ggbApplet, viewerEnable3D]);
+
+  useEffect(() => {
     if (!data?.code || !ggbApplet || hasRunRef.current) return;
+    if (!sceneRestored) return;
+
+    if (typeof data.enable3D === 'boolean' && viewerEnable3D !== data.enable3D) {
+      return;
+    }
+
     const didRun = executeShareCode(ggbApplet, data.code);
     if (didRun) {
       hasRunRef.current = true;
     }
-  }, [data, ggbApplet]);
+  }, [data, ggbApplet, viewerEnable3D, sceneRestored]);
 
   const handleGGBReady = useCallback((applet) => {
     setGgbApplet(applet);
-  }, []);
+    setViewerEnable3D(Boolean(data?.enable3D));
+  }, [data?.enable3D]);
 
-  // 返回编辑地址
   const buildEditUrl = () => {
     if (typeof window === 'undefined') return '';
     const origin = window.location.origin;
@@ -65,7 +108,6 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
 
   return (
     <div className="embed-layout flex flex-col h-screen w-screen">
-      {/* 加载状态 */}
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center z-10" style={{ backgroundColor: 'var(--color-bg-primary)' }}>
           <div className="text-center">
@@ -77,7 +119,6 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
         </div>
       )}
 
-      {/* 错误状态 */}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center z-10" style={{ backgroundColor: 'var(--color-bg-primary)' }}>
           <div className="text-center px-4">
@@ -95,22 +136,21 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
               }}
             >
               <ArrowUpRight size={16} />
-              在 GGBPuppy 打开
+              在 GGBPuppy 中打开
             </a>
           </div>
         </div>
       )}
 
-      {/* GeoGebra 画板 */}
       <div className="embed-layout-ggb">
         <GGBViewer
+          key={data?.enable3D ? '3d' : '2d'}
           enable3D={data?.enable3D || false}
           hideSidebar={hideSidebar}
           onReady={handleGGBReady}
         />
       </div>
 
-      {/* 编辑按钮 */}
       {data && !isFullscreen && (
         <div className="absolute top-4 right-4 z-10">
           <a

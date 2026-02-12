@@ -1,7 +1,14 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog } from './index';
 import { useGGBRunner, useDarkMode, useAppState } from '../hooks';
-import { createShare, getShare, executeShareCode } from '../services/share';
+import {
+  createShare,
+  getShare,
+  executeShareCode,
+  captureSceneData,
+  buildScenePayload,
+  restoreSceneData
+} from '../services/share';
 import { LAYOUT } from '../config/appConfig';
 
 const EditorLayout = ({ shareId: initialShareId }) => {
@@ -9,6 +16,10 @@ const EditorLayout = ({ shareId: initialShareId }) => {
   const hasRunRef = useRef(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [shareId, setShareId] = useState(initialShareId || null);
+  const [shareData, setShareData] = useState(null);
+  const [shareDataLoaded, setShareDataLoaded] = useState(!initialShareId);
+  const [viewerEnable3D, setViewerEnable3D] = useState(false);
+  const [sceneRestored, setSceneRestored] = useState(false);
   const {
     code,
     setCode,
@@ -25,17 +36,22 @@ const EditorLayout = ({ shareId: initialShareId }) => {
   const { isDark, toggle: toggleDark } = useDarkMode();
   const { isRunning, currentLine, progress, run, stop, reset } = useGGBRunner(ggbApplet);
 
-  // 加载分享数据
   useEffect(() => {
     hasRunRef.current = false;
+    setShareData(null);
+    setShareDataLoaded(!initialShareId);
+    setSceneRestored(false);
   }, [initialShareId]);
 
   useEffect(() => {
     if (!initialShareId) return;
 
     const loadSharedData = async () => {
+      setShareDataLoaded(false);
       try {
         const sharedData = await getShare(initialShareId);
+        setShareData(sharedData || null);
+
         if (sharedData) {
           if (sharedData.code) {
             setCode(sharedData.code);
@@ -46,6 +62,8 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         }
       } catch (error) {
         console.error('加载分享数据失败:', error);
+      } finally {
+        setShareDataLoaded(true);
       }
     };
 
@@ -53,17 +71,61 @@ const EditorLayout = ({ shareId: initialShareId }) => {
   }, [initialShareId, setCode, setEnable3D]);
 
   useEffect(() => {
+    if (!initialShareId || !ggbApplet || !shareDataLoaded || hasRunRef.current) {
+      return;
+    }
+
+    if (!shareData?.scene) {
+      setSceneRestored(true);
+      return;
+    }
+
+    if (typeof shareData.enable3D === 'boolean' && viewerEnable3D !== shareData.enable3D) {
+      return;
+    }
+
+    let cancelled = false;
+
+    const restore = async () => {
+      const restored = await restoreSceneData(ggbApplet, shareData.scene);
+      if (cancelled) {
+        return;
+      }
+
+      if (restored) {
+        hasRunRef.current = true;
+      }
+      setSceneRestored(true);
+    };
+
+    restore();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialShareId, ggbApplet, shareDataLoaded, shareData, viewerEnable3D]);
+
+  useEffect(() => {
     if (!initialShareId || !ggbApplet || hasRunRef.current) return;
-    if (!code.trim()) return;
-    const didRun = executeShareCode(ggbApplet, code);
+    if (!shareDataLoaded || !sceneRestored) return;
+
+    const sharedCode = shareData?.code ?? code;
+    if (!sharedCode.trim()) return;
+
+    if (typeof shareData?.enable3D === 'boolean' && viewerEnable3D !== shareData.enable3D) {
+      return;
+    }
+
+    const didRun = executeShareCode(ggbApplet, sharedCode);
     if (didRun) {
       hasRunRef.current = true;
     }
-  }, [initialShareId, ggbApplet, code]);
+  }, [initialShareId, ggbApplet, shareDataLoaded, shareData, code, viewerEnable3D, sceneRestored]);
 
   const handleGGBReady = useCallback((applet) => {
     setGgbApplet(applet);
-  }, []);
+    setViewerEnable3D(enable3D);
+  }, [enable3D]);
 
   const handleRun = useCallback(() => {
     if (ggbApplet && code.trim()) {
@@ -87,16 +149,22 @@ const EditorLayout = ({ shareId: initialShareId }) => {
 
   const handleShare = useCallback(async () => {
     try {
-      const result = await createShare(code, { enable3D });
+      const sceneBase64 = await captureSceneData(ggbApplet);
+      const scene = buildScenePayload(sceneBase64);
+
+      const result = await createShare(code, {
+        enable3D,
+        ...(scene ? { scene } : {})
+      });
+
       setShareId(result.id);
       setShowShareDialog(true);
     } catch (error) {
       console.error('创建分享失败:', error);
       alert('创建分享失败，请稍后重试');
     }
-  }, [code, enable3D]);
+  }, [code, enable3D, ggbApplet]);
 
-  // 逆编译：从画布提取对象生成代码
   const handleDecompile = useCallback(() => {
     if (!ggbApplet) {
       alert('GeoGebra 未就绪');
@@ -123,12 +191,11 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         return;
       }
 
-      // 将生成的代码设置到编辑器
       const generatedCode = commands.join('\n');
       setCode(generatedCode);
     } catch (error) {
-      console.error('逆编译失败:', error);
-      alert('逆编译失败');
+      console.error('逆向编译失败:', error);
+      alert('逆向编译失败');
     }
   }, [ggbApplet, setCode]);
 

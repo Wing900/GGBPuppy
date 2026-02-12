@@ -32,6 +32,13 @@ export default {
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
+    const apiHeaders = {
+      ...corsHeaders,
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      Pragma: 'no-cache'
+    };
+
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
     }
@@ -45,7 +52,7 @@ export default {
             JSON.stringify({ error: 'Missing share payload.' }),
             {
               status: 400,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: apiHeaders
             }
           );
         }
@@ -56,7 +63,7 @@ export default {
           JSON.stringify({ id: key }),
           {
             status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: apiHeaders
           }
         );
       } catch (error) {
@@ -66,14 +73,14 @@ export default {
           JSON.stringify({ error: 'Share save failed.', detail: message }),
           {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: apiHeaders
           }
         );
       }
     }
 
     if (request.method === 'GET' && path.startsWith('/api/share/')) {
-      const id = path.split('/api/share/')[1];
+      const id = decodeURIComponent(path.split('/api/share/')[1].split('?')[0]);
 
       try {
         const value = await env.GGBPuppy_SHARES.get(id);
@@ -83,7 +90,7 @@ export default {
             JSON.stringify({ error: 'Share not found.' }),
             {
               status: 404,
-              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+              headers: apiHeaders
             }
           );
         }
@@ -94,7 +101,7 @@ export default {
           JSON.stringify({ id, data }),
           {
             status: 200,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: apiHeaders
           }
         );
       } catch (error) {
@@ -104,7 +111,7 @@ export default {
           JSON.stringify({ error: 'Share fetch failed.', detail: message }),
           {
             status: 500,
-            headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            headers: apiHeaders
           }
         );
       }
@@ -114,7 +121,7 @@ export default {
       JSON.stringify({ error: 'Not found.' }),
       {
         status: 404,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        headers: apiHeaders
       }
     );
   }

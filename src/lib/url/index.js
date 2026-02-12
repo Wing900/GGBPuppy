@@ -33,9 +33,9 @@ export function getShareId() {
   }
 
   // 先尝试从路径中提取 /share/:id
-  const pathMatch = window.location.pathname.match(/^\/share\/([a-zA-Z0-9_-]+)$/);
+  const pathMatch = window.location.pathname.match(/^\/share\/([a-zA-Z0-9_-]+)\/?$/);
   if (pathMatch) {
-    return pathMatch[1];
+    return decodeURIComponent(pathMatch[1]);
   }
 
   // 再尝试从查询参数中提取 ?share=xxx
