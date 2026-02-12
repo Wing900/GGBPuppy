@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
+import { parseCommandsWithLineIndex } from '../lib/code';
 
 /**
  * 慢动作执行 GeoGebra 指令的 Hook
@@ -18,35 +19,29 @@ const useGGBRunner = (ggbApplet) => {
    * @param {number} interval - 执行间隔（秒）
    */
   const run = useCallback(async (code, interval) => {
-    if (!ggbApplet || isRunning) return;
+    if (!ggbApplet || isRunning) {
+      return;
+    }
 
-    // 解析指令行（过滤空行和注释）
-    const commands = code
-      .split('\n')
-      .map((line, index) => {
-        const commentIndex = line.indexOf('//');
-        const trimmed = (commentIndex === -1 ? line : line.slice(0, commentIndex)).trim();
-        return { line: trimmed, index };
-      })
-      .filter(({ line }) => line !== '');
+    const commands = parseCommandsWithLineIndex(code);
+    if (commands.length === 0) {
+      return;
+    }
 
-    if (commands.length === 0) return;
-
-    // 重置状态
     abortRef.current = false;
     setIsRunning(true);
     setProgress({ current: 0, total: commands.length });
 
-    // 重置画布
     try {
       ggbApplet.reset();
-    } catch (e) {
-      console.warn('重置画布失败:', e);
+    } catch (error) {
+      console.warn('重置画布失败:', error);
     }
 
-    // 逐行执行
-    for (let i = 0; i < commands.length; i++) {
-      if (abortRef.current) break;
+    for (let i = 0; i < commands.length; i += 1) {
+      if (abortRef.current) {
+        break;
+      }
 
       const { line, index } = commands[i];
       setCurrentLine(index);
@@ -54,17 +49,15 @@ const useGGBRunner = (ggbApplet) => {
 
       try {
         ggbApplet.evalCommand(line);
-      } catch (e) {
-        console.warn(`执行指令失败 [行 ${index + 1}]:`, line, e);
+      } catch (error) {
+        console.warn(`执行指令失败 [行 ${index + 1}]:`, line, error);
       }
 
-      // 等待间隔
       if (i < commands.length - 1) {
-        await new Promise(resolve => setTimeout(resolve, interval * 1000));
+        await new Promise((resolve) => setTimeout(resolve, interval * 1000));
       }
     }
 
-    // 执行完毕
     setIsRunning(false);
     setCurrentLine(-1);
     setProgress(null);
@@ -87,8 +80,8 @@ const useGGBRunner = (ggbApplet) => {
     if (ggbApplet && !isRunning) {
       try {
         ggbApplet.reset();
-      } catch (e) {
-        console.warn('重置画布失败:', e);
+      } catch (error) {
+        console.warn('重置画布失败:', error);
       }
     }
   }, [ggbApplet, isRunning]);

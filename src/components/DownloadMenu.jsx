@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileDown, FileImage, FileCode, Loader2 } from 'lucide-react';
-import { exportAsGGB, exportAsHTML, exportAsPNG } from '../services/export';
+import { FileDown, FileImage, FileCode, Loader2, Shapes } from 'lucide-react';
+import { exportAsGGB, exportAsHTML, exportAsPNG, exportAsSVG } from '../services/export';
 
 const EXPORT_OPTIONS = [
   {
@@ -27,6 +27,14 @@ const EXPORT_OPTIONS = [
     icon: FileImage,
     extension: '.png',
     handler: exportAsPNG
+  },
+  {
+    id: 'svg',
+    label: 'SVG 矢量图',
+    description: '无损缩放，适合印刷',
+    icon: Shapes,
+    extension: '.svg',
+    handler: exportAsSVG
   }
 ];
 

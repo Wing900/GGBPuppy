@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Play, Square, Trash2, Eraser } from 'lucide-react';
+import { Play, Square, Trash2, Eraser, FileInput } from 'lucide-react';
 
 const ControlPanel = ({
   isRunning,
@@ -7,22 +7,26 @@ const ControlPanel = ({
   onStop,
   onClear,
   onClearCanvas,
+  onDecompile,
   progress
 }) => {
   return (
     <footer
-      className="flex items-center justify-between px-6 py-5 shrink-0"
+      className="flex items-center justify-end px-6 py-5 shrink-0"
     >
       <div className="flex items-center gap-4">
-        <span
-          className="text-sm"
-          style={{ color: 'var(--color-text-secondary)' }}
+        <motion.button
+          onClick={onDecompile}
+          whileTap={{ scale: 0.95 }}
+          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          style={{
+            color: 'var(--color-text-primary)'
+          }}
         >
-          {'\u63a7\u5236\u9762\u677f'}
-        </span>
-      </div>
+          <FileInput size={16} />
+          <span>逆向编译</span>
+        </motion.button>
 
-      <div className="flex items-center gap-4">
         <motion.button
           onClick={onClearCanvas}
           whileTap={{ scale: 0.95 }}

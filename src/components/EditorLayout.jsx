@@ -96,6 +96,42 @@ const EditorLayout = ({ shareId: initialShareId }) => {
     }
   }, [code, enable3D]);
 
+  // 逆编译：从画布提取对象生成代码
+  const handleDecompile = useCallback(() => {
+    if (!ggbApplet) {
+      alert('GeoGebra 未就绪');
+      return;
+    }
+
+    try {
+      const objectNames = ggbApplet.getAllObjectNames();
+      if (!objectNames || objectNames.length === 0) {
+        alert('画布中没有对象');
+        return;
+      }
+
+      const commands = [];
+      for (const name of objectNames) {
+        const cmd = ggbApplet.getCommandString(name);
+        if (cmd && cmd.trim()) {
+          commands.push(cmd);
+        }
+      }
+
+      if (commands.length === 0) {
+        alert('无法提取命令');
+        return;
+      }
+
+      // 将生成的代码设置到编辑器
+      const generatedCode = commands.join('\n');
+      setCode(generatedCode);
+    } catch (error) {
+      console.error('逆编译失败:', error);
+      alert('逆编译失败');
+    }
+  }, [ggbApplet, setCode]);
+
   return (
     <div
       className="min-h-screen flex flex-col relative"
@@ -132,7 +168,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
           <div
             className="editor-scroll-container"
             style={{
-              height: '725px',
+              height: LAYOUT.editorHeight,
               backgroundColor: 'var(--color-bg-secondary)',
               border: '1px solid var(--color-bg-tertiary)',
               borderRadius: '16px',
@@ -155,6 +191,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
               onStop={stop}
               onClear={handleClear}
               onClearCanvas={handleClearCanvas}
+              onDecompile={handleDecompile}
               progress={progress}
             />
           </div>

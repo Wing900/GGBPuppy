@@ -72,6 +72,6 @@ export const LAYOUT = {
   pagePadding: '24px 24px 24px 60px',
   headerMarginBottom: '28px',
   editorColumnWidth: '400px',
-  mainHeight: 'calc(100vh - 250px)'
+  mainHeight: 'calc(100vh - 250px)',
+  editorHeight: '725px'
 };
-

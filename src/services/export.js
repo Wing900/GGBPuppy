@@ -2,6 +2,8 @@
  * 导出 GeoGebra 画布
  */
 
+import { parseCommands } from '../lib/code';
+
 /**
  * 生成时间戳文件名
  * @returns {string} 格式: ggbpuppy_2024-02-07_143052
@@ -34,16 +36,6 @@ const downloadBlob = (blob, filename) => {
  * @param {string} code - 源代码
  * @returns {string[]} 命令数组
  */
-const parseCommands = (code) => {
-  return code
-    .split('\n')
-    .map(line => {
-      const commentIndex = line.indexOf('//');
-      return (commentIndex === -1 ? line : line.slice(0, commentIndex)).trim();
-    })
-    .filter(line => line !== '');
-};
-
 /**
  * 执行所有命令并等待完成
  * @param {object} ggbApplet - GeoGebra Applet 实例
@@ -202,6 +194,45 @@ export const exportAsHTML = async (ggbApplet, options = {}) => {
 };
 
 /**
+ * 导出为 SVG 矢量图（先执行所有代码）
+ * @param {object} ggbApplet - GeoGebra Applet 实例
+ * @param {object} options - 配置选项
+ */
+export const exportAsSVG = async (ggbApplet, options = {}) => {
+  if (!ggbApplet) {
+    throw new Error('GeoGebra 未就绪');
+  }
+
+  const { code } = options;
+
+  // 如果有代码，先执行所有命令
+  if (code && code.trim()) {
+    await executeAllCommands(ggbApplet, code);
+  }
+
+  // exportSVG 是异步的，需要用 Promise 包装
+  const svgContent = await new Promise((resolve, reject) => {
+    try {
+      ggbApplet.exportSVG((svg) => {
+        if (svg) {
+          resolve(svg);
+        } else {
+          reject(new Error('导出失败：无法获取 SVG 数据'));
+        }
+      });
+    } catch (e) {
+      reject(e);
+    }
+  });
+
+  const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+  const filename = `${generateFileName()}.svg`;
+  downloadBlob(blob, filename);
+
+  return filename;
+};
+
+/**
  * 导出为 PNG 图片（先执行所有代码）
  * @param {object} ggbApplet - GeoGebra Applet 实例
  * @param {object} options - 配置选项
@@ -218,7 +249,8 @@ export const exportAsPNG = async (ggbApplet, options = {}) => {
     await executeAllCommands(ggbApplet, code);
   }
 
-  const base64 = ggbApplet.getPNGBase64(1, true, 72);
+  // 第二个参数 false = 白色背景（true = 透明背景，在某些查看器中显示为黑色）
+  const base64 = ggbApplet.getPNGBase64(1, false, 72);
   if (!base64) {
     throw new Error('导出失败：无法获取图片数据');
   }

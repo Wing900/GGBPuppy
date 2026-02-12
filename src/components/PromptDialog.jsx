@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check, MessageSquareText, Loader2 } from 'lucide-react';
 import { PROMPT_CONFIG } from '../config/promptConfig';
+import { DIALOG } from '../config/dialogConfig';
 
 const PromptDialog = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
@@ -34,7 +35,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
     try {
       await navigator.clipboard.writeText(content);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), DIALOG.prompt.copyFeedbackMs);
     } catch (err) {
       console.error('复制失败:', err);
     }
@@ -70,14 +71,18 @@ const PromptDialog = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50"
-            style={{ width: '600px', maxWidth: '90vw', maxHeight: '80vh' }}
+            style={{
+              width: DIALOG.prompt.width,
+              maxWidth: DIALOG.prompt.maxWidth,
+              maxHeight: DIALOG.prompt.maxHeight
+            }}
           >
             <div
               className="rounded-2xl overflow-hidden flex flex-col"
               style={{
                 backgroundColor: 'var(--color-bg-secondary)',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
-                maxHeight: '80vh'
+                maxHeight: DIALOG.prompt.maxHeight
               }}
             >
               {/* Header */}

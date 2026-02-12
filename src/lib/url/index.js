@@ -3,19 +3,6 @@
  */
 
 /**
- * 从当前 URL 参数判断是否为嵌入模式
- * @returns {boolean}
- */
-export function getEmbedMode() {
-  if (typeof window === 'undefined') {
-    return false;
-  }
-
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get('embed') === 'true';
-}
-
-/**
  * 获取嵌入配置
  * @returns {{ isEmbed: boolean, isFullscreen: boolean, hideSidebar: boolean }}
  */

@@ -5,6 +5,44 @@ const GGBViewer = ({ onReady, enable3D, hideSidebar = false }) => {
   const appletRef = useRef(null);
   const isInitializedRef = useRef(false);
 
+  // 处理拖放 .ggb 文件
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault();
+
+    const files = e.dataTransfer?.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    if (!file.name.toLowerCase().endsWith('.ggb')) {
+      alert('请拖入 .ggb 文件');
+      return;
+    }
+
+    if (!appletRef.current) {
+      alert('GeoGebra 未就绪');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      try {
+        const base64 = event.target.result.split(',')[1];
+        appletRef.current.setBase64(base64, () => {
+          appletRef.current = window.ggbApplet;
+          onReady?.(window.ggbApplet);
+        });
+      } catch (error) {
+        console.error('加载 .ggb 文件失败:', error);
+        alert('加载文件失败');
+      }
+    };
+    reader.readAsDataURL(file);
+  }, [onReady]);
+
   const applySidebarState = useCallback(() => {
     if (!hideSidebar || !appletRef.current) return;
 
@@ -107,8 +145,11 @@ const GGBViewer = ({ onReady, enable3D, hideSidebar = false }) => {
   }, []);
 
   return (
-    <div className="flex flex-col h-full">
-      {/* GeoGebra */}
+    <div
+      className="flex flex-col h-full"
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+    >
       <div
         ref={containerRef}
         className="flex-1 min-h-0 overflow-hidden"
