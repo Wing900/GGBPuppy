@@ -51,14 +51,6 @@ const GGBViewer = ({ onReady, enable3D, hideSidebar = false }) => {
       if (appletRef.current.setPerspective) {
         appletRef.current.setPerspective(perspective);
       }
-      if (appletRef.current.setShowView) {
-        appletRef.current.setShowView(1, false);
-        appletRef.current.setShowView(2, false);
-      }
-      if (appletRef.current.evalCommand) {
-        appletRef.current.evalCommand('ShowView(1, false)');
-        appletRef.current.evalCommand('ShowView(2, false)');
-      }
       if (appletRef.current.setShowAlgebraInput) {
         appletRef.current.setShowAlgebraInput(false);
       }
