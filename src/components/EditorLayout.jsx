@@ -201,11 +201,12 @@ const EditorLayout = ({ shareId: initialShareId }) => {
 
   return (
     <div
-      className="min-h-screen flex flex-col relative"
+      className="flex flex-col relative"
       style={{
         backgroundColor: 'var(--color-bg-primary)',
+        minHeight: 'var(--app-viewport-height)',
         padding: LAYOUT.pagePadding,
-        overflow: 'hidden'
+        overflowX: 'hidden'
       }}
     >
       <AppHeader
@@ -228,7 +229,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         className="flex-1 w-full max-w-[1600px] mx-auto grid gap-6"
         style={{
           gridTemplateColumns: `${LAYOUT.editorColumnWidth} 1fr`,
-          height: LAYOUT.mainHeight
+          minHeight: LAYOUT.mainHeight
         }}
       >
         <div className="flex flex-col gap-4">

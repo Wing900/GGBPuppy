@@ -4,18 +4,35 @@
   box-sizing: border-box;
 }
 
+:root {
+  --app-viewport-height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --app-viewport-height: 100dvh;
+  }
+}
+
 html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body,
+#root {
+  min-height: 100vh;
+  min-height: var(--app-viewport-height);
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
@@ -49,4 +66,3 @@ body.dark {
   -webkit-overflow-scrolling: touch;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
-
