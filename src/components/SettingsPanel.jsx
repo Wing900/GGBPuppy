@@ -2,6 +2,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Zap } from 'lucide-react';
 import { SettingsTabButton, TimingSettingsTab, AdvancedSettingsTab } from './settings';
 
+const MotionDiv = motion.div;
+
 const SettingsPanel = ({
   isOpen,
   isDark,
@@ -15,7 +17,7 @@ const SettingsPanel = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -62,11 +64,10 @@ const SettingsPanel = ({
               )}
             </AnimatePresence>
           </div>
-        </motion.div>
+        </MotionDiv>
       )}
     </AnimatePresence>
   );
 };
 
 export default SettingsPanel;
-

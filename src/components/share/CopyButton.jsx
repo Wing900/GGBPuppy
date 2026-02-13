@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 
+const MotionButton = motion.button;
+
 const CopyButton = ({ onClick, copied, title, className = 'p-1.5 rounded hover:bg-black/5 dark:hover:bg-white/5' }) => {
   return (
-    <motion.button
+    <MotionButton
       onClick={onClick}
       whileTap={{ scale: 0.9 }}
       className={className}
@@ -11,7 +13,7 @@ const CopyButton = ({ onClick, copied, title, className = 'p-1.5 rounded hover:b
       title={title}
     >
       {copied ? <Check size={16} /> : <Copy size={16} />}
-    </motion.button>
+    </MotionButton>
   );
 };
 

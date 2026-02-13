@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileDown, FileImage, FileCode, Loader2, Shapes } from 'lucide-react';
 import { exportAsGGB, exportAsHTML, exportAsPNG, exportAsSVG } from '../services/export';
 
+const MotionDiv = motion.div;
+
 const EXPORT_OPTIONS = [
   {
     id: 'ggb',
@@ -69,7 +71,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
+        <MotionDiv
           initial={{ opacity: 0, y: 10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -165,7 +167,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
           {/* Message */}
           <AnimatePresence>
             {message && (
-              <motion.div
+              <MotionDiv
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -178,10 +180,10 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
                 }}
               >
                 {message.text}
-              </motion.div>
+              </MotionDiv>
             )}
           </AnimatePresence>
-        </motion.div>
+        </MotionDiv>
       )}
     </AnimatePresence>
   );

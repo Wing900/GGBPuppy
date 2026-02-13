@@ -4,6 +4,9 @@ import { X, Copy, Check, MessageSquareText, Loader2 } from 'lucide-react';
 import { PROMPT_CONFIG } from '../config/promptConfig';
 import { DIALOG } from '../config/dialogConfig';
 
+const MotionDiv = motion.div;
+const MotionButton = motion.button;
+
 const PromptDialog = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
   const [content, setContent] = useState('');
@@ -12,23 +15,42 @@ const PromptDialog = ({ isOpen, onClose }) => {
 
   // 加载 prompt 内容
   useEffect(() => {
-    if (isOpen && !content) {
-      setLoading(true);
-      setError(null);
-      fetch(PROMPT_CONFIG.file)
-        .then(res => {
-          if (!res.ok) throw new Error('加载失败');
-          return res.text();
-        })
-        .then(text => {
-          setContent(text);
-          setLoading(false);
-        })
-        .catch(err => {
-          setError(err.message);
-          setLoading(false);
-        });
+    if (!isOpen || content) {
+      return undefined;
     }
+
+    let cancelled = false;
+
+    const loadPrompt = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const res = await fetch(PROMPT_CONFIG.file);
+        if (!res.ok) {
+          throw new Error('加载失败');
+        }
+
+        const text = await res.text();
+        if (!cancelled) {
+          setContent(text);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : String(err));
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadPrompt();
+
+    return () => {
+      cancelled = true;
+    };
   }, [isOpen, content]);
 
   const copyToClipboard = useCallback(async () => {
@@ -57,7 +79,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -66,7 +88,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
           />
 
           {/* Dialog */}
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -99,14 +121,14 @@ const PromptDialog = ({ isOpen, onClose }) => {
                     {PROMPT_CONFIG.title}
                   </h2>
                 </div>
-                <motion.button
+                <MotionButton
                   onClick={onClose}
                   whileTap={{ scale: 0.9 }}
                   className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
                   style={{ color: 'var(--color-text-secondary)' }}
                 >
                   <X size={18} />
-                </motion.button>
+                </MotionButton>
               </div>
 
               {/* Content */}
@@ -159,7 +181,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                 className="px-6 py-4 border-t shrink-0"
                 style={{ borderColor: 'var(--color-bg-tertiary)' }}
               >
-                <motion.button
+                <MotionButton
                   onClick={copyToClipboard}
                   disabled={loading || error || !content}
                   whileTap={{ scale: 0.95 }}
@@ -182,10 +204,10 @@ const PromptDialog = ({ isOpen, onClose }) => {
                       <span>复制 Prompt</span>
                     </>
                   )}
-                </motion.button>
+                </MotionButton>
               </div>
             </div>
-          </motion.div>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>

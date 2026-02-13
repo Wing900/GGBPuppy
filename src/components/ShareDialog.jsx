@@ -10,6 +10,8 @@ import {
 import { SHARE_DIALOG } from '../config/shareConfig';
 import { ShareDialogHeader, ShareDialogContent } from './share';
 
+const MotionDiv = motion.div;
+
 const ShareDialog = ({ isOpen, onClose, shareId }) => {
   const [copiedType, setCopiedType] = useState(null);
   const [width, setWidth] = useState(SHARE_DIALOG.defaultEmbedWidth);
@@ -54,7 +56,7 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -62,7 +64,7 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
             className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50"
           />
 
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -92,7 +94,7 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
                 copiedType={copiedType}
               />
             </div>
-          </motion.div>
+          </MotionDiv>
         </>
       )}
     </AnimatePresence>
@@ -100,4 +102,3 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
 };
 
 export default ShareDialog;
-

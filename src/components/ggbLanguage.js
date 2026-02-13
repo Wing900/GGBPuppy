@@ -51,7 +51,7 @@ const ggbStreamMode = (commandSet) => ({
       return 'comment';
     }
     if (stream.match(/-?\d+(?:\.\d+)?/)) return 'number';
-    if (stream.match(/[()\[\]]/)) return 'bracket';
+    if (stream.match(/[()[\]]/)) return 'bracket';
 
     const word = stream.match(/[a-zA-Z_][a-zA-Z0-9_]*/);
     if (word && commandSet.has(word[0])) {

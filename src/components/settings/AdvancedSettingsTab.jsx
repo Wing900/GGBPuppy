@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div;
+
 const AdvancedSettingsTab = ({ isDark, enable3D, onEnable3DChange }) => {
   return (
-    <motion.div
+    <MotionDiv
       key="advanced"
       initial={{ opacity: 0, x: 10 }}
       animate={{ opacity: 1, x: 0 }}
@@ -35,9 +37,8 @@ const AdvancedSettingsTab = ({ isDark, enable3D, onEnable3DChange }) => {
           {enable3D ? '3D' : '2D'}
         </button>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 
 export default AdvancedSettingsTab;
-

@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { X, Share2 } from 'lucide-react';
 
+const MotionButton = motion.button;
+
 const ShareDialogHeader = ({ onClose }) => {
   return (
     <div
@@ -16,17 +18,16 @@ const ShareDialogHeader = ({ onClose }) => {
           分享项目
         </h2>
       </div>
-      <motion.button
+      <MotionButton
         onClick={onClose}
         whileTap={{ scale: 0.9 }}
         className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
         style={{ color: 'var(--color-text-secondary)' }}
       >
         <X size={18} />
-      </motion.button>
+      </MotionButton>
     </div>
   );
 };
 
 export default ShareDialogHeader;
-

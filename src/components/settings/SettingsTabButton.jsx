@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
 
+const MotionDiv = motion.div;
+
 const SettingsTabButton = ({ Icon, label, active, onClick }) => {
+  const hasIcon = Boolean(Icon);
+
   return (
     <button
       onClick={onClick}
@@ -9,10 +13,10 @@ const SettingsTabButton = ({ Icon, label, active, onClick }) => {
         color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)'
       }}
     >
-      <Icon size={16} />
+      {hasIcon ? <Icon size={16} /> : null}
       <span>{label}</span>
       {active && (
-        <motion.div
+        <MotionDiv
           layoutId="tab-indicator"
           className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full"
           style={{ backgroundColor: 'var(--color-text-primary)' }}
@@ -23,4 +27,3 @@ const SettingsTabButton = ({ Icon, label, active, onClick }) => {
 };
 
 export default SettingsTabButton;
-

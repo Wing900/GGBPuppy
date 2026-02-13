@@ -1,7 +1,13 @@
 import storageProvider from '../lib/storage';
 import { parseCommandsWithLineIndex } from '../lib/code';
+import { retryAsync, withTimeout } from '../lib/async/retry';
 
 const SCENE_DATA_VERSION = 1;
+const DEFAULT_SCENE_RESTORE_OPTIONS = {
+  timeoutMs: 8000,
+  retries: 2,
+  retryDelayMs: 320
+};
 
 /**
  * Create a share record.
@@ -30,13 +36,20 @@ export async function createShare(code, options = {}) {
 /**
  * Load share record.
  * @param {string} shareId
+ * @param {object} [options]
+ * @param {boolean} [options.throwOnError]
  * @returns {Promise<object|null>}
  */
-export async function getShare(shareId) {
+export async function getShare(shareId, options = {}) {
+  const { throwOnError = false } = options;
+
   try {
     return await storageProvider.load(shareId);
   } catch (error) {
     console.error('Load share failed:', error);
+    if (throwOnError) {
+      throw error;
+    }
     return null;
   }
 }
@@ -91,9 +104,13 @@ export function buildScenePayload(base64) {
  * Restore scene payload into applet.
  * @param {object|null} ggbApplet
  * @param {object|null} scene
+ * @param {object} [options]
+ * @param {number} [options.timeoutMs]
+ * @param {number} [options.retries]
+ * @param {number} [options.retryDelayMs]
  * @returns {Promise<boolean>}
  */
-export async function restoreSceneData(ggbApplet, scene) {
+export async function restoreSceneData(ggbApplet, scene, options = {}) {
   if (!ggbApplet || !scene || scene.format !== 'ggb-base64' || typeof scene.data !== 'string') {
     return false;
   }
@@ -102,13 +119,30 @@ export async function restoreSceneData(ggbApplet, scene) {
     return false;
   }
 
-  try {
-    await new Promise((resolve, reject) => {
-      ggbApplet.setBase64(scene.data, () => resolve());
+  const { timeoutMs, retries, retryDelayMs } = {
+    ...DEFAULT_SCENE_RESTORE_OPTIONS,
+    ...options
+  };
 
-      setTimeout(() => {
-        reject(new Error('setBase64 timeout'));
-      }, 8000);
+  const restoreOnce = async () => withTimeout(
+    () => new Promise((resolve, reject) => {
+      try {
+        ggbApplet.setBase64(scene.data, () => resolve());
+      } catch (error) {
+        reject(error);
+      }
+    }),
+    timeoutMs,
+    'setBase64 timeout'
+  );
+
+  try {
+    await retryAsync(restoreOnce, {
+      retries,
+      delayMs: retryDelayMs,
+      onRetry: (error, attempt) => {
+        console.warn(`Restore scene retry #${attempt}...`, error);
+      }
     });
 
     return true;
@@ -150,4 +184,3 @@ export function executeShareCode(ggbApplet, code) {
 
   return true;
 }
-

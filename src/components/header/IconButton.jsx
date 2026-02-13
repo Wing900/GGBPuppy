@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion';
 
+const MotionAnchor = motion.a;
+const MotionButton = motion.button;
+
 const IconButton = ({ onClick, title, children, active = false, isDark = false, href, target, rel }) => {
   const style = {
     color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
@@ -10,7 +13,7 @@ const IconButton = ({ onClick, title, children, active = false, isDark = false, 
 
   if (href) {
     return (
-      <motion.a
+      <MotionAnchor
         href={href}
         target={target}
         rel={rel}
@@ -20,12 +23,12 @@ const IconButton = ({ onClick, title, children, active = false, isDark = false, 
         title={title}
       >
         {children}
-      </motion.a>
+      </MotionAnchor>
     );
   }
 
   return (
-    <motion.button
+    <MotionButton
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
       className="p-2.5 rounded-xl transition-colors hover:bg-black/5 dark:hover:bg-white/5"
@@ -33,9 +36,8 @@ const IconButton = ({ onClick, title, children, active = false, isDark = false, 
       title={title}
     >
       {children}
-    </motion.button>
+    </MotionButton>
   );
 };
 
 export default IconButton;
-

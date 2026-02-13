@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { INTERVAL_PRESETS, INTERVAL_RANGE } from '../../config/appConfig';
 
+const MotionDiv = motion.div;
+
 const TimingSettingsTab = ({ isDark, interval, onIntervalChange }) => {
   return (
-    <motion.div
+    <MotionDiv
       key="timing"
       initial={{ opacity: 0, x: 10 }}
       animate={{ opacity: 1, x: 0 }}
@@ -74,9 +76,8 @@ const TimingSettingsTab = ({ isDark, interval, onIntervalChange }) => {
           );
         })}
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 
 export default TimingSettingsTab;
-

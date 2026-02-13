@@ -1,21 +1,22 @@
 import { motion } from 'framer-motion';
 import { Play, Square, Trash2, Eraser, FileInput } from 'lucide-react';
 
+const MotionButton = motion.button;
+
 const ControlPanel = ({
   isRunning,
   onRun,
   onStop,
   onClear,
   onClearCanvas,
-  onDecompile,
-  progress
+  onDecompile
 }) => {
   return (
     <footer
       className="flex items-center justify-end px-6 py-5 shrink-0"
     >
       <div className="flex items-center gap-4">
-        <motion.button
+        <MotionButton
           onClick={onDecompile}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
@@ -25,9 +26,9 @@ const ControlPanel = ({
         >
           <FileInput size={16} />
           <span>逆向编译</span>
-        </motion.button>
+        </MotionButton>
 
-        <motion.button
+        <MotionButton
           onClick={onClearCanvas}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
@@ -37,9 +38,9 @@ const ControlPanel = ({
         >
           <Eraser size={16} />
           <span>{'\u6e05\u7a7a\u753b\u5e03'}</span>
-        </motion.button>
+        </MotionButton>
 
-        <motion.button
+        <MotionButton
           onClick={onClear}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
@@ -49,9 +50,9 @@ const ControlPanel = ({
         >
           <Trash2 size={16} />
           <span>{'\u6e05\u7a7a\u4ee3\u7801'}</span>
-        </motion.button>
+        </MotionButton>
 
-        <motion.button
+        <MotionButton
           onClick={isRunning ? onStop : onRun}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
@@ -70,7 +71,7 @@ const ControlPanel = ({
               <span>{'\u542f\u52a8\u7a0b\u5e8f'}</span>
             </>
           )}
-        </motion.button>
+        </MotionButton>
       </div>
     </footer>
   );
