@@ -165,7 +165,7 @@ export const exportAsHTML = async (ggbApplet, options = {}) => {
       enableRightClick: true,
       showToolBarHelp: false,
       errorDialogsActive: false,
-      useBrowserForJS: true,
+      useBrowserForJS: false,
       language: "zh",
       appletOnLoad: function() {
         var commands = parseCommands(ggbCode);

@@ -94,7 +94,7 @@ const GGBViewer = ({ onReady, enable3D, hideSidebar = false }) => {
       capturingThreshold: null,
       showToolBarHelp: false,
       errorDialogsActive: false,
-      useBrowserForJS: true,
+      useBrowserForJS: false,
       language: 'zh',
       appletOnLoad: () => {
         appletRef.current = window.ggbApplet;
