@@ -108,5 +108,5 @@ export function buildEmbedHtml(shareId, options = {}) {
 export function buildFullscreenEmbedHtml(shareId) {
   const embedUrl = buildFullscreenEmbedUrl(shareId);
 
-  return `<iframe src="${embedUrl}" style="width:100%;height:100%;border:0;" frameborder="0" allowfullscreen></iframe>`;
+  return `<iframe src="${embedUrl}" style="width:100%;height:100vh;min-height:480px;border:0;display:block;" frameborder="0" allowfullscreen></iframe>`;
 }
