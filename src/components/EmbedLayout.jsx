@@ -12,6 +12,45 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
   const [sceneRestored, setSceneRestored] = useState(false);
   const hasRunRef = useRef(false);
 
+  const sleep = useCallback((ms) => new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  }), []);
+
+  const getVisibleObjectCount = useCallback((applet) => {
+    if (!applet || typeof applet.getAllObjectNames !== 'function') {
+      return 0;
+    }
+
+    const names = applet.getAllObjectNames() || [];
+    if (typeof applet.getVisible !== 'function') {
+      return names.length;
+    }
+
+    return names.reduce((count, name) => {
+      try {
+        return applet.getVisible(name) ? count + 1 : count;
+      } catch {
+        return count;
+      }
+    }, 0);
+  }, []);
+
+  const ensurePrimaryViewVisible = useCallback((applet, is3D) => {
+    if (!applet) return;
+
+    try {
+      if (applet.setPerspective) {
+        applet.setPerspective(is3D ? 'G3D' : 'G');
+      }
+
+      if (applet.evalCommand) {
+        applet.evalCommand(is3D ? 'ShowView(5, true)' : 'ShowView(1, true)');
+      }
+    } catch (error) {
+      console.warn('Ensure primary view failed:', error);
+    }
+  }, []);
+
   useEffect(() => {
     if (!shareId) {
       setLoading(false);
@@ -69,8 +108,17 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
       }
 
       if (restored) {
-        hasRunRef.current = true;
+        ensurePrimaryViewVisible(ggbApplet, Boolean(data.enable3D));
+
+        const hasCode = typeof data.code === 'string' && data.code.trim() !== '';
+        if (!hasCode) {
+          const visibleCount = getVisibleObjectCount(ggbApplet);
+          if (visibleCount > 0) {
+            hasRunRef.current = true;
+          }
+        }
       }
+
       setSceneRestored(true);
     };
 
@@ -79,21 +127,41 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     return () => {
       cancelled = true;
     };
-  }, [data, ggbApplet, viewerEnable3D]);
+  }, [data, ggbApplet, viewerEnable3D, ensurePrimaryViewVisible, getVisibleObjectCount]);
 
   useEffect(() => {
-    if (!data?.code || !ggbApplet || hasRunRef.current) return;
+    if (!ggbApplet || hasRunRef.current) return;
     if (!sceneRestored) return;
 
-    if (typeof data.enable3D === 'boolean' && viewerEnable3D !== data.enable3D) {
+    if (typeof data?.enable3D === 'boolean' && viewerEnable3D !== data.enable3D) {
       return;
     }
 
-    const didRun = executeShareCode(ggbApplet, data.code);
-    if (didRun) {
-      hasRunRef.current = true;
+    if (!data?.code || !data.code.trim()) {
+      return;
     }
-  }, [data, ggbApplet, viewerEnable3D, sceneRestored]);
+
+    let cancelled = false;
+
+    const runCode = async () => {
+      await sleep(120);
+      if (cancelled || hasRunRef.current) {
+        return;
+      }
+
+      const didRun = executeShareCode(ggbApplet, data.code);
+      if (didRun) {
+        ensurePrimaryViewVisible(ggbApplet, Boolean(data.enable3D));
+        hasRunRef.current = true;
+      }
+    };
+
+    runCode();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [data, ggbApplet, viewerEnable3D, sceneRestored, sleep, ensurePrimaryViewVisible]);
 
   const handleGGBReady = useCallback((applet) => {
     setGgbApplet(applet);
