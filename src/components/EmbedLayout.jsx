@@ -15,7 +15,6 @@ const SCENE_RESTORE_OPTIONS = {
   retries: 2,
   retryDelayMs: 380
 };
-const SHARE_LOG_PREFIX = '[EmbedShare]';
 
 const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
   const [ggbApplet, setGgbApplet] = useState(null);
@@ -55,12 +54,14 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     if (!applet) return;
 
     try {
-      if (applet.setPerspective) {
-        applet.setPerspective(is3D ? 'G3D' : 'G');
-      }
-
       if (applet.evalCommand) {
-        applet.evalCommand(is3D ? 'ShowView(5, true)' : 'ShowView(1, true)');
+        if (is3D) {
+          // Avoid forcing perspective, which can hide objects restored in another view.
+          applet.evalCommand('ShowView(1, true)');
+          applet.evalCommand('ShowView(5, true)');
+        } else {
+          applet.evalCommand('ShowView(1, true)');
+        }
       }
     } catch (error) {
       console.warn('Ensure primary view failed:', error);
@@ -80,7 +81,6 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
 
   useEffect(() => {
     if (!shareId) {
-      console.warn(`${SHARE_LOG_PREFIX} missing shareId`);
       setShareLoading(false);
       setDataError('缺少分享 ID');
       return;
@@ -89,7 +89,6 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     let disposed = false;
 
     const loadData = async () => {
-      console.info(`${SHARE_LOG_PREFIX} start loading`, { shareId });
       setShareLoading(true);
       setDataError(null);
       setViewerError(null);
@@ -98,10 +97,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
         const shareData = await retryAsync(
           () => getShare(shareId, { throwOnError: true }),
           {
-            ...SHARE_LOAD_RETRY_OPTIONS,
-            onRetry: (error, attempt) => {
-              console.warn(`${SHARE_LOG_PREFIX} load retry #${attempt}`, { shareId, error });
-            }
+            ...SHARE_LOAD_RETRY_OPTIONS
           }
         );
 
@@ -110,28 +106,20 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
         }
 
         if (!shareData) {
-          console.warn(`${SHARE_LOG_PREFIX} share not found`, { shareId });
           setDataError('未找到分享数据');
           return;
         }
 
-        console.info(`${SHARE_LOG_PREFIX} loaded`, {
-          shareId,
-          enable3D: shareData.enable3D,
-          hasScene: Boolean(shareData.scene),
-          codeLength: typeof shareData.code === 'string' ? shareData.code.length : 0
-        });
         setData(shareData);
       } catch (error) {
         if (disposed) {
           return;
         }
         const message = error instanceof Error ? error.message : String(error);
-        console.error(`${SHARE_LOG_PREFIX} load failed`, { shareId, error });
+        console.error('Share load failed:', { shareId, error });
         setDataError(`加载失败：${message}`);
       } finally {
         if (!disposed) {
-          console.info(`${SHARE_LOG_PREFIX} load finished`, { shareId });
           setShareLoading(false);
         }
       }
@@ -154,7 +142,6 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     }
 
     if (!data.scene) {
-      console.info(`${SHARE_LOG_PREFIX} skip scene restore(no scene)`, { shareId });
       setSceneRestored(true);
       return;
     }
@@ -162,25 +149,20 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     let cancelled = false;
 
     const restore = async () => {
-      console.info(`${SHARE_LOG_PREFIX} restoring scene`, { shareId });
       const restored = await restoreSceneData(ggbApplet, data.scene, SCENE_RESTORE_OPTIONS);
       if (cancelled) {
         return;
       }
 
       if (restored) {
-        console.info(`${SHARE_LOG_PREFIX} scene restored`, { shareId });
         ensurePrimaryViewVisible(ggbApplet, Boolean(data.enable3D));
+        await sleep(120);
 
-        const hasCode = typeof data.code === 'string' && data.code.trim() !== '';
-        if (!hasCode) {
-          const visibleCount = getVisibleObjectCount(ggbApplet);
-          if (visibleCount > 0) {
-            hasRunRef.current = true;
-          }
+        const visibleCount = getVisibleObjectCount(ggbApplet);
+        if (visibleCount > 0) {
+          hasRunRef.current = true;
         }
       } else {
-        console.warn(`${SHARE_LOG_PREFIX} scene restore failed`, { shareId });
         const hasCode = typeof data.code === 'string' && data.code.trim() !== '';
         if (!hasCode) {
           setViewerError('场景恢复失败，请刷新后重试。');
@@ -195,7 +177,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     return () => {
       cancelled = true;
     };
-  }, [data, ggbApplet, viewerEnable3D, viewerReady, ensurePrimaryViewVisible, getVisibleObjectCount, shareId]);
+  }, [data, ggbApplet, viewerEnable3D, viewerReady, ensurePrimaryViewVisible, getVisibleObjectCount, sleep]);
 
   useEffect(() => {
     if (!ggbApplet || hasRunRef.current) return;
@@ -206,14 +188,12 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     }
 
     if (!data?.code || !data.code.trim()) {
-      console.info(`${SHARE_LOG_PREFIX} skip code execution(empty code)`, { shareId });
       return;
     }
 
     let cancelled = false;
 
     const runCode = async () => {
-      console.info(`${SHARE_LOG_PREFIX} execute shared code`, { shareId, codeLength: data.code.length });
       await sleep(120);
       if (cancelled || hasRunRef.current) {
         return;
@@ -221,11 +201,8 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
 
       const didRun = executeShareCode(ggbApplet, data.code);
       if (didRun) {
-        console.info(`${SHARE_LOG_PREFIX} code executed`, { shareId });
         ensurePrimaryViewVisible(ggbApplet, Boolean(data.enable3D));
         hasRunRef.current = true;
-      } else {
-        console.warn(`${SHARE_LOG_PREFIX} code execution produced no commands`, { shareId });
       }
     };
 
@@ -234,19 +211,18 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
     return () => {
       cancelled = true;
     };
-  }, [data, ggbApplet, viewerEnable3D, sceneRestored, sleep, ensurePrimaryViewVisible, shareId]);
+  }, [data, ggbApplet, viewerEnable3D, sceneRestored, sleep, ensurePrimaryViewVisible]);
 
   const handleGGBReady = useCallback((applet) => {
-    console.info(`${SHARE_LOG_PREFIX} viewer ready`, { shareId });
     setGgbApplet(applet);
     setViewerEnable3D(Boolean(data?.enable3D));
     setViewerReady(true);
     setViewerError(null);
-  }, [data?.enable3D, shareId]);
+  }, [data?.enable3D]);
 
   const handleGGBError = useCallback((error) => {
     const message = error instanceof Error ? error.message : String(error);
-    console.error(`${SHARE_LOG_PREFIX} viewer init failed`, { shareId, error });
+    console.error('Viewer init failed:', { shareId, error });
     setViewerReady(false);
     setViewerError(`GeoGebra 初始化失败：${message}`);
   }, [shareId]);

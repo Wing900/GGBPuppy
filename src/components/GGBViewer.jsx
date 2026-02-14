@@ -150,10 +150,16 @@ const GGBViewer = ({
         return;
       }
 
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      if (width <= 0 || height <= 0) {
+        console.warn('GeoGebra container size is not ready', { width, height, enable3D, hideSidebar });
+      }
+
       const params = {
         appName: enable3D ? '3d' : 'classic',
-        width: containerRef.current.clientWidth,
-        height: containerRef.current.clientHeight,
+        width,
+        height,
         showToolBar: false,
         showAlgebraInput: !hideSidebar,
         showMenuBar: false,
@@ -250,6 +256,7 @@ const GGBViewer = ({
     createApplet,
     enable3D,
     ensureGeoGebraApi,
+    hideSidebar,
     maxRetries,
     onError,
     onReady,
