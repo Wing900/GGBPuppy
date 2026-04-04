@@ -170,7 +170,7 @@ const GGBViewer = ({
         enableRightClick: true,
         capturingThreshold: null,
         showToolBarHelp: false,
-        errorDialogsActive: false,
+        errorDialogsActive: true,
         useBrowserForJS: false,
         language: 'zh',
         appletOnLoad: () => {
@@ -178,6 +178,10 @@ const GGBViewer = ({
           if (!loadedApplet) {
             reject(new Error('GeoGebra applet loaded without instance'));
             return;
+          }
+
+          if (typeof loadedApplet.setErrorDialogsActive === 'function') {
+            loadedApplet.setErrorDialogsActive(true);
           }
 
           resolve(loadedApplet);

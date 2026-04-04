@@ -77,7 +77,34 @@ const createCurrentLineHighlighter = (lineNumber) =>
     { decorations: (value) => value.decorations }
   );
 
-const CodeEditor = ({ code, setCode, currentLine, isRunning }) => {
+const createLineHighlighter = (lineNumber, className) =>
+  ViewPlugin.fromClass(
+    class {
+      constructor(view) {
+        this.decorations = this.buildDecorations(view);
+      }
+
+      buildDecorations(view) {
+        const builder = new RangeSetBuilder();
+
+        if (lineNumber >= 0 && lineNumber < view.state.doc.lines) {
+          const line = view.state.doc.line(lineNumber + 1);
+          builder.add(line.from, line.from, Decoration.line({ class: className }));
+        }
+
+        return builder.finish();
+      }
+
+      update(update) {
+        if (update.docChanged || update.viewportChanged) {
+          this.decorations = this.buildDecorations(update.view);
+        }
+      }
+    },
+    { decorations: (value) => value.decorations }
+  );
+
+const CodeEditor = ({ code, setCode, currentLine, errorLine, isRunning, onCodeChange }) => {
   const [ggbExtensions, setGgbExtensions] = useState(null);
   const [loadState, setLoadState] = useState('loading');
 
@@ -139,12 +166,16 @@ const CodeEditor = ({ code, setCode, currentLine, isRunning }) => {
       base.push(createCurrentLineHighlighter(currentLine));
     }
 
+    if (typeof errorLine === 'number' && errorLine >= 0) {
+      base.push(createLineHighlighter(errorLine, 'cm-error-line'));
+    }
+
     if (ggbExtensions) {
       base.push(ggbExtensions.ggbHighlight, ggbExtensions.ggbCompletion);
     }
 
     return base;
-  }, [currentLine, ggbExtensions, isRunning]);
+  }, [currentLine, errorLine, ggbExtensions, isRunning]);
 
   const statusLabel =
     loadState === 'loading'
@@ -160,7 +191,10 @@ const CodeEditor = ({ code, setCode, currentLine, isRunning }) => {
           value={code}
           height="100%"
           extensions={extensions}
-          onChange={(value) => setCode(value)}
+          onChange={(value) => {
+            setCode(value);
+            onCodeChange?.(value);
+          }}
         />
       </div>
       {statusLabel && (

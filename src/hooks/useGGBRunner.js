@@ -10,6 +10,7 @@ const useGGBRunner = (ggbApplet) => {
   const [isRunning, setIsRunning] = useState(false);
   const [currentLine, setCurrentLine] = useState(-1);
   const [progress, setProgress] = useState(null);
+  const [runError, setRunError] = useState(null);
 
   const abortRef = useRef(false);
 
@@ -29,6 +30,7 @@ const useGGBRunner = (ggbApplet) => {
     }
 
     abortRef.current = false;
+    setRunError(null);
     setIsRunning(true);
     setProgress({ current: 0, total: commands.length });
 
@@ -48,9 +50,27 @@ const useGGBRunner = (ggbApplet) => {
       setProgress({ current: i + 1, total: commands.length });
 
       try {
-        ggbApplet.evalCommand(line);
+        const success = ggbApplet.evalCommand(line);
+        if (success === false) {
+          setRunError({
+            lineIndex: index,
+            lineNumber: index + 1,
+            command: line,
+            message: `第 ${index + 1} 行执行失败`
+          });
+          abortRef.current = true;
+          break;
+        }
       } catch (error) {
         console.warn(`执行指令失败 [行 ${index + 1}]:`, line, error);
+        setRunError({
+          lineIndex: index,
+          lineNumber: index + 1,
+          command: line,
+          message: `第 ${index + 1} 行执行失败`
+        });
+        abortRef.current = true;
+        break;
       }
 
       if (i < commands.length - 1) {
@@ -80,21 +100,27 @@ const useGGBRunner = (ggbApplet) => {
     if (ggbApplet && !isRunning) {
       try {
         ggbApplet.reset();
+        setRunError(null);
       } catch (error) {
         console.warn('重置画布失败:', error);
       }
     }
   }, [ggbApplet, isRunning]);
 
+  const clearRunError = useCallback(() => {
+    setRunError(null);
+  }, []);
+
   return {
     isRunning,
     currentLine,
     progress,
+    runError,
     run,
     stop,
-    reset
+    reset,
+    clearRunError
   };
 };
 
 export default useGGBRunner;
-

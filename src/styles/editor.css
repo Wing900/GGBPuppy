@@ -108,6 +108,11 @@
   background-color: rgba(255, 193, 7, 0.15) !important;
 }
 
+.ggb-editor .cm-error-line {
+  background-color: rgba(220, 38, 38, 0.14) !important;
+  box-shadow: inset 3px 0 0 #dc2626;
+}
+
 .ggb-editor .cm-content {
   caret-color: var(--color-accent);
 }
@@ -142,4 +147,3 @@
   background-color: var(--color-bg-tertiary);
   color: var(--color-text-primary);
 }
-

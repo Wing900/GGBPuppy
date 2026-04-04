@@ -34,7 +34,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
     setSettingsTab
   } = useAppState();
   const { isDark, toggle: toggleDark } = useDarkMode();
-  const { isRunning, currentLine, progress, run, stop, reset } = useGGBRunner(ggbApplet);
+  const { isRunning, currentLine, progress, runError, run, stop, reset, clearRunError } = useGGBRunner(ggbApplet);
 
   useEffect(() => {
     hasRunRef.current = false;
@@ -133,19 +133,26 @@ const EditorLayout = ({ shareId: initialShareId }) => {
     }
   }, [ggbApplet, code, interval, run]);
 
+  const handleCodeChange = useCallback(() => {
+    if (runError) {
+      clearRunError();
+    }
+  }, [clearRunError, runError]);
+
   const handleClear = useCallback(() => {
     if (isRunning) {
       stop();
     }
+    clearRunError();
     clearCode();
-  }, [isRunning, stop, clearCode]);
+  }, [clearCode, clearRunError, isRunning, stop]);
 
   const handleClearCanvas = useCallback(() => {
     if (isRunning) {
       stop();
     }
     reset();
-  }, [isRunning, stop, reset]);
+  }, [isRunning, reset, stop]);
 
   const handleShare = useCallback(async () => {
     try {
@@ -248,7 +255,9 @@ const EditorLayout = ({ shareId: initialShareId }) => {
               code={code}
               setCode={setCode}
               currentLine={currentLine}
+              errorLine={runError?.lineIndex ?? -1}
               isRunning={isRunning}
+              onCodeChange={handleCodeChange}
             />
           </div>
 
