@@ -180,7 +180,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
 
       const commands = [];
       for (const name of objectNames) {
-        const cmd = ggbApplet.getCommandString(name);
+        const cmd = ggbApplet.getCommandString(name, false);
         if (cmd && cmd.trim()) {
           commands.push(cmd);
         }
