@@ -290,7 +290,7 @@ const GGBViewer = ({
       <div
         ref={containerRef}
         className="flex-1 min-h-0 overflow-hidden"
-        style={{ backgroundColor: '#FFFFFF' }}
+        style={{ backgroundColor: 'var(--color-bg-primary)' }}
       />
     </div>
   );

@@ -24,14 +24,14 @@ const SettingsPanel = ({
           transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
           className="absolute right-0 top-14 w-80 rounded-2xl shadow-xl z-50 overflow-hidden"
           style={{
-            backgroundColor: isDark ? 'rgba(38,38,38,0.98)' : 'rgba(255,255,255,0.98)',
-            border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}`,
+            backgroundColor: 'var(--color-bg-secondary)',
+            border: '1px solid var(--color-border)',
             backdropFilter: 'blur(20px)'
           }}
         >
           <div
             className="flex border-b"
-            style={{ borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)' }}
+            style={{ borderColor: 'var(--color-border)' }}
           >
             <SettingsTabButton
               Icon={Clock}

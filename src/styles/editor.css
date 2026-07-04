@@ -1,37 +1,33 @@
-.editor-scroll-container,
-.editor-scroll-container::-webkit-scrollbar {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
+/* ══════════════════════════════════════════
+   代码编辑器样式 — B · 冷白 × 冷灰
+   自适应暗黑模式
+   ══════════════════════════════════════════ */
+
+/* ── 代码编辑器容器背景（B 方案）── */
+.editor-scroll-container {
+  background-color: #FFFFFF !important;
 }
 
+.dark .editor-scroll-container {
+  background-color: #1E1E1E !important;
+}
+
+/* ── 滚动条隐藏 ── */
 .editor-scroll-container::-webkit-scrollbar,
-.editor-scroll-container::-webkit-scrollbar-thumb,
-.editor-scroll-container::-webkit-scrollbar-track {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
 .ggb-editor-container,
-.ggb-editor-container::-webkit-scrollbar {
-  scrollbar-width: none !important;
-  -ms-overflow-style: none !important;
-}
-
 .ggb-editor-container::-webkit-scrollbar,
-.ggb-editor-container::-webkit-scrollbar-thumb,
-.ggb-editor-container::-webkit-scrollbar-track {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
 .ggb-editor .cm-scroller,
 .ggb-editor .cm-scroller::-webkit-scrollbar {
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
 }
 
+.editor-scroll-container::-webkit-scrollbar,
+.editor-scroll-container::-webkit-scrollbar-thumb,
+.editor-scroll-container::-webkit-scrollbar-track,
+.ggb-editor-container::-webkit-scrollbar,
+.ggb-editor-container::-webkit-scrollbar-thumb,
+.ggb-editor-container::-webkit-scrollbar-track,
 .ggb-editor .cm-scroller::-webkit-scrollbar,
 .ggb-editor .cm-scroller::-webkit-scrollbar-thumb,
 .ggb-editor .cm-scroller::-webkit-scrollbar-track {
@@ -40,12 +36,10 @@
   height: 0 !important;
 }
 
+/* ── 容器 ── */
 .ggb-editor-container {
   scroll-behavior: smooth;
   overscroll-behavior: contain;
-}
-
-.ggb-editor-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -63,6 +57,11 @@
 
 .ggb-editor .cm-editor {
   height: 100%;
+  background-color: transparent !important;
+}
+
+.dark .ggb-editor .cm-editor {
+  background-color: transparent !important;
 }
 
 .ggb-editor .cm-scroller {
@@ -70,20 +69,31 @@
   max-height: 100% !important;
   overflow-y: auto !important;
   overflow-x: auto !important;
-  font-family: 'JetBrains Mono', 'LXGW WenKai', monospace;
+  font-family: 'JetBrains Mono', 'ChillRoundF', monospace;
   font-size: 13px;
   line-height: 1.6;
+  background-color: transparent !important;
+}
+
+.dark .ggb-editor .cm-scroller {
+  background-color: transparent !important;
 }
 
 .ggb-editor .cm-content {
   padding: 16px;
   min-height: calc(35 * 1.6em);
+  background-color: transparent !important;
 }
 
+.dark .ggb-editor .cm-content {
+  background-color: transparent !important;
+}
+
+/* ── 行号区（透明）── */
 .ggb-editor .cm-gutters {
-  background-color: var(--color-bg-tertiary);
-  border-right: 1px solid var(--color-bg-tertiary);
-  color: var(--color-text-tertiary);
+  background-color: transparent;
+  border-right: 1px solid rgba(var(--border-rgb), 0.06);
+  color: rgba(var(--text-tertiary-rgb), 0.5);
   flex-shrink: 0;
 }
 
@@ -100,46 +110,69 @@
 
 .ggb-editor .cm-activeLineGutter {
   background-color: transparent;
-  color: var(--color-text-primary);
+  color: rgba(var(--text-primary-rgb), 0.7);
   font-weight: 500;
 }
 
+/* ── 当前行高亮 ── */
 .ggb-editor .cm-current-line {
-  background-color: rgba(255, 193, 7, 0.15) !important;
+  background-color: rgba(var(--accent-rgb), 0.06) !important;
 }
 
+/* ── 编辑区 ── */
 .ggb-editor .cm-content {
   caret-color: var(--color-accent);
 }
 
+/* ── 语法高亮 ── */
 .ggb-editor .cm-builtin {
-  color: #5C6BC0;
+  color: #6C7BD8;
   font-weight: 600;
 }
 
+.dark .ggb-editor .cm-builtin {
+  color: #8B9CF0;
+}
+
 .ggb-editor .cm-number {
-  color: var(--color-text-secondary);
+  color: rgba(var(--text-secondary-rgb), 1);
 }
 
 .ggb-editor .cm-comment {
-  color: var(--color-text-tertiary);
+  color: rgba(var(--text-tertiary-rgb), 0.75);
   font-style: italic;
 }
 
 .ggb-editor .cm-bracket {
-  color: var(--color-text-secondary);
+  color: rgba(var(--text-secondary-rgb), 0.65);
 }
 
+/* ── 选中区域 ── */
+.ggb-editor .cm-selectionBackground,
+.ggb-editor.cm-focused .cm-selectionBackground {
+  background-color: rgba(var(--accent-rgb), 0.12) !important;
+}
+
+.dark .ggb-editor .cm-selectionBackground,
+.dark .ggb-editor.cm-focused .cm-selectionBackground {
+  background-color: rgba(var(--accent-rgb), 0.25) !important;
+}
+
+/* ── 光标 ── */
+.ggb-editor .cm-cursor {
+  border-left-color: var(--color-accent) !important;
+}
+
+/* ── 自动补全工具提示 ── */
 .ggb-editor .cm-tooltip {
   background-color: var(--color-bg-secondary);
-  border: 1px solid var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md3-hover);
 }
 
 .ggb-editor .cm-tooltip-autocomplete ul li[aria-selected] {
-  background-color: var(--color-bg-tertiary);
+  background-color: rgba(var(--accent-rgb), 0.12);
   color: var(--color-text-primary);
 }
-

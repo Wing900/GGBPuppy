@@ -1,0 +1,24 @@
+/* ══════════════════════════════════════════
+   字体定义
+   Fredoka（英文圆体）+ 寒蝉全圆体 ChillRoundF
+   ══════════════════════════════════════════ */
+
+/* 寒蝉全圆体 - Regular */
+@font-face {
+  font-family: 'ChillRoundF';
+  src: url('/fonts/ChillRoundFRegular.otf') format('opentype'),
+       url('/fonts/ChillRoundFRegular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 寒蝉全圆体 - Bold */
+@font-face {
+  font-family: 'ChillRoundF';
+  src: url('/fonts/ChillRoundFBold.otf') format('opentype'),
+       url('/fonts/ChillRoundFBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

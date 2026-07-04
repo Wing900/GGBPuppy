@@ -1,0 +1,154 @@
+/* ══════════════════════════════════════════
+   动画系统 - 移植自 ManimCat
+   风格：柔和、弹性、玻璃感
+   ══════════════════════════════════════════ */
+
+/* ── Fade In ── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* ── Fade In Soft (玻璃卡片入场) ── */
+@keyframes fade-in-soft {
+  from { opacity: 0; transform: translateY(12px) scale(0.992); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-fade-in-soft {
+  animation: fade-in-soft 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Fade Out Soft ── */
+@keyframes fade-out-soft {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(12px) scale(0.992); }
+}
+
+.animate-fade-out-soft {
+  animation: fade-out-soft 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Message Enter (小元素入场) ── */
+@keyframes message-enter {
+  from { opacity: 0.01; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-message-enter {
+  animation: message-enter 0.22s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: transform, opacity;
+}
+
+/* ── Overlay Wash In (遮罩毛玻璃升起来) ── */
+@keyframes overlay-wash-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(8px); }
+}
+
+.animate-overlay-wash-in {
+  animation: overlay-wash-in 0.5s ease-out forwards;
+}
+
+/* ── Scale In (弹窗) ── */
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Button Pulse (操作反馈) ── */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* ── Slide Up (面板滑入) ── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── Rotate (加载旋转) ── */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}
+
+/* ── 毛玻璃面板 ── */
+.glass-panel {
+  background-color: rgba(var(--bg-secondary-rgb), 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(var(--border-rgb), 0.06);
+}
+
+.glass-panel-strong {
+  background-color: rgba(var(--bg-secondary-rgb), 0.92);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(var(--border-rgb), 0.08);
+}
+
+.glass-button {
+  background-color: rgba(var(--bg-tertiary-rgb), 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color var(--transition-base);
+}
+
+.glass-button:hover {
+  background-color: rgba(var(--bg-tertiary-rgb), 0.5);
+}
+
+/* ── 无边框按钮组 (Segmented Control) ── */
+.segmented-control {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background-color: rgba(var(--bg-tertiary-rgb), 0.25);
+  border-radius: var(--radius-sm);
+}
+
+.segmented-control button {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: calc(var(--radius-sm) - 2px);
+  color: rgba(var(--text-secondary-rgb), 0.7);
+  transition: all var(--transition-base);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.segmented-control button:hover {
+  color: rgba(var(--text-primary-rgb), 0.9);
+  background-color: rgba(var(--bg-tertiary-rgb), 0.2);
+}
+
+.segmented-control button.active,
+.segmented-control button[data-active="true"] {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}

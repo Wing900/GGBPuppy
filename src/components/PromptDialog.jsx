@@ -110,7 +110,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
               {/* Header */}
               <div
                 className="flex items-center justify-between px-6 py-4 border-b shrink-0"
-                style={{ borderColor: 'var(--color-bg-tertiary)' }}
+                style={{ borderColor: 'var(--color-border)' }}
               >
                 <div className="flex items-center gap-2">
                   <MessageSquareText size={20} style={{ color: 'var(--color-text-secondary)' }} />
@@ -146,7 +146,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                   className="relative rounded-xl p-4"
                   style={{
                     backgroundColor: 'var(--color-bg-primary)',
-                    border: '1px solid var(--color-bg-tertiary)',
+                    border: '1px solid var(--color-border)',
                     minHeight: '200px'
                   }}
                 >
@@ -179,7 +179,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
               {/* Footer */}
               <div
                 className="px-6 py-4 border-t shrink-0"
-                style={{ borderColor: 'var(--color-bg-tertiary)' }}
+                style={{ borderColor: 'var(--color-border)' }}
               >
                 <MotionButton
                   onClick={copyToClipboard}
@@ -189,7 +189,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                   style={{
                     backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : 'var(--color-bg-primary)',
                     color: copied ? '#22c55e' : 'var(--color-text-primary)',
-                    border: '1px solid var(--color-bg-tertiary)',
+                    border: '1px solid var(--color-border)',
                     opacity: (loading || error || !content) ? 0.5 : 1
                   }}
                 >

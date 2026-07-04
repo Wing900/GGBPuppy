@@ -7,7 +7,7 @@ const ShareDialogHeader = ({ onClose }) => {
   return (
     <div
       className="flex items-center justify-between px-6 py-4 border-b"
-      style={{ borderColor: 'var(--color-bg-tertiary)' }}
+      style={{ borderColor: 'var(--color-border)' }}
     >
       <div className="flex items-center gap-2">
         <Share2 size={20} style={{ color: 'var(--color-text-secondary)' }} />

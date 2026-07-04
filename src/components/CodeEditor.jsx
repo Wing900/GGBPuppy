@@ -39,7 +39,7 @@ const editorTheme = EditorView.theme({
     fontSize: '13px',
   },
   '.cm-scroller': {
-    fontFamily: '"JetBrains Mono", "LXGW WenKai", monospace',
+    fontFamily: '"JetBrains Mono", "ChillRoundF", monospace',
     lineHeight: '1.6',
   },
   '.cm-content': {

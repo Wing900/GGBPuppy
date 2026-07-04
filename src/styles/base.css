@@ -36,22 +36,6 @@ body {
   transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-.dark body,
-body.dark {
-  background-color: var(--color-dark-bg-primary);
-  color: var(--color-dark-text-primary);
-}
-
-.dark {
-  --color-bg-primary: var(--color-dark-bg-primary);
-  --color-bg-secondary: var(--color-dark-bg-secondary);
-  --color-bg-tertiary: var(--color-dark-bg-tertiary);
-  --color-text-primary: var(--color-dark-text-primary);
-  --color-text-secondary: var(--color-dark-text-secondary);
-  --color-accent: var(--color-dark-accent);
-  --color-accent-hover: var(--color-dark-accent-hover);
-}
-
 ::selection {
   background-color: var(--color-accent);
   color: white;

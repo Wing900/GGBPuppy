@@ -1,27 +1,52 @@
+/* ══════════════════════════════════════════
+   设计令牌 — 移植自 ManimCat
+   风格：暖灰中性 · MD3 圆角 · rgb 变量体系 · 玻璃质感
+   ══════════════════════════════════════════ */
+
+/* Inter 作为英文 fallback */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css');
+
+/* ── 亮色主题（默认）── */
+:root {
+  --bg-primary-rgb: 250, 250, 248;
+  --bg-secondary-rgb: 242, 241, 238;
+  --bg-tertiary-rgb: 232, 231, 226;
+  --text-primary-rgb: 29, 29, 27;
+  --text-secondary-rgb: 120, 119, 116;
+  --text-tertiary-rgb: 176, 175, 171;
+  --accent-rgb: 74, 74, 72;
+  --accent-hover-rgb: 51, 51, 50;
+  --border-rgb: 0, 0, 0;
+}
+
+/* ── 暗黑主题 ── */
+.dark {
+  --bg-primary-rgb: 22, 22, 21;
+  --bg-secondary-rgb: 35, 35, 34;
+  --bg-tertiary-rgb: 50, 49, 47;
+  --text-primary-rgb: 232, 231, 228;
+  --text-secondary-rgb: 160, 159, 156;
+  --text-tertiary-rgb: 112, 111, 108;
+  --accent-rgb: 138, 138, 134;
+  --accent-hover-rgb: 166, 165, 162;
+  --border-rgb: 255, 255, 255;
+}
+
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'LXGW WenKai', 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'ChillRoundF', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'ChillRoundF', monospace;
 
-  --color-bg-primary: #F5F5F5;
-  --color-bg-secondary: #EEEEEE;
-  --color-bg-tertiary: #E0E0E0;
-  --color-text-primary: #212121;
-  --color-text-secondary: #757575;
-  --color-text-tertiary: #9E9E9E;
-  --color-accent: #424242;
-  --color-accent-hover: #616161;
-
-  --color-dark-bg-primary: #121212;
-  --color-dark-bg-secondary: #1E1E1E;
-  --color-dark-bg-tertiary: #2C2C2C;
-  --color-dark-text-primary: #E0E0E0;
-  --color-dark-text-secondary: #9E9E9E;
-  --color-dark-accent: #757575;
-  --color-dark-accent-hover: #9E9E9E;
+  --color-bg-primary: rgba(var(--bg-primary-rgb), 1);
+  --color-bg-secondary: rgba(var(--bg-secondary-rgb), 1);
+  --color-bg-tertiary: rgba(var(--bg-tertiary-rgb), 1);
+  --color-text-primary: rgba(var(--text-primary-rgb), 1);
+  --color-text-secondary: rgba(var(--text-secondary-rgb), 1);
+  --color-text-tertiary: rgba(var(--text-tertiary-rgb), 1);
+  --color-accent: rgba(var(--accent-rgb), 1);
+  --color-accent-hover: rgba(var(--accent-hover-rgb), 1);
+  --color-border: rgba(var(--border-rgb), 0.08);
 
   --radius-sm: 8px;
   --radius-md: 12px;

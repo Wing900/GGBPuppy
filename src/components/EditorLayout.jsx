@@ -237,8 +237,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
             className="editor-scroll-container"
             style={{
               height: LAYOUT.editorHeight,
-              backgroundColor: 'var(--color-bg-secondary)',
-              border: '1px solid var(--color-bg-tertiary)',
+              border: '1px solid var(--color-border)',
               borderRadius: '16px',
               overflow: 'auto',
               overscrollBehavior: 'contain'
@@ -273,13 +272,13 @@ const EditorLayout = ({ shareId: initialShareId }) => {
       <div
         className="fixed top-0 left-0 w-32 h-32 pointer-events-none opacity-50"
         style={{
-          background: 'radial-gradient(circle at 0 0, var(--color-bg-tertiary) 0%, transparent 70%)'
+          background: 'radial-gradient(circle at 0 0, var(--color-border) 0%, transparent 70%)'
         }}
       />
       <div
         className="fixed bottom-0 right-0 w-32 h-32 pointer-events-none opacity-50"
         style={{
-          background: 'radial-gradient(circle at 100% 100%, var(--color-bg-tertiary) 0%, transparent 70%)'
+          background: 'radial-gradient(circle at 100% 100%, var(--color-border) 0%, transparent 70%)'
         }}
       />
 
