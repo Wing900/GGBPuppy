@@ -1,1 +1,1 @@
-{"name":"ggbpuppy-agent","private":true,"type":"module","dependencies":{"@ai-sdk/openai":"^4.0.30","@copilotkit/runtime":"^1.66.2","zod":"^4.4.3"},"devDependencies":{"vitest":"^4.1.10"}}
+{"name":"ggbpuppy-agent","private":true,"type":"module","dependencies":{"@ai-sdk/openai":"^4.0.30","@copilotkit/runtime":"^1.66.2","zod":"^4.4.3"},"devDependencies":{"vitest":"^4.1.10"},"scripts":{"test":"vitest run"}}
