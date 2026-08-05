@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
+import { CopilotKitProvider } from '@copilotkit/react-core/v2';
 import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog, AssistantLauncher } from './index';
 import { useGGBRunner, useDarkMode, useAppState } from '../hooks';
 import {
@@ -12,6 +13,8 @@ import {
 import { LAYOUT } from '../config/appConfig';
 
 const EditorLayout = ({ shareId: initialShareId }) => {
+  // Agent 后端地址（未配置则不渲染助手）
+  const agentRuntimeUrl = import.meta.env.VITE_AGENT_RUNTIME_URL;
   const [ggbApplet, setGgbApplet] = useState(null);
   const hasRunRef = useRef(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
@@ -288,7 +291,11 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         shareId={shareId}
       />
 
-      <AssistantLauncher />
+      {agentRuntimeUrl ? (
+        <CopilotKitProvider runtimeUrl={agentRuntimeUrl}>
+          <AssistantLauncher />
+        </CopilotKitProvider>
+      ) : null}
     </div>
   );
 };

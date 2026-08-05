@@ -1,56 +1,28 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send } from 'lucide-react';
-import useAssistantChat from '../../hooks/useAssistantChat';
+import { X } from 'lucide-react';
+import { CopilotChat } from '@copilotkit/react-core/v2';
 
 const MotionButton = motion.button;
 const MotionDiv = motion.div;
 
-const PANEL_WIDTH = 360;
-const PANEL_HEIGHT = 460;
+const PANEL_WIDTH = 380;
+const PANEL_HEIGHT = 520;
 const FAB_SIZE = 56;
 const EDGE = 24;
 
 /**
- * 圆形 logo 浮动按钮 + 矩形对话面板。
- * 复用现有 UI 令牌（--color-bg-* / --color-text-* / --color-border）与 framer-motion。
+ * 圆形 logo 浮动按钮 + 矩形对话面板（左侧边，垂直居中）。
+ * 面板内部用 @copilotkit/react-core 的 CopilotChat 接入真实后端。
  *
  * @param {object} [options]
- * @param {(text: string) => Promise<string|object>} [options.replyer] - 回复器（可空，走 mock）
- * @param {object} [options.labels] - { title, placeholder, inputPlaceholder }
+ * @param {object} [options.labels] - { title, placeholder }
  */
-const AssistantLauncher = ({ replyer, labels = {} }) => {
-  const { isOpen, toggle, close, messages, isTyping, send } =
-    useAssistantChat({ replyer });
+const AssistantLauncher = ({ labels = {} }) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [input, setInput] = useState('');
-  const inputRef = useRef(null);
-  const listRef = useRef(null);
-
-  useEffect(() => {
-    if (isOpen) {
-      inputRef.current?.focus();
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    const el = listRef.current;
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
-  }, [messages, isTyping]);
-
-  const handleSubmit = useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!input.trim()) {
-        return;
-      }
-      send(input);
-      setInput('');
-    },
-    [input, send]
-  );
+  const close = useCallback(() => setIsOpen(false), []);
+  const toggle = useCallback(() => setIsOpen((v) => !v), []);
 
   return (
     <>
@@ -104,90 +76,15 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
               </MotionButton>
             </div>
 
-            {/* Messages */}
-            <div
-              ref={listRef}
-              className="flex-1 overflow-auto px-4 py-3 space-y-2"
-            >
-              {messages.length === 0 && (
-                <div
-                  className="text-center text-xs py-6"
-                  style={{ color: 'var(--color-text-tertiary)' }}
-                >
-                  {labels.placeholder || '输入想构造的几何图形…'}
-                </div>
-              )}
-              {messages.map((m) => (
-                <div
-                  key={m.id}
-                  className={m.role === 'user' ? 'flex justify-end' : 'flex justify-start'}
-                >
-                  <div
-                    className="max-w-[80%] px-3 py-2 rounded-2xl text-sm whitespace-pre-wrap break-words"
-                    style={
-                      m.role === 'user'
-                        ? {
-                            backgroundColor: 'var(--color-bg-tertiary)',
-                            color: 'var(--color-text-primary)'
-                          }
-                        : {
-                            backgroundColor: 'var(--color-bg-primary)',
-                            color: 'var(--color-text-primary)',
-                            border: '1px solid var(--color-border)'
-                          }
-                    }
-                  >
-                    {m.content}
-                  </div>
-                </div>
-              ))}
-              {isTyping && (
-                <div className="flex justify-start">
-                  <div
-                    className="px-3 py-2 rounded-2xl text-sm"
-                    style={{
-                      backgroundColor: 'var(--color-bg-primary)',
-                      color: 'var(--color-text-tertiary)',
-                      border: '1px solid var(--color-border)'
-                    }}
-                  >
-                    正在思考…
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Input */}
-            <form
-              onSubmit={handleSubmit}
-              className="p-3 border-t flex gap-2 shrink-0"
-              style={{ borderColor: 'var(--color-border)' }}
-            >
-              <input
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder={labels.inputPlaceholder || '输入消息…'}
-                className="flex-1 px-3 py-2 rounded-xl text-sm outline-none"
-                style={{
-                  backgroundColor: 'var(--color-bg-primary)',
-                  color: 'var(--color-text-primary)',
-                  border: '1px solid var(--color-border)'
+            {/* CopilotChat（真 AI 聊天，自带输入框与流式） */}
+            <div className="flex-1 min-h-0">
+              <CopilotChat
+                labels={{
+                  title: labels.title || 'GGBPuppy 助手',
+                  placeholder: labels.placeholder || '输入想构造的几何图形…'
                 }}
               />
-              <MotionButton
-                type="submit"
-                whileTap={{ scale: 0.95 }}
-                className="p-2 rounded-xl flex items-center justify-center"
-                style={{
-                  backgroundColor: 'var(--color-bg-tertiary)',
-                  color: 'var(--color-text-primary)'
-                }}
-                title="发送"
-              >
-                <Send size={18} />
-              </MotionButton>
-            </form>
+            </div>
           </MotionDiv>
         )}
       </AnimatePresence>
