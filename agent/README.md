@@ -22,6 +22,29 @@ npm test          # vitest run
 
 当前覆盖：`model` 工厂、`agent` 装配、`runtime` 装配、Worker 入口集成冒烟（CORS + 装配）。全部不依赖真实 LLM / API key。
 
+## 本地端到端验证（已跑通）
+
+```bash
+cd agent
+npm i
+node dev-server.mjs            # 起本地后端 http://127.0.0.1:8787/api/copilotkit（读 .dev.vars）
+# 另开终端
+npm run dev                     # 起前端，.env.development 指向 127.0.0.1:8787
+node scripts/e2e-assistant.mjs  # 自动化：点 logo → 输入 → 验证真回复
+```
+
+已验证：前端 CopilotChat → 本地后端 → BuiltInAgent → 第三方 API → 真回复。
+
+## 已知问题：Cloudflare Worker (workerd) 兼容
+
+`wrangler dev` 跑 `@copilotkit/runtime` 会报 `createRequire` 兼容错误（`nodejs_compat` / `nodejs_compat_v2` 均无法解决）。
+这是 `@copilotkit/runtime` 在 workerd 上的真实限制（官方 cf-workers 示例未必实测可跑）。
+
+因此当前后端用 **Node 运行时**（`dev-server.mjs`）跑通并验证。部署到公网有两个选项：
+1. 研究 `@copilotkit/runtime` 的 Worker 适配 / 等待官方修复后再 `wrangler deploy`。
+2. 用 Node 托管（VPS / Railway / Fly.io 等）跑 `dev-server.mjs`，前端指向其公网地址。
+
+
 ## 部署
 
 ```bash
