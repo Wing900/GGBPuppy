@@ -7,3 +7,4 @@ export { default as EmbedLayout } from './EmbedLayout';
 export { default as ShareDialog } from './ShareDialog';
 export { default as DownloadMenu } from './DownloadMenu';
 export { default as PromptDialog } from './PromptDialog';
+export { default as AssistantLauncher } from './assistant/AssistantLauncher';

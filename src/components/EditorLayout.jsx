@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog } from './index';
+import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog, AssistantLauncher } from './index';
 import { useGGBRunner, useDarkMode, useAppState } from '../hooks';
 import {
   createShare,
@@ -287,6 +287,8 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         onClose={() => setShowShareDialog(false)}
         shareId={shareId}
       />
+
+      <AssistantLauncher />
     </div>
   );
 };
