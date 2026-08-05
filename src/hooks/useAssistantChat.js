@@ -56,6 +56,9 @@ const useAssistantChat = ({ replyer, initialOpen = false } = {}) => {
         ...prev,
         { id: nextId(), role: 'assistant', content: String(reply) }
       ]);
+    } catch (error) {
+      // 第三方回复器失败不应让 UI 崩溃：记录但不追加消息
+      console.warn('Assistant reply failed:', error);
     } finally {
       setIsTyping(false);
     }
