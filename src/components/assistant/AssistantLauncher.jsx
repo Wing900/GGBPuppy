@@ -57,14 +57,14 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
       <AnimatePresence>
         {isOpen && (
           <MotionDiv
-            initial={{ opacity: 0, y: 16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
+            initial={{ opacity: 0, x: -12, y: '-50%', scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, y: '-50%', scale: 1 }}
+            exit={{ opacity: 0, x: -12, y: '-50%', scale: 0.98 }}
             transition={{ duration: 0.2 }}
             className="fixed z-50 flex flex-col overflow-hidden rounded-2xl"
             style={{
-              left: EDGE,
-              bottom: EDGE + FAB_SIZE + 16,
+              left: EDGE + FAB_SIZE + 16,
+              top: '50%',
               width: PANEL_WIDTH,
               maxWidth: 'calc(100vw - 48px)',
               height: PANEL_HEIGHT,
@@ -198,7 +198,7 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
         className="fixed z-50 overflow-hidden rounded-full"
         style={{
           left: EDGE,
-          bottom: EDGE,
+          top: 'calc(50% - 28px)',
           width: FAB_SIZE,
           height: FAB_SIZE,
           backgroundColor: 'var(--color-bg-secondary)',
