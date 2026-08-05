@@ -63,7 +63,7 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
             transition={{ duration: 0.2 }}
             className="fixed z-50 flex flex-col overflow-hidden rounded-2xl"
             style={{
-              right: EDGE,
+              left: EDGE,
               bottom: EDGE + FAB_SIZE + 16,
               width: PANEL_WIDTH,
               maxWidth: 'calc(100vw - 48px)',
@@ -197,7 +197,7 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
         whileHover={{ scale: 1.05 }}
         className="fixed z-50 overflow-hidden rounded-full"
         style={{
-          right: EDGE,
+          left: EDGE,
           bottom: EDGE,
           width: FAB_SIZE,
           height: FAB_SIZE,
