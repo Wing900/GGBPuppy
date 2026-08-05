@@ -12,6 +12,36 @@
 
 换 provider 只改这三个值，不改代码。
 
+## Cloudflare Worker 部署（已解决 workerd 兼容）
+
+`wrangler.toml` 必须包含 `define`，否则 workerd 起不来：
+
+```toml
+name = "ggbpuppy-agent"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+# 关键：workerd 不提供 import.meta.url。esbuild 打 CJS 依赖（@copilotkit/runtime 等）时
+# 会生成顶层 createRequire(import.meta.url)，在 workerd 里 import.meta.url 为 undefined 而崩溃。
+# define 把它替换为有效路径即可。
+define = { "import.meta.url" = "\"file:///worker.js\"" }
+```
+
+> ⚠️ `wrangler.toml` 被 `.gitignore` 忽略（含敏感配置），部署前需手动重建上述文件。
+
+## 部署步骤
+
+```bash
+cd agent
+npx wrangler login          # 需浏览器登录 Cloudflare
+npx wrangler secret put OPENAI_API_KEY     # 粘贴 API key
+npx wrangler secret put OPENAI_BASE_URL    # 如 https://api.deepseek.com/v1
+npx wrangler secret put OPENAI_MODEL       # 如 deepseek-chat（模型名务必以实际端点支持为准）
+npx wrangler deploy         # 产出 https://<worker>.workers.dev/api/copilotkit
+```
+
+前端 `VITE_AGENT_RUNTIME_URL` 指向该 worker 地址。
+
 ## 本地运行测试
 
 ```bash
@@ -24,25 +54,23 @@ npm test          # vitest run
 
 ## 本地端到端验证（已跑通）
 
+方式 A（Cloudflare 运行时，推荐）：
+
 ```bash
 cd agent
-npm i
-node dev-server.mjs            # 起本地后端 http://127.0.0.1:8787/api/copilotkit（读 .dev.vars）
+npx wrangler dev            # 起本地 worker（含 define 修复）
 # 另开终端
-npm run dev                     # 起前端，.env.development 指向 127.0.0.1:8787
+npm run dev                 # 起前端，.env.development 指向 127.0.0.1:8787
 node scripts/e2e-assistant.mjs  # 自动化：点 logo → 输入 → 验证真回复
 ```
 
-已验证：前端 CopilotChat → 本地后端 → BuiltInAgent → 第三方 API → 真回复。
+方式 B（纯 Node 运行时，绕开 workerd）：
 
-## 已知问题：Cloudflare Worker (workerd) 兼容
+```bash
+cd agent && node dev-server.mjs   # 起 http://127.0.0.1:8787/api/copilotkit（读 .dev.vars）
+```
 
-`wrangler dev` 跑 `@copilotkit/runtime` 会报 `createRequire` 兼容错误（`nodejs_compat` / `nodejs_compat_v2` 均无法解决）。
-这是 `@copilotkit/runtime` 在 workerd 上的真实限制（官方 cf-workers 示例未必实测可跑）。
-
-因此当前后端用 **Node 运行时**（`dev-server.mjs`）跑通并验证。部署到公网有两个选项：
-1. 研究 `@copilotkit/runtime` 的 Worker 适配 / 等待官方修复后再 `wrangler deploy`。
-2. 用 Node 托管（VPS / Railway / Fly.io 等）跑 `dev-server.mjs`，前端指向其公网地址。
+两种方式均已验证：前端 CopilotChat → 后端 → BuiltInAgent → 第三方 API → 真回复。
 
 
 ## 部署
