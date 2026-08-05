@@ -61,10 +61,12 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
             animate={{ opacity: 1, x: 0, y: '-50%', scale: 1 }}
             exit={{ opacity: 0, x: -12, y: '-50%', scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="fixed z-50 flex flex-col overflow-hidden rounded-2xl"
+            className="flex flex-col overflow-hidden rounded-2xl"
             style={{
+              position: 'fixed',
               left: EDGE + FAB_SIZE + 16,
               top: '50%',
+              zIndex: 50,
               width: PANEL_WIDTH,
               maxWidth: 'calc(100vw - 48px)',
               height: PANEL_HEIGHT,
@@ -195,12 +197,14 @@ const AssistantLauncher = ({ replyer, labels = {} }) => {
         onClick={toggle}
         whileTap={{ scale: 0.92 }}
         whileHover={{ scale: 1.05 }}
-        className="fixed z-50 overflow-hidden rounded-full"
+        className="overflow-hidden rounded-full"
         style={{
+          position: 'fixed',
           left: EDGE,
           top: 'calc(50% - 28px)',
           width: FAB_SIZE,
           height: FAB_SIZE,
+          zIndex: 50,
           backgroundColor: 'var(--color-bg-secondary)',
           border: '1px solid var(--color-border)',
           boxShadow: '0 6px 20px rgba(0,0,0,0.15)'
