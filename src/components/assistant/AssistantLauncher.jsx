@@ -33,7 +33,7 @@ const AssistantLauncher = ({ labels = {} }) => {
             animate={{ opacity: 1, x: 0, y: '-50%', scale: 1 }}
             exit={{ opacity: 0, x: -12, y: '-50%', scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col overflow-hidden rounded-2xl"
+            className="flex flex-col overflow-hidden rounded-lg"
             style={{
               position: 'fixed',
               left: EDGE + FAB_SIZE + 16,

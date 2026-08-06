@@ -76,7 +76,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-          className="absolute right-0 top-14 w-72 rounded-2xl shadow-xl z-50 overflow-hidden"
+          className="absolute right-0 top-14 w-72 rounded-lg shadow-xl z-50 overflow-hidden"
           style={{
             backgroundColor: 'var(--color-bg-secondary)',
             border: '1px solid var(--color-border)',

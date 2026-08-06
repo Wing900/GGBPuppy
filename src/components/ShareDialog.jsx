@@ -72,7 +72,7 @@ const ShareDialog = ({ isOpen, onClose, shareId }) => {
             style={{ width: SHARE_DIALOG.panelWidth, maxWidth: SHARE_DIALOG.panelMaxWidth }}
           >
             <div
-              className="rounded-2xl overflow-hidden"
+              className="rounded-lg overflow-hidden"
               style={{
                 backgroundColor: 'var(--color-bg-secondary)',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)'

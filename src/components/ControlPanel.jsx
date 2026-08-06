@@ -19,7 +19,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={onDecompile}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -31,7 +31,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={onClearCanvas}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -43,7 +43,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={onClear}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -55,7 +55,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={isRunning ? onStop : onRun}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-lg hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
