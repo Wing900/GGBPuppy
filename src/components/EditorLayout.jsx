@@ -241,8 +241,9 @@ const EditorLayout = ({ shareId: initialShareId }) => {
             className="editor-scroll-container"
             style={{
               height: LAYOUT.editorHeight,
-              border: '1px solid var(--color-border)',
+              border: '1px solid rgba(var(--text-secondary-rgb), 0.2)',
               borderRadius: 0,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
               overflow: 'auto',
               overscrollBehavior: 'contain'
             }}
@@ -268,7 +269,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
           </div>
         </div>
 
-        <div className="overflow-hidden flex flex-col">
+        <div className="overflow-hidden flex flex-col" style={{ border: '1px solid rgba(var(--text-secondary-rgb), 0.2)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
           <GGBViewer key={enable3D ? '3d' : '2d'} enable3D={enable3D} onReady={handleGGBReady} />
         </div>
       </main>

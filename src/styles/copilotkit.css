@@ -1,0 +1,43 @@
+/* ══════════════════════════════════════════
+   CopilotChat 样式覆盖（去圆角 + 输入框收敛 + 消息间距）
+   作用域：[data-copilotkit]
+   ══════════════════════════════════════════ */
+
+/* 去圆角：CopilotKit 用 --radius 控制圆角 */
+[data-copilotkit] {
+  --radius: 0px;
+}
+
+/* 所有圆角 class 强制去圆 */
+[data-copilotkit] .cpk\:rounded-full,
+[data-copilotkit] .cpk\:rounded-lg,
+[data-copilotkit] .cpk\:rounded-xl,
+[data-copilotkit] .cpk\:rounded-md,
+[data-copilotkit] .cpk\:rounded-sm,
+[data-copilotkit] .cpk\:rounded-\[18px\],
+[data-copilotkit] .cpk\:rounded-\[28px\] {
+  border-radius: 0 !important;
+}
+
+/* 输入框：缩小 + 去圆 */
+[data-copilotkit] textarea {
+  border-radius: 0 !important;
+  min-height: 40px !important;
+  padding: 8px 12px !important;
+}
+
+/* 输入框容器：去圆 */
+[data-copilotkit] .cpk\:bg-muted,
+[data-copilotkit] .cpk\:bg-secondary {
+  border-radius: 0 !important;
+}
+
+/* 消息列表与输入框之间留间距 */
+[data-copilotkit] [data-streamdown] {
+  margin-bottom: 12px;
+}
+
+/* 消息气泡去圆 */
+[data-copilotkit] [class*="rounded"] {
+  border-radius: 0 !important;
+}
