@@ -16,5 +16,8 @@ export function createModel(config) {
     baseURL: config.baseURL,
     apiKey: config.apiKey
   });
-  return provider(config.model);
+  // AI SDK 5 的 createOpenAI 默认走 responses API（v4 规范），
+  // 第三方 OpenAI 兼容端点（Ollama/DeepSeek 等）只实现 chat completions（v2 规范）。
+  // 必须显式用 provider.chat() 切到 chat completions。
+  return provider.chat(config.model);
 }

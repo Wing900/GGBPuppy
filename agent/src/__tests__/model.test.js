@@ -1,7 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 
 vi.mock('@ai-sdk/openai', () => ({
-  createOpenAI: vi.fn(() => (modelId) => ({ id: modelId, _provider: 'mock' }))
+  createOpenAI: vi.fn(() => ({
+    chat: (modelId) => ({ id: modelId, _provider: 'mock-chat' })
+  }))
 }));
 
 import { createOpenAI } from '@ai-sdk/openai';
