@@ -48,7 +48,7 @@ try {
   }
   const target = handles[handles.length - 1];
   await target.click();
-  await target.type('Reply with exactly the single word HELLO', { delay: 5 });
+  await target.type('用GeoGebra画一个三角形的外接圆，把脚本写入编辑器并执行', { delay: 5 });
 
   // 3. 发送（Enter）
   await page.keyboard.press('Enter');
@@ -63,8 +63,9 @@ try {
       found = 'ERROR: ' + bodyText.slice(-400);
       break;
     }
-    if (bodyText.toLowerCase().includes('hello') || bodyText.toLowerCase().includes('circumcircle')) {
-      found = 'REPLY: ' + bodyText.slice(-400);
+    const lower = bodyText.toLowerCase();
+    if (lower.includes('write_code') || lower.includes('run_code') || lower.includes('polygon') || lower.includes('circumcircle')) {
+      found = 'TOOLS/CODE: ' + bodyText.slice(-500);
       break;
     }
   }
@@ -77,5 +78,9 @@ try {
   console.log('=== RESULT:', found || 'NO REPLY / NO ERROR (timeout)');
   console.log('HELLO in body:', text.toLowerCase().includes('hello'));
 } finally {
-  await browser.close();
+  try {
+    await browser.close();
+  } catch (e) {
+    console.log('browser close warn:', e.message);
+  }
 }
