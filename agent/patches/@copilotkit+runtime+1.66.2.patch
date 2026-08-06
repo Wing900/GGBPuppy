@@ -1,0 +1,26 @@
+diff --git a/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.cjs b/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.cjs
+index 777c812..bdb4e2a 100644
+--- a/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.cjs
++++ b/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.cjs
+@@ -64,7 +64,7 @@ function createSseEventResponse({ request, observableFactory, debugEventBus, age
+ 							...summarizeEvent(event)
+ 						}, "Event emitted");
+ 					}
+-					await writer.write(encoder.encode(event));
++					await writer.write(encoder.encodeBinary(event));
+ 				} catch (error) {
+ 					if (error instanceof Error && error.name === "AbortError") streamClosed = true;
+ 					else {
+diff --git a/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.mjs b/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.mjs
+index 6baf85e..eb525b8 100644
+--- a/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.mjs
++++ b/node_modules/@copilotkit/runtime/dist/v2/runtime/handlers/shared/sse-response.mjs
+@@ -63,7 +63,7 @@ function createSseEventResponse({ request, observableFactory, debugEventBus, age
+ 							...summarizeEvent(event)
+ 						}, "Event emitted");
+ 					}
+-					await writer.write(encoder.encode(event));
++					await writer.write(encoder.encodeBinary(event));
+ 				} catch (error) {
+ 					if (error instanceof Error && error.name === "AbortError") streamClosed = true;
+ 					else {
