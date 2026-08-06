@@ -29,6 +29,20 @@ define = { "import.meta.url" = "\"file:///worker.js\"" }
 
 > ⚠️ `wrangler.toml` 被 `.gitignore` 忽略（含敏感配置），部署前需手动重建上述文件。
 
+### 两个额外的 workerd 兼容修复（重要）
+
+**1. @copilotkit/runtime 流式 bug（patch-package 持久化）**
+
+workerd 的 Web stream 严格要求 `Uint8Array` chunk。@copilotkit/runtime 的 `sse-response` 用了 `encoder.encode()`（返回 string），在 Node 宽松环境能跑、在 workerd 直接报 `HTTP 500: {"error":"Received non-Uint8Array chunk"}`。
+
+修复：`agent/patches/@copilotkit+runtime+1.66.2.patch` 把 `encoder.encode(event)` 改成 `encoder.encodeBinary(event)`（后者用 TextEncoder 返回 Uint8Array）。`package.json` 的 `postinstall: patch-package` 会在 `npm install` 后自动应用。
+
+**2. @ai-sdk/openai 必须用 3.x + provider.chat()**
+
+@copilotkit/runtime 依赖 `ai@^6`，只接受 `specificationVersion: "v2"` 的 model。
+- `@ai-sdk/openai@4.x` 返回 v4 spec（responses API），BuiltInAgent 直接报 `Unsupported model version v4 ... only supports specification version v2`。**必须锁 3.x**（`@ai-sdk/openai@^3.0.90`）。
+- `createModel` 必须用 `provider.chat(model)` 而非 `provider(model)`（后者默认走 responses，第三方端点只实现 chat completions）。
+
 ## 部署步骤
 
 ```bash
