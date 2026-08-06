@@ -100,7 +100,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
             }}
           >
             <div
-              className="rounded-lg overflow-hidden flex flex-col"
+              className="rounded-none overflow-hidden flex flex-col"
               style={{
                 backgroundColor: 'var(--color-bg-secondary)',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
@@ -124,7 +124,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                 <MotionButton
                   onClick={onClose}
                   whileTap={{ scale: 0.9 }}
-                  className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
+                  className="p-1.5 rounded-none hover:bg-black/5 dark:hover:bg-white/5"
                   style={{ color: 'var(--color-text-secondary)' }}
                 >
                   <X size={18} />
@@ -143,7 +143,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                 )}
 
                 <div
-                  className="relative rounded-xl p-4"
+                  className="relative rounded-none p-4"
                   style={{
                     backgroundColor: 'var(--color-bg-primary)',
                     border: '1px solid var(--color-border)',
@@ -185,7 +185,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
                   onClick={copyToClipboard}
                   disabled={loading || error || !content}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-colors"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-none text-sm font-medium transition-colors"
                   style={{
                     backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : 'var(--color-bg-primary)',
                     color: copied ? '#22c55e' : 'var(--color-text-primary)',

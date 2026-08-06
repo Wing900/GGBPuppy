@@ -242,7 +242,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
             style={{
               height: LAYOUT.editorHeight,
               border: '1px solid var(--color-border)',
-              borderRadius: '8px',
+              borderRadius: 0,
               overflow: 'auto',
               overscrollBehavior: 'contain'
             }}

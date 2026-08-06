@@ -19,7 +19,7 @@ const TimingSettingsTab = ({ isDark, interval, onIntervalChange }) => {
             执行间隔
           </span>
           <span
-            className="text-lg font-mono font-semibold px-3 py-1 rounded-xl"
+            className="text-lg font-mono font-semibold px-3 py-1 rounded-none"
             style={{
               color: 'var(--color-text-primary)',
               backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'
@@ -41,7 +41,7 @@ const TimingSettingsTab = ({ isDark, interval, onIntervalChange }) => {
           step={INTERVAL_RANGE.step}
           value={interval}
           onChange={(e) => onIntervalChange(parseFloat(e.target.value))}
-          className="w-full h-2 rounded-xl appearance-none cursor-pointer"
+          className="w-full h-2 rounded-none appearance-none cursor-pointer"
           style={{
             backgroundColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)',
             accentColor: 'var(--color-text-primary)'
@@ -60,7 +60,7 @@ const TimingSettingsTab = ({ isDark, interval, onIntervalChange }) => {
             <button
               key={val}
               onClick={() => onIntervalChange(val)}
-              className="flex-1 py-2 text-xs font-medium rounded-xl transition-all"
+              className="flex-1 py-2 text-xs font-medium rounded-none transition-all"
               style={{
                 backgroundColor: isActive
                   ? (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)')

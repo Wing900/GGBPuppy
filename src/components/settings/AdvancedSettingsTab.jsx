@@ -23,7 +23,7 @@ const AdvancedSettingsTab = ({ isDark, enable3D, onEnable3DChange }) => {
         </div>
         <button
           onClick={() => onEnable3DChange(!enable3D)}
-          className="px-3 py-2 text-xs font-medium rounded-xl transition-all"
+          className="px-3 py-2 text-xs font-medium rounded-none transition-all"
           style={{
             backgroundColor: enable3D
               ? (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)')

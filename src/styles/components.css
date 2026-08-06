@@ -9,7 +9,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: rgba(var(--border-rgb), 0.1);
-  border-radius: var(--radius-full);
+  border-radius: 0;
 }
 
 .dark ::-webkit-scrollbar-thumb {
@@ -28,7 +28,7 @@ input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
-  border-radius: 12px;
+  border-radius: 0;
   outline: none;
 }
 

@@ -8,7 +8,7 @@ const SettingsTabButton = ({ Icon, label, active, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className="flex-1 flex items-center justify-center gap-2 px-4 py-3.5 text-sm font-medium transition-all relative"
+      className="flex-1 flex items-center justify-center gap-2 px-4 py-4 text-base font-medium transition-all relative"
       style={{
         color: active ? 'var(--color-text-primary)' : 'var(--color-text-secondary)'
       }}

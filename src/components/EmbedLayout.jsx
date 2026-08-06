@@ -287,7 +287,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
               <button
                 type="button"
                 onClick={handleReload}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-none text-sm font-medium cursor-pointer"
                 style={{
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-bg-secondary)'
@@ -300,7 +300,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
                 href={buildEditUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-none text-sm font-medium"
                 style={{
                   color: 'var(--color-text-primary)',
                   backgroundColor: 'var(--color-bg-secondary)'
@@ -332,7 +332,7 @@ const EmbedLayout = ({ shareId, isFullscreen, hideSidebar }) => {
             href={buildEditUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-black/10"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-none text-sm font-medium transition-colors hover:bg-black/10"
             style={{
               color: 'var(--color-text-primary)',
               backgroundColor: 'rgba(255, 255, 255, 0.9)',

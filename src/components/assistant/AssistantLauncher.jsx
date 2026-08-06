@@ -33,7 +33,7 @@ const AssistantLauncher = ({ labels = {} }) => {
             animate={{ opacity: 1, x: 0, y: '-50%', scale: 1 }}
             exit={{ opacity: 0, x: -12, y: '-50%', scale: 0.98 }}
             transition={{ duration: 0.2 }}
-            className="flex flex-col overflow-hidden rounded-lg"
+            className="flex flex-col overflow-hidden rounded-none"
             style={{
               position: 'fixed',
               left: EDGE + FAB_SIZE + 16,
@@ -69,7 +69,7 @@ const AssistantLauncher = ({ labels = {} }) => {
               <MotionButton
                 onClick={close}
                 whileTap={{ scale: 0.9 }}
-                className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
+                className="p-1.5 rounded-none hover:bg-black/5 dark:hover:bg-white/5"
                 style={{ color: 'var(--color-text-secondary)' }}
               >
                 <X size={18} />

@@ -13,11 +13,11 @@ const HeaderLeftActions = ({ githubUrl, onOpenPrompt }) => {
         rel="noopener noreferrer"
         title="GitHub"
       >
-        <Github size={20} />
+        <Github size={22} />
       </IconButton>
 
       <IconButton onClick={onOpenPrompt} title="AI Prompt">
-        <MessageSquareText size={20} />
+        <MessageSquareText size={22} />
       </IconButton>
     </div>
   );

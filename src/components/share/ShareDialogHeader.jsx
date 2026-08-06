@@ -21,7 +21,7 @@ const ShareDialogHeader = ({ onClose }) => {
       <MotionButton
         onClick={onClose}
         whileTap={{ scale: 0.9 }}
-        className="p-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5"
+        className="p-1.5 rounded-none hover:bg-black/5 dark:hover:bg-white/5"
         style={{ color: 'var(--color-text-secondary)' }}
       >
         <X size={18} />

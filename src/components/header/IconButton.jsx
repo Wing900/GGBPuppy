@@ -18,7 +18,7 @@ const IconButton = ({ onClick, title, children, active = false, isDark = false, 
         target={target}
         rel={rel}
         whileTap={{ scale: 0.95 }}
-        className="p-2.5 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+        className="p-3 rounded-none transition-colors hover:bg-black/5 dark:hover:bg-white/5"
         style={style}
         title={title}
       >
@@ -31,7 +31,7 @@ const IconButton = ({ onClick, title, children, active = false, isDark = false, 
     <MotionButton
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
-      className="p-2.5 rounded-lg transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+      className="p-3 rounded-none transition-colors hover:bg-black/5 dark:hover:bg-white/5"
       style={style}
       title={title}
     >

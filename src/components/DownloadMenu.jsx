@@ -76,7 +76,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-          className="absolute right-0 top-14 w-72 rounded-lg shadow-xl z-50 overflow-hidden"
+          className="absolute right-0 top-14 w-72 rounded-none shadow-xl z-50 overflow-hidden"
           style={{
             backgroundColor: 'var(--color-bg-secondary)',
             border: '1px solid var(--color-border)',
@@ -107,7 +107,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
                   key={option.id}
                   onClick={() => handleExport(option)}
                   disabled={loading !== null}
-                  className="w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all text-left"
+                  className="w-full flex items-center gap-3 px-3 py-3 rounded-none transition-all text-left"
                   style={{
                     backgroundColor: 'transparent',
                     opacity: loading !== null && !isLoading ? 0.5 : 1
@@ -124,7 +124,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
                   }}
                 >
                   <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    className="w-9 h-9 rounded-none flex items-center justify-center shrink-0"
                     style={{
                       backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.05)'
                     }}

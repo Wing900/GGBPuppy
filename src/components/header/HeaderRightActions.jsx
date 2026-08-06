@@ -31,7 +31,7 @@ const HeaderRightActions = ({
           active={showDownload}
           isDark={isDark}
         >
-          <Download size={20} />
+          <Download size={22} />
         </IconButton>
 
         <DownloadMenu
@@ -46,7 +46,7 @@ const HeaderRightActions = ({
 
       {onShare && (
         <IconButton onClick={onShare} title="分享">
-          <Share2 size={20} />
+          <Share2 size={22} />
         </IconButton>
       )}
 
@@ -57,7 +57,7 @@ const HeaderRightActions = ({
           active={showSettings}
           isDark={isDark}
         >
-          <Settings size={20} />
+          <Settings size={22} />
         </IconButton>
 
         <SettingsPanel
@@ -76,7 +76,7 @@ const HeaderRightActions = ({
         onClick={onToggleDark}
         title={isDark ? '亮色模式' : '暗色模式'}
       >
-        {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        {isDark ? <Sun size={22} /> : <Moon size={22} />}
       </IconButton>
     </div>
   );
