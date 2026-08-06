@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { inspectConstruction } from '../inspectConstruction';
+import { readCanvasObjects } from '../readCanvasObjects';
 
-describe('inspectConstruction', () => {
+describe('readCanvasObjects', () => {
   it('ggbApplet 为 null 返回 ready=false', () => {
-    const res = inspectConstruction(null);
+    const res = readCanvasObjects(null);
     expect(res).toMatchObject({ ready: false, objectCount: 0, objects: [] });
   });
 
@@ -14,7 +14,7 @@ describe('inspectConstruction', () => {
       getObjectType: (name) => (name === 'c' ? 'circle' : 'point'),
       getVisible: (name) => name !== 'c'
     };
-    const res = inspectConstruction(applet);
+    const res = readCanvasObjects(applet);
     expect(res.ready).toBe(true);
     expect(res.objectCount).toBe(3);
     expect(res.objects[0]).toMatchObject({
@@ -33,7 +33,7 @@ describe('inspectConstruction', () => {
       getObjectType: () => 'point',
       getVisible: () => true
     };
-    const res = inspectConstruction(applet);
+    const res = readCanvasObjects(applet);
     expect(res.objects[0]).toMatchObject({ name: 'A', commandString: null, type: 'point', visible: true });
   });
 
@@ -43,7 +43,7 @@ describe('inspectConstruction', () => {
         throw new Error('boom');
       }
     };
-    const res = inspectConstruction(applet);
+    const res = readCanvasObjects(applet);
     expect(res).toMatchObject({ ready: true, objectCount: 0, objects: [], error: 'getAllObjectNames failed' });
   });
 });

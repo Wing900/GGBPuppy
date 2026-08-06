@@ -1,7 +1,7 @@
 import { useFrontendTool } from '@copilotkit/react-core/v2';
 import { z } from 'zod';
-import { execFast } from '../lib/agent/execFast';
-import { inspectConstruction } from '../lib/agent/inspectConstruction';
+import { executeGgbCode } from './executeGgbCode';
+import { readCanvasObjects } from './readCanvasObjects';
 
 /**
  * 注册 4 个前端工具，让 CopilotKit agent 能读写/执行/查看 GeoGebra 画布。
@@ -20,7 +20,7 @@ import { inspectConstruction } from '../lib/agent/inspectConstruction';
  *   setCode: (code: string) => void
  * }} deps 注入的运行环境访问器
  */
-export function useGgbAgentTools({ getGgbApplet, getCode, setCode }) {
+export function useAgentTools({ getGgbApplet, getCode, setCode }) {
   useFrontendTool({
     name: 'read_code',
     description:
@@ -67,7 +67,7 @@ export function useGgbAgentTools({ getGgbApplet, getCode, setCode }) {
         if (reset) {
           applet.reset();
         }
-        const result = execFast(applet, code ?? getCode());
+        const result = executeGgbCode(applet, code ?? getCode());
         return {
           ok: result.ok,
           total: result.total,
@@ -91,7 +91,7 @@ export function useGgbAgentTools({ getGgbApplet, getCode, setCode }) {
         return { ready: false, objectCount: 0, objects: [] };
       }
       try {
-        return inspectConstruction(applet);
+        return readCanvasObjects(applet);
       } catch (error) {
         return { ok: false, error: String(error?.message || error) };
       }

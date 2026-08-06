@@ -1,4 +1,4 @@
-import { parseCommandsWithLineIndex } from '../code';
+import { parseCommandsWithLineIndex } from '../lib/code';
 
 /**
  * 无延时逐行执行 GeoGebra 指令，收集每行成功/失败。
@@ -19,7 +19,7 @@ import { parseCommandsWithLineIndex } from '../code';
  *   - 失败不中断，继续执行后续行
  *   - 不调用 ggbApplet.reset()（由调用方决定是否先 reset）
  */
-export function execFast(ggbApplet, code) {
+export function executeGgbCode(ggbApplet, code) {
   const commands = parseCommandsWithLineIndex(code);
   const failed = [];
   const executed = [];

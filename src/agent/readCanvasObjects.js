@@ -10,7 +10,7 @@
  *   error?: string
  * }}
  */
-export function inspectConstruction(ggbApplet) {
+export function readCanvasObjects(ggbApplet) {
   if (!ggbApplet) {
     return { ready: false, objectCount: 0, objects: [] };
   }

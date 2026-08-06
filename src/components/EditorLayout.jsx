@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { CopilotKitProvider } from '@copilotkit/react-core/v2';
 import { CodeEditor, GGBViewer, ControlPanel, AppHeader, ShareDialog, AssistantLauncher } from './index';
-import GgbAgentBridge from '../agent/GgbAgentBridge';
+import AgentToolConnector from '../agent/AgentToolConnector';
 import { useGGBRunner, useDarkMode, useAppState } from '../hooks';
 import {
   createShare,
@@ -294,7 +294,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
 
       {agentRuntimeUrl ? (
         <CopilotKitProvider runtimeUrl={agentRuntimeUrl}>
-          <GgbAgentBridge ggbApplet={ggbApplet} code={code} setCode={setCode} />
+          <AgentToolConnector ggbApplet={ggbApplet} code={code} setCode={setCode} />
           <AssistantLauncher />
         </CopilotKitProvider>
       ) : null}

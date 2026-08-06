@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useGgbAgentTools } from './useGgbAgentTools';
+import { useAgentTools } from './useAgentTools';
 
 /**
  * 在 CopilotKitProvider 内注册 agent 前端工具。
@@ -13,7 +13,7 @@ import { useGgbAgentTools } from './useGgbAgentTools';
  *   setCode: (code: string) => void
  * }} props
  */
-export function GgbAgentBridge({ ggbApplet, code, setCode }) {
+export function AgentToolConnector({ ggbApplet, code, setCode }) {
   const appletRef = useRef(ggbApplet);
   const codeRef = useRef(code);
 
@@ -25,7 +25,7 @@ export function GgbAgentBridge({ ggbApplet, code, setCode }) {
     codeRef.current = code;
   }, [code]);
 
-  useGgbAgentTools({
+  useAgentTools({
     getGgbApplet: () => appletRef.current,
     getCode: () => codeRef.current,
     setCode
@@ -34,4 +34,4 @@ export function GgbAgentBridge({ ggbApplet, code, setCode }) {
   return null;
 }
 
-export default GgbAgentBridge;
+export default AgentToolConnector;
