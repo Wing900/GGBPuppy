@@ -3,10 +3,7 @@ import IconButton from './IconButton';
 
 const HeaderLeftActions = ({ githubUrl, onOpenPrompt }) => {
   return (
-    <div
-      className="absolute top-0 flex items-center gap-2"
-      style={{ left: '-36px' }}
-    >
+    <div className="flex items-center gap-2">
       <IconButton
         href={githubUrl}
         target="_blank"
