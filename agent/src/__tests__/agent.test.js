@@ -26,6 +26,8 @@ describe('buildDefaultAgent', () => {
     expect(opts.apiKey).toBe('sk-test');
     expect(opts.model).toBeTruthy();
     expect(opts.maxSteps).toBe(8);
+    expect(opts.prompt).toBeTruthy();
+    expect(typeof opts.prompt).toBe('string');
   });
 
   it('默认 maxSteps 为 8', () => {
