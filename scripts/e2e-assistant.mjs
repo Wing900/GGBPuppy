@@ -19,7 +19,15 @@ try {
 
   // 拦截控制台，看前端是否有错误
   page.on('console', (msg) => {
-    if (msg.type() === 'error') console.log('[console.error]', msg.text().slice(0, 200));
+    if (msg.type() === 'error') console.log('[console.error]', msg.text().slice(0, 300));
+  });
+
+  // 抓所有非 2xx 响应
+  page.on('response', (res) => {
+    const s = res.status();
+    if (s >= 300) {
+      res.text().then((t) => console.log(`[http ${s}] ${res.url().slice(0,80)} => ${t.slice(0,200)}`)).catch(()=>{});
+    }
   });
 
   console.log('loading', FRONT_URL);
@@ -31,26 +39,32 @@ try {
   console.log('FAB clicked, waiting for panel...');
   await new Promise((r) => setTimeout(r, 1500));
 
-  // 2. 找 CopilotChat 的输入框（textarea 或 role=textbox）
-  const inputSel = await page.evaluate(() => {
-    const els = document.querySelectorAll('textarea, input[type="text"], [role="textbox"]');
-    return els.length ? els[els.length - 1].tagName : 'none';
-  });
-  console.log('input element:', inputSel);
-
-  await page.type('textarea', 'Reply with exactly the single word HELLO', { delay: 10 });
+  // 2. 找 CopilotChat 的输入框（面板后渲染，选最后一个 textarea；避免选到代码编辑器）
+  const handles = await page.$$('textarea');
+  console.log('textarea count:', handles.length);
+  if (!handles.length) {
+    console.log('NO textarea found - dumping body');
+    console.log(await page.evaluate(() => document.body.innerText.slice(-500)));
+  }
+  const target = handles[handles.length - 1];
+  await target.click();
+  await target.type('Reply with exactly the single word HELLO', { delay: 5 });
 
   // 3. 发送（Enter）
   await page.keyboard.press('Enter');
   console.log('sent, waiting for reply (up to 90s)...');
 
-  // 4. 轮询等待回复出现
-  let reply = '';
-  for (let i = 0; i < 90; i++) {
+  // 4. 轮询等待回复出现或错误出现
+  let found = '';
+  for (let i = 0; i < 180; i++) {
     await new Promise((r) => setTimeout(r, 1000));
     const bodyText = await page.evaluate(() => document.body.innerText || '');
-    if (bodyText.toLowerCase().includes('hello')) {
-      reply = bodyText;
+    if (bodyText.toLowerCase().includes('non-uint8array') || bodyText.toLowerCase().includes('agent execution failed')) {
+      found = 'ERROR: ' + bodyText.slice(-400);
+      break;
+    }
+    if (bodyText.toLowerCase().includes('hello') || bodyText.toLowerCase().includes('circumcircle')) {
+      found = 'REPLY: ' + bodyText.slice(-400);
       break;
     }
   }
@@ -58,9 +72,10 @@ try {
   // 截图 + 输出页面文本
   await page.screenshot({ path: '/tmp/e2e_chat.png' });
   const text = await page.evaluate(() => document.body.innerText);
-  console.log('=== PAGE TEXT (tail) ===');
-  console.log(text.slice(-1500));
-  console.log('=== REPLY FOUND HELLO:', reply.toLowerCase().includes('hello') ? 'YES' : 'NO');
+  console.log('=== PAGE TEXT FULL ===');
+  console.log(text);
+  console.log('=== RESULT:', found || 'NO REPLY / NO ERROR (timeout)');
+  console.log('HELLO in body:', text.toLowerCase().includes('hello'));
 } finally {
   await browser.close();
 }
