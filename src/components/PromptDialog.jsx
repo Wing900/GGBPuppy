@@ -132,7 +132,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
               </div>
 
               {/* Content */}
-              <div className="p-6 overflow-auto flex-1">
+              <div className="p-8 overflow-auto flex-1">
                 {PROMPT_CONFIG.description && (
                   <p
                     className="text-sm mb-4"
@@ -178,7 +178,7 @@ const PromptDialog = ({ isOpen, onClose }) => {
 
               {/* Footer */}
               <div
-                className="px-6 py-4 border-t shrink-0"
+                className="px-8 py-4 border-t shrink-0"
                 style={{ borderColor: 'var(--color-border)' }}
               >
                 <MotionButton

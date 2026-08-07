@@ -97,7 +97,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
           </div>
 
           {/* Options */}
-          <div className="p-2">
+          <div className="p-4">
             {EXPORT_OPTIONS.map((option) => {
               const Icon = option.icon;
               const isLoading = loading === option.id;

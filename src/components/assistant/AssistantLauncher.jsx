@@ -80,7 +80,9 @@ const AssistantLauncher = ({ labels = {} }) => {
               <CopilotChat
                 labels={{
                   title: labels.title || 'GGBPuppy 助手',
-                  placeholder: labels.placeholder || '输入想构造的几何图形…'
+                  placeholder: labels.placeholder || '输入想构造的几何图形…',
+                  welcomeMessageText: '',
+                  chatDisclaimerText: ''
                 }}
               />
             </div>

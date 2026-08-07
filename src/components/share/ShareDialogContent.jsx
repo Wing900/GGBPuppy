@@ -17,7 +17,7 @@ const ShareDialogContent = ({
   copiedType
 }) => {
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-8 space-y-6">
       <ShareSection icon={<Globe size={16} />} title="分享链接">
         <ShareValueRow
           value={shareUrl}

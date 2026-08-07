@@ -100,7 +100,7 @@ const SettingsPanel = ({
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-8">
                 <AnimatePresence mode="wait">
                   {settingsTab === 'timing' ? (
                     <TimingSettingsTab
