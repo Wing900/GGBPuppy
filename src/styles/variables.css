@@ -46,7 +46,7 @@
   --color-text-tertiary: rgba(var(--text-tertiary-rgb), 1);
   --color-accent: rgba(var(--accent-rgb), 1);
   --color-accent-hover: rgba(var(--accent-hover-rgb), 1);
-  --color-border: rgba(var(--border-rgb), 0.08);
+  --color-border: rgba(var(--border-rgb), 0.5);
 
   --radius-sm: 8px;
   --radius-md: 16px;
