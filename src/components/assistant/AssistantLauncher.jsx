@@ -11,6 +11,20 @@ const HALF_HIDE = -FAB_SIZE / 2; // 半遮面：露出一半
 const centerY = () =>
   typeof window !== 'undefined' ? Math.max(8, (window.innerHeight - FAB_SIZE) / 2) : 200;
 
+/** 内联 puppy SVG（不用 <img>，避免图片选中/拖拽干扰） */
+const PuppyIcon = ({ size = 56 }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
+    <g transform="translate(-10 -22) rotate(10 60 72)">
+      <path d="M30 45 L15 70 L45 70 Z" fill="#424242" />
+      <path d="M90 45 L75 70 L105 70 Z" fill="#424242" />
+      <rect x="30" y="55" width="60" height="45" rx="12" fill="#424242" />
+      <circle cx="45" cy="75" r="4" fill="#ffffff" />
+      <circle cx="75" cy="75" r="4" fill="#ffffff" />
+      <path d="M55 85 L65 85 L60 92 Z" fill="#ffffff" opacity="0.95" />
+    </g>
+  </svg>
+);
+
 /**
  * 圆形 puppy 助手按钮 + 对话面板。
  *
@@ -142,7 +156,7 @@ const AssistantLauncher = ({ labels = {} }) => {
               style={{ borderColor: 'var(--color-border)' }}
             >
               <div className="flex items-center gap-2">
-                <img src="/puppy.svg" alt="GGBPuppy" className="w-7 h-7" />
+                <PuppyIcon size={28} />
                 <span className="text-sm font-medium" style={{ color: 'var(--color-text-primary)' }}>
                   {labels.title || 'GGBPuppy 助手'}
                 </span>
@@ -188,11 +202,13 @@ const AssistantLauncher = ({ labels = {} }) => {
           border: '1px solid var(--color-border)',
           boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
           cursor: isOpen ? 'default' : 'grab',
-          touchAction: 'none'
+          touchAction: 'none',
+          userSelect: 'none',
+          WebkitUserDrag: 'none'
         }}
         title="GGBPuppy 助手"
       >
-        <img src="/puppy.svg" alt="GGBPuppy 助手" className="w-full h-full object-cover" />
+        <PuppyIcon size={FAB_SIZE} />
       </button>
     </>
   );
