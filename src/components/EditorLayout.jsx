@@ -18,6 +18,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
   const agentRuntimeUrl = import.meta.env.VITE_AGENT_RUNTIME_URL;
   const [ggbApplet, setGgbApplet] = useState(null);
   const hasRunRef = useRef(false);
+  const editorRef = useRef(null);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [shareId, setShareId] = useState(initialShareId || null);
   const [shareData, setShareData] = useState(null);
@@ -238,6 +239,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
       >
         <div className="flex flex-col gap-4">
           <div
+            ref={editorRef}
             className="editor-scroll-container"
             style={{
               height: LAYOUT.editorHeight,
@@ -296,7 +298,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
       {agentRuntimeUrl ? (
         <CopilotKitProvider runtimeUrl={agentRuntimeUrl}>
           <AgentToolConnector ggbApplet={ggbApplet} code={code} setCode={setCode} />
-          <AssistantLauncher />
+          <AssistantLauncher panelAnchorRef={editorRef} />
         </CopilotKitProvider>
       ) : null}
     </div>

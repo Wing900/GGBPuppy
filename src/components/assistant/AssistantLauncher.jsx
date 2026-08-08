@@ -40,7 +40,7 @@ const PuppyIcon = ({ size = 56 }) => (
  *   - 点 FAB（非拖动）→ 展开/收起对话框
  *   - 面板 header 可拖动；× 关闭
  */
-const AssistantLauncher = ({ labels = {} }) => {
+const AssistantLauncher = ({ labels = {}, panelAnchorRef }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [fabPos, setFabPos] = useState(() => ({ x: HALF_HIDE, y: centerY() }));
   const [panelPos, setPanelPos] = useState(null);
@@ -48,10 +48,15 @@ const AssistantLauncher = ({ labels = {} }) => {
   const dragRef = useRef(null); // { type, startX, startY, originX, originY, moved }
   const fabMoved = useRef(false);
 
-  const defaultPanelPos = useCallback(
-    () => ({ x: fabPos.x + FAB_SIZE + 8, y: 8 }),
-    [fabPos]
-  );
+  // 默认面板位置：覆盖代码区（panelAnchorRef 指向代码区容器）
+  const defaultPanelPos = useCallback(() => {
+    const el = panelAnchorRef?.current;
+    if (el) {
+      const r = el.getBoundingClientRect();
+      return { x: r.left, y: r.top };
+    }
+    return { x: fabPos.x + FAB_SIZE + 8, y: 8 };
+  }, [panelAnchorRef, fabPos]);
 
   const startDrag = useCallback(
     (type, e) => {
