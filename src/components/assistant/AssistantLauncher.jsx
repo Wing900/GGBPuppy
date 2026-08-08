@@ -24,16 +24,15 @@ function startDrag(startClientX, startClientY, origin, setPos, onMoved) {
     setPos({ x: origin.x + dx, y: origin.y + dy });
   };
   const onUp = () => {
-    document.removeEventListener('mousemove', onMove);
-    document.removeEventListener('mouseup', onUp);
-    document.removeEventListener('touchmove', onMove);
-    document.removeEventListener('touchend', onUp);
+    document.removeEventListener('pointermove', onMove);
+    document.removeEventListener('pointerup', onUp);
+    window.removeEventListener('blur', onUp);
     onMoved?.(moved);
   };
-  document.addEventListener('mousemove', onMove);
-  document.addEventListener('mouseup', onUp);
-  document.addEventListener('touchmove', onMove, { passive: false });
-  document.addEventListener('touchend', onUp);
+  // pointer 事件统一 mouse+touch；绑 document 保证任何位置松开都触发；blur 兜底窗口失焦
+  document.addEventListener('pointermove', onMove);
+  document.addEventListener('pointerup', onUp);
+  window.addEventListener('blur', onUp);
 }
 
 const AssistantLauncher = ({ labels = {} }) => {
@@ -50,7 +49,6 @@ const AssistantLauncher = ({ labels = {} }) => {
   }, []);
 
   const onFabPointerDown = useCallback((e) => {
-    e.preventDefault?.();
     const startX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
     const startY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
     fabMoved.current = false;
@@ -70,7 +68,6 @@ const AssistantLauncher = ({ labels = {} }) => {
   const onHeaderPointerDown = useCallback((e) => {
     // 点 × 按钮时不启动拖拽
     if (e.target.closest('[data-close-btn]')) return;
-    e.preventDefault?.();
     const startX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
     const startY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
     const origin = panelPos || {
