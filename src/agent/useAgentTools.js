@@ -2,6 +2,35 @@ import { useFrontendTool } from '@copilotkit/react-core/v2';
 import { z } from 'zod';
 import { executeGgbCode } from './executeGgbCode';
 import { readCanvasObjects } from './readCanvasObjects';
+import { searchGgbCommands } from './searchGgbCommands';
+
+// 模块级缓存：GGB 命令数据（public/ggbcommands/ggb_brain_slim.json）
+let ggbCommandsCache = null;
+let ggbCommandsPromise = null;
+
+/**
+ * 加载 GGB 命令数据（去重后），带模块级缓存。
+ * @returns {Promise<Array<{n: string, s: string[]}>>}
+ */
+async function loadGgbCommands() {
+  if (ggbCommandsCache) return ggbCommandsCache;
+  if (!ggbCommandsPromise) {
+    ggbCommandsPromise = (async () => {
+      const res = await fetch('/ggbcommands/ggb_brain_slim.json');
+      if (!res.ok) throw new Error(`加载 GGB 命令数据失败: ${res.status}`);
+      const raw = await res.json();
+      // 去重同名命令，合并签名
+      const byName = new Map();
+      for (const { n, s } of raw) {
+        if (!byName.has(n)) byName.set(n, { n, s: new Set() });
+        for (const sig of s) byName.get(n).s.add(sig);
+      }
+      ggbCommandsCache = [...byName.values()].map((c) => ({ n: c.n, s: [...c.s] }));
+      return ggbCommandsCache;
+    })();
+  }
+  return ggbCommandsPromise;
+}
 
 /**
  * 注册 4 个前端工具，让 CopilotKit agent 能读写/执行/查看 GeoGebra 画布。
@@ -74,6 +103,21 @@ export function useAgentTools({ getGgbApplet, getCode, setCode }) {
           succeeded: result.succeeded,
           failed: result.failed
         };
+      } catch (error) {
+        return { ok: false, error: String(error?.message || error) };
+      }
+    }
+  });
+
+  useFrontendTool({
+    name: 'search_ggb_commands',
+    description:
+      '搜索 GeoGebra 命令签名。参数 query：英文关键词（GGB 命令名是英文）。三级匹配：精确命令名 → 签名内关键词 → 编辑距离兜底（返回前 5 个拼写最接近的命令名 + 距离）。返回 { match, results }，results 每项含 { n: 命令名, s: [签名], distance? }。搜不到就换更宽泛的词再搜。',
+    parameters: z.object({ query: z.string() }),
+    handler: async ({ query }) => {
+      try {
+        const commands = await loadGgbCommands();
+        return searchGgbCommands(commands, query);
       } catch (error) {
         return { ok: false, error: String(error?.message || error) };
       }

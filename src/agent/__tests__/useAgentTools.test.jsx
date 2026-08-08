@@ -27,13 +27,14 @@ describe('useAgentTools', () => {
     registerMock.mockClear();
   });
 
-  it('注册 4 个前端工具（read/write/run/inspect）', () => {
+  it('注册 5 个前端工具（read/write/run/inspect/search）', () => {
     renderHook(() => useAgentTools(baseDeps()));
     const names = registerMock.mock.calls.map((c) => c[0].name);
     expect(names).toEqual([
       'read_code',
       'write_code',
       'run_code',
+      'search_ggb_commands',
       'inspect_construction'
     ]);
   });
@@ -98,5 +99,41 @@ describe('useAgentTools', () => {
     renderHook(() => useAgentTools(baseDeps()));
     const res = await registeredTool('inspect_construction').handler({});
     expect(res).toMatchObject({ ready: false, objectCount: 0, objects: [] });
+  });
+
+  it('search_ggb_commands 加载命令数据并返回匹配结果', async () => {
+    // mock fetch 返回 ggb_brain_slim.json 结构
+    const fetchMock = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [
+        { n: 'Circle', s: ['Circle( <Point>, <Radius Number> )'] },
+        { n: 'Incircle', s: ['Incircle( <Point>, <Point>, <Point> )'] }
+      ]
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    try {
+      renderHook(() => useAgentTools(baseDeps()));
+      const res = await registeredTool('search_ggb_commands').handler({ query: 'circle' });
+      expect(res.match).toBe('exact');
+      expect(res.results[0].n).toBe('Circle');
+      expect(fetchMock).toHaveBeenCalledWith('/ggbcommands/ggb_brain_slim.json');
+    } finally {
+      vi.unstubAllGlobals();
+    }
+  });
+
+  it('search_ggb_commands 在 fetch 失败时返回错误而非崩溃', async () => {
+    // 重置模块以清空 loadGgbCommands 的模块级缓存
+    vi.resetModules();
+    const { useAgentTools: freshUseAgentTools } = await import('../useAgentTools');
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 404 }));
+    try {
+      renderHook(() => freshUseAgentTools(baseDeps()));
+      const res = await registeredTool('search_ggb_commands').handler({ query: 'circle' });
+      expect(res.ok).toBe(false);
+      expect(res.error).toContain('加载 GGB 命令数据失败');
+    } finally {
+      vi.unstubAllGlobals();
+    }
   });
 });
