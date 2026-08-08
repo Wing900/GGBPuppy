@@ -85,7 +85,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
         >
           {/* Header */}
           <div
-            className="px-4 py-3 border-b"
+            className="px-6 py-4 border-b"
             style={{ borderColor: 'var(--color-border)' }}
           >
             <span
@@ -97,7 +97,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
           </div>
 
           {/* Options */}
-          <div className="p-4">
+          <div className="p-6">
             {EXPORT_OPTIONS.map((option) => {
               const Icon = option.icon;
               const isLoading = loading === option.id;
@@ -107,7 +107,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
                   key={option.id}
                   onClick={() => handleExport(option)}
                   disabled={loading !== null}
-                  className="w-full flex items-center gap-3 px-3 py-3 rounded-none transition-all text-left"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-none transition-all text-left"
                   style={{
                     backgroundColor: 'transparent',
                     opacity: loading !== null && !isLoading ? 0.5 : 1
@@ -171,7 +171,7 @@ const DownloadMenu = ({ isOpen, isDark, ggbApplet, enable3D, code, onClose }) =>
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="px-4 py-2 text-xs text-center"
+                className="px-6 py-2 text-xs text-center"
                 style={{
                   color: message.type === 'error' ? '#ef4444' : '#22c55e',
                   backgroundColor: message.type === 'error'

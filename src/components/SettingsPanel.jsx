@@ -58,7 +58,7 @@ const SettingsPanel = ({
             >
               {/* Header */}
               <div
-                className="flex items-center justify-between px-6 py-4 border-b shrink-0"
+                className="flex items-center justify-between px-8 py-4 border-b shrink-0"
                 style={{ borderColor: 'var(--color-border)' }}
               >
                 <div className="flex items-center gap-2">

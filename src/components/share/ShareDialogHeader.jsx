@@ -6,7 +6,7 @@ const MotionButton = motion.button;
 const ShareDialogHeader = ({ onClose }) => {
   return (
     <div
-      className="flex items-center justify-between px-6 py-4 border-b"
+      className="flex items-center justify-between px-8 py-4 border-b"
       style={{ borderColor: 'var(--color-border)' }}
     >
       <div className="flex items-center gap-2">
