@@ -102,21 +102,27 @@ describe('useAgentTools', () => {
   });
 
   it('search_ggb_commands 加载命令数据并返回匹配结果', async () => {
-    // mock fetch 返回 ggb_brain_slim.json 结构
-    const fetchMock = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => [
-        { n: 'Circle', s: ['Circle( <Point>, <Radius Number> )'] },
-        { n: 'Incircle', s: ['Incircle( <Point>, <Point>, <Point> )'] }
-      ]
-    });
+    // mock fetch：先返回 index.json 目录，再返回分类文件命令数组
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [{ id: 'geometry', label: '几何', file: 'geometry.json' }]
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => [
+          { n: 'Circle', s: ['Circle( <Point>, <Radius Number> )'] },
+          { n: 'Incircle', s: ['Incircle( <Point>, <Point>, <Point> )'] }
+        ]
+      });
     vi.stubGlobal('fetch', fetchMock);
     try {
       renderHook(() => useAgentTools(baseDeps()));
       const res = await registeredTool('search_ggb_commands').handler({ query: 'circle' });
       expect(res.match).toBe('exact');
       expect(res.results[0].n).toBe('Circle');
-      expect(fetchMock).toHaveBeenCalledWith('/ggbcommands/ggb_brain_slim.json');
+      expect(fetchMock).toHaveBeenCalledWith('/ggbcommands/index.json');
+      expect(fetchMock).toHaveBeenCalledWith('/ggbcommands/geometry.json');
     } finally {
       vi.unstubAllGlobals();
     }
@@ -131,7 +137,7 @@ describe('useAgentTools', () => {
       renderHook(() => freshUseAgentTools(baseDeps()));
       const res = await registeredTool('search_ggb_commands').handler({ query: 'circle' });
       expect(res.ok).toBe(false);
-      expect(res.error).toContain('加载 GGB 命令数据失败');
+      expect(res.error).toContain('加载 GGB 命令目录失败');
     } finally {
       vi.unstubAllGlobals();
     }

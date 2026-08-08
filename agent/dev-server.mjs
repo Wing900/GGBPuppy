@@ -26,7 +26,8 @@ const vars = loadDevVars();
 const runtime = buildRuntime({
   apiKey: vars.OPENAI_API_KEY,
   baseURL: vars.OPENAI_BASE_URL,
-  model: vars.OPENAI_MODEL
+  model: vars.OPENAI_MODEL,
+  disableThinking: vars.OPENAI_DISABLE_THINKING === 'true'
 });
 const handler = createCopilotRuntimeHandler({
   runtime,

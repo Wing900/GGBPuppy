@@ -6,6 +6,7 @@ import { lineNumbers } from '@codemirror/view';
 import { EditorState, RangeSetBuilder } from '@codemirror/state';
 import { Decoration, EditorView, ViewPlugin, placeholder, keymap, drawSelection } from '@codemirror/view';
 import { buildGgbExtensions } from './ggbLanguage';
+import { loadGgbCommands } from '../lib/ggbCommands';
 
 // 动态调整行号区域宽度
 const dynamicGutterWidth = ViewPlugin.fromClass(
@@ -86,13 +87,7 @@ const CodeEditor = ({ code, setCode, currentLine, isRunning }) => {
 
     const loadCommands = async () => {
       try {
-        const response = await fetch('/ggbcommands/ggb_brain_slim.json');
-
-        if (!response.ok) {
-          throw new Error(`Failed to load commands (${response.status})`);
-        }
-
-        const data = await response.json();
+        const data = await loadGgbCommands();
 
         if (isActive) {
           setGgbExtensions(buildGgbExtensions(Array.isArray(data) ? data : []));

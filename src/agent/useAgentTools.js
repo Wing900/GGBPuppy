@@ -3,37 +3,10 @@ import { z } from 'zod';
 import { executeGgbCode } from './executeGgbCode';
 import { readCanvasObjects } from './readCanvasObjects';
 import { searchGgbCommands } from './searchGgbCommands';
-
-// 模块级缓存：GGB 命令数据（public/ggbcommands/ggb_brain_slim.json）
-let ggbCommandsCache = null;
-let ggbCommandsPromise = null;
+import { loadGgbCommands } from '../lib/ggbCommands';
 
 /**
- * 加载 GGB 命令数据（去重后），带模块级缓存。
- * @returns {Promise<Array<{n: string, s: string[]}>>}
- */
-async function loadGgbCommands() {
-  if (ggbCommandsCache) return ggbCommandsCache;
-  if (!ggbCommandsPromise) {
-    ggbCommandsPromise = (async () => {
-      const res = await fetch('/ggbcommands/ggb_brain_slim.json');
-      if (!res.ok) throw new Error(`加载 GGB 命令数据失败: ${res.status}`);
-      const raw = await res.json();
-      // 去重同名命令，合并签名
-      const byName = new Map();
-      for (const { n, s } of raw) {
-        if (!byName.has(n)) byName.set(n, { n, s: new Set() });
-        for (const sig of s) byName.get(n).s.add(sig);
-      }
-      ggbCommandsCache = [...byName.values()].map((c) => ({ n: c.n, s: [...c.s] }));
-      return ggbCommandsCache;
-    })();
-  }
-  return ggbCommandsPromise;
-}
-
-/**
- * 注册 4 个前端工具，让 CopilotKit agent 能读写/执行/查看 GeoGebra 画布。
+ * 注册 5 个前端工具，让 CopilotKit agent 能读写/执行/查看 GeoGebra 画布。
  * 纯接线层：不持有 ggbApplet / 编辑器状态，副作用全部通过注入的回调访问，
  * 便于解耦、测试与复用。
  *
@@ -42,6 +15,7 @@ async function loadGgbCommands() {
  * - write_code           把脚本写入编辑器（不执行）
  * - run_code             在画布上执行脚本（可先 reset，收集逐行失败）
  * - inspect_construction 读取画布对象清单
+ * - search_ggb_commands  搜索 GeoGebra 命令签名（三级匹配）
  *
  * @param {{
  *   getGgbApplet: () => object | null,
