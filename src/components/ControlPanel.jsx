@@ -13,13 +13,13 @@ const ControlPanel = ({
 }) => {
   return (
     <footer
-      className="flex items-center justify-end px-6 py-5 shrink-0"
+      className="flex items-center justify-end py-3 shrink-0"
     >
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <MotionButton
           onClick={onDecompile}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -31,7 +31,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={onClearCanvas}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -43,7 +43,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={onClear}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
@@ -55,7 +55,7 @@ const ControlPanel = ({
         <MotionButton
           onClick={isRunning ? onStop : onRun}
           whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-5 py-3 text-sm font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
+          className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium transition-colors rounded-none hover:bg-black/5 dark:hover:bg-white/10"
           style={{
             color: 'var(--color-text-primary)'
           }}
