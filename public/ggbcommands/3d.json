@@ -1,0 +1,133 @@
+[
+  {
+    "n": "Cone",
+    "s": [
+      "Cone( <Circle>, <Height> )",
+      "Cone( <Point>, <Point>, <Radius> )"
+    ]
+  },
+  {
+    "n": "Cube",
+    "s": [
+      "Cube( <Square> )",
+      "Cube( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "n": "Cylinder",
+    "s": [
+      "Cylinder( <Circle>, <Height> )",
+      "Cylinder( <Point>, <Point>, <Radius> )"
+    ]
+  },
+  {
+    "n": "Dodecahedron",
+    "s": [
+      "Dodecahedron( <Regular pentagon> )",
+      "Dodecahedron( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "n": "Height",
+    "s": [
+      "Height( <Solid> )"
+    ]
+  },
+  {
+    "n": "Icosahedron",
+    "s": [
+      "Icosahedron( <Equilateral Triangle> )",
+      "Icosahedron( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "n": "InfiniteCone",
+    "s": [
+      "InfiniteCone( <Point>, <Vector>, <Angle α> )",
+      "InfiniteCone( <Point>, <Point>, <Angle α> )"
+    ]
+  },
+  {
+    "n": "InfiniteCylinder",
+    "s": [
+      "InfiniteCylinder( <Line>, <Radius> )",
+      "InfiniteCylinder( <Point>, <Vector>, <Radius > )"
+    ]
+  },
+  {
+    "n": "Net",
+    "s": [
+      "Net( <Polyhedron> , <Number> )",
+      "Net( <Polyhedron>, <Number>, <Face>, <Edge>, <Edge>, …​ )"
+    ]
+  },
+  {
+    "n": "Octahedron",
+    "s": [
+      "Octahedron( <Equilateral Triangle> )",
+      "Octahedron( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "n": "PerpendicularPlane",
+    "s": [
+      "PerpendicularPlane( <Point>, <Line> )",
+      "PerpendicularPlane( <Point>, <Vector> )"
+    ]
+  },
+  {
+    "n": "Plane",
+    "s": [
+      "Plane( <Polygon> )",
+      "Plane( <Conic> )"
+    ]
+  },
+  {
+    "n": "PlaneBisector",
+    "s": [
+      "PlaneBisector( <Point> , <Point> )",
+      "PlaneBisector( <Segment> )"
+    ]
+  },
+  {
+    "n": "Prism",
+    "s": [
+      "Prism( <Point>, <Point>, …​ )",
+      "Prism( <Polygon>, <Point> )"
+    ]
+  },
+  {
+    "n": "Pyramid",
+    "s": [
+      "Pyramid( <Point>, <Point>, …​)",
+      "Pyramid( <Polygon>, <Point> )"
+    ]
+  },
+  {
+    "n": "Sphere",
+    "s": [
+      "Sphere( <Point>, <Radius> )",
+      "Sphere( <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "Surface",
+    "s": [
+      "Surface( <Expression>, <Expression>, <Expression>, <Parameter Variable 1>, <Start Value>, <End Value>, <Parameter Variable 2>, <Start Value>, <End Value> )",
+      "Surface( <Function>, <Angle> )"
+    ]
+  },
+  {
+    "n": "Tetrahedron",
+    "s": [
+      "Tetrahedron( <Equilateral Triangle> )",
+      "Tetrahedron( <Point>, <Point>, <Direction> )"
+    ]
+  },
+  {
+    "n": "Volume",
+    "s": [
+      "Volume( <Solid> )"
+    ]
+  }
+]

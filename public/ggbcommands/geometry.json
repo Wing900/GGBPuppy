@@ -1,0 +1,166 @@
+[
+  {
+    "n": "AngleBisector",
+    "s": [
+      "AngleBisector( <Line>, <Line> )",
+      "AngleBisector( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "Axes",
+    "s": [
+      "Axes( <Conic> )",
+      "Axes( <Quadric> )"
+    ]
+  },
+  {
+    "n": "Circle",
+    "s": [
+      "Circle( <Point>, <Radius Number> )",
+      "Circle( <Point>, <Segment> )"
+    ]
+  },
+  {
+    "n": "Conic",
+    "s": [
+      "Conic( <Point>, <Point>, <Point>, <Point>, <Point> )",
+      "Conic( <Number a>, <Number b>, <Number c>, <Number d>, <Number e>, <Number f> )"
+    ]
+  },
+  {
+    "n": "Cubic",
+    "s": [
+      "Cubic( <Point>, <Point>, <Point>, <Number> )"
+    ]
+  },
+  {
+    "n": "Ellipse",
+    "s": [
+      "Ellipse( <Focus>, <Focus>, <Semimajor Axis Length> )",
+      "Ellipse( <Focus>, <Focus>, <Segment> )"
+    ]
+  },
+  {
+    "n": "Hyperbola",
+    "s": [
+      "Hyperbola( <Focus>, <Focus>, <Semimajor Axis Length> )",
+      "Hyperbola( <Focus>, <Focus>, <Segment> )"
+    ]
+  },
+  {
+    "n": "Incircle",
+    "s": [
+      "Incircle( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "IntersectConic",
+    "s": [
+      "IntersectConic( <Plane>, <Quadric> )",
+      "IntersectConic( <Quadric>, <Quadric> )"
+    ]
+  },
+  {
+    "n": "IntersectPath",
+    "s": [
+      "IntersectPath( <Line>, <Polygon> )",
+      "IntersectPath( <Polygon>, <Polygon> )"
+    ]
+  },
+  {
+    "n": "Line",
+    "s": [
+      "Line( <Point>, <Point> )",
+      "Line( <Point>, <Parallel Line> )"
+    ]
+  },
+  {
+    "n": "Midpoint",
+    "s": [
+      "Midpoint( <Segment> )",
+      "Midpoint( <Conic> )"
+    ]
+  },
+  {
+    "n": "Parabola",
+    "s": [
+      "Parabola( <Point>, <Line> )"
+    ]
+  },
+  {
+    "n": "PerpendicularBisector",
+    "s": [
+      "PerpendicularBisector( <Segment> )",
+      "PerpendicularBisector( <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "PerpendicularLine",
+    "s": [
+      "PerpendicularLine( <Point>, <Line> )",
+      "PerpendicularLine( <Point>, <Segment> )"
+    ]
+  },
+  {
+    "n": "Point",
+    "s": [
+      "Point( <Object> )",
+      "Point( <Object>, <Parameter> )"
+    ]
+  },
+  {
+    "n": "Polar",
+    "s": [
+      "Polar( <Point>, <Conic> )",
+      "Polar(<Line>, <Conic>)"
+    ]
+  },
+  {
+    "n": "Polygon",
+    "s": [
+      "Polygon( <Point>, …​, <Point> )",
+      "Polygon( <Point>, <Point>, <Number of Vertices> )"
+    ]
+  },
+  {
+    "n": "Polyline",
+    "s": [
+      "Polyline( <List of Points> )",
+      "Polyline( <Point>, …​, <Point> )"
+    ]
+  },
+  {
+    "n": "Ray",
+    "s": [
+      "Ray( <Start Point>, <Point> )",
+      "Ray( <Start Point>, <Direction Vector> )"
+    ]
+  },
+  {
+    "n": "RigidPolygon",
+    "s": [
+      "RigidPolygon( <Polygon> )",
+      "RigidPolygon( <Polygon>, <Offset x>, <Offset y> )"
+    ]
+  },
+  {
+    "n": "Segment",
+    "s": [
+      "Segment( <Point>, <Point> )",
+      "Segment( <Point>, <Length> )"
+    ]
+  },
+  {
+    "n": "Tangent",
+    "s": [
+      "Tangent( <Point>, <Conic> )",
+      "Tangent( <Point>, <Function> )"
+    ]
+  },
+  {
+    "n": "Type",
+    "s": [
+      "Type( <Object> )"
+    ]
+  }
+]

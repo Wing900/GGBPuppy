@@ -1,0 +1,419 @@
+[
+  {
+    "n": "AttachCopyToView",
+    "s": [
+      "AttachCopyToView( <Object>, <View 0|1|2> )",
+      "AttachCopyToView( <Object>, <View 0|1|2>, <Point 1>, <Point 2>, <Screen Point 1>, <Screen Point 2> )"
+    ]
+  },
+  {
+    "n": "Button",
+    "s": [
+      "Button( )",
+      "Button( <Caption> )"
+    ]
+  },
+  {
+    "n": "CenterView",
+    "s": [
+      "CenterView( <Center Point> )"
+    ]
+  },
+  {
+    "n": "Checkbox",
+    "s": [
+      "Checkbox( )",
+      "Checkbox( <Caption> )"
+    ]
+  },
+  {
+    "n": "CopyFreeObject",
+    "s": [
+      "CopyFreeObject( <Object> )"
+    ]
+  },
+  {
+    "n": "Delete",
+    "s": [
+      "Delete( <Object> )"
+    ]
+  },
+  {
+    "n": "Execute",
+    "s": [
+      "Execute( <List of Texts> )",
+      "Execute( <List of Texts>, <Parameter>, …​ , <Parameter> )"
+    ]
+  },
+  {
+    "n": "ExportImage",
+    "s": [
+      "ExportImage( <Property>, <Value>, <Property>, <Value>, …​ )"
+    ]
+  },
+  {
+    "n": "GetTime",
+    "s": [
+      "GetTime()",
+      "GetTime( \"<Format>\" )"
+    ]
+  },
+  {
+    "n": "HideLayer",
+    "s": [
+      "HideLayer( <Number> )"
+    ]
+  },
+  {
+    "n": "InputBox",
+    "s": [
+      "InputBox( <Linked Object> )"
+    ]
+  },
+  {
+    "n": "Pan",
+    "s": [
+      "Pan( <x>, <y> )",
+      "Pan( <x>, <y>, <z> )"
+    ]
+  },
+  {
+    "n": "ParseToFunction",
+    "s": [
+      "ParseToFunction( <Text> )",
+      "ParseToFunction( <Function>, <Text> )"
+    ]
+  },
+  {
+    "n": "PlaySound",
+    "s": [
+      "PlaySound( <URL> )",
+      "PlaySound( <Boolean Play> )"
+    ]
+  },
+  {
+    "n": "ReadText",
+    "s": [
+      "ReadText( <Text> )"
+    ]
+  },
+  {
+    "n": "Rename",
+    "s": [
+      "Rename( <Object>, <Name> )"
+    ]
+  },
+  {
+    "n": "Repeat",
+    "s": [
+      "Repeat( <Number>, <Scripting Command>, <Scripting Command>, …​ )"
+    ]
+  },
+  {
+    "n": "RunClickScript",
+    "s": [
+      "RunClickScript( <Object> )"
+    ]
+  },
+  {
+    "n": "RunUpdateScript",
+    "s": [
+      "RunUpdateScript( <Object> )"
+    ]
+  },
+  {
+    "n": "SelectObjects",
+    "s": [
+      "SelectObjects( )",
+      "SelectObjects( <Object>, <Object>, …​ )"
+    ]
+  },
+  {
+    "n": "SetActiveView",
+    "s": [
+      "SetActiveView( <View> )"
+    ]
+  },
+  {
+    "n": "SetAxesRatio",
+    "s": [
+      "SetAxesRatio( <Number>, <Number> )",
+      "SetAxesRatio( <Number>, <Number>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetBackgroundColor",
+    "s": [
+      "SetBackgroundColor( <Object>, <Red>, <Green>, <Blue> )",
+      "SetBackgroundColor( <Object>, <\"Color\"> )"
+    ]
+  },
+  {
+    "n": "SetCaption",
+    "s": [
+      "SetCaption( <Object>, <Text> )"
+    ]
+  },
+  {
+    "n": "SetColor",
+    "s": [
+      "SetColor( <Object>, <Red>, <Green>, <Blue> )",
+      "SetColor( <Object>, <\"Color\"> )"
+    ]
+  },
+  {
+    "n": "SetConditionToShowObject",
+    "s": [
+      "SetConditionToShowObject( <Object>, <Condition> )"
+    ]
+  },
+  {
+    "n": "SetCoords",
+    "s": [
+      "SetCoords( <Object>, <x>, <y> )",
+      "SetCoords( <Object>, <x>, <y>, <z> )"
+    ]
+  },
+  {
+    "n": "SetDecoration",
+    "s": [
+      "SetDecoration( <Object>, <Number> )",
+      "SetDecoration(<Segment>, <Number>, <Number>)"
+    ]
+  },
+  {
+    "n": "SetDynamicColor",
+    "s": [
+      "SetDynamicColor( <Object>, <Red>, <Green>, <Blue> )",
+      "SetDynamicColor( <Object>, <Red>, <Green>, <Blue>, <Opacity> )"
+    ]
+  },
+  {
+    "n": "SetFilling",
+    "s": [
+      "SetFilling( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetFixed",
+    "s": [
+      "SetFixed( <Object>, <true | false> )",
+      "SetFixed( <Object>, <true | false>, <true | false> )"
+    ]
+  },
+  {
+    "n": "SetImage",
+    "s": [
+      "SetImage( <Object>, <Image> )",
+      "SetImage( <Object>, <Text> )"
+    ]
+  },
+  {
+    "n": "SetLabelMode",
+    "s": [
+      "SetLabelMode( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetLayer",
+    "s": [
+      "SetLayer( <Object>, <Layer> )"
+    ]
+  },
+  {
+    "n": "SetLevelOfDetail",
+    "s": [
+      "SetLevelOfDetail( <Surface>, <Level of Detail> )"
+    ]
+  },
+  {
+    "n": "SetLineOpacity",
+    "s": [
+      "SetLineOpacity( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetLineStyle",
+    "s": [
+      "SetLineStyle( <Line>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetLineThickness",
+    "s": [
+      "SetLineThickness( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetPerspective",
+    "s": [
+      "SetPerspective( <Text> )"
+    ]
+  },
+  {
+    "n": "SetPointSize",
+    "s": [
+      "SetPointSize( <Point>, <Number> )",
+      "SetPointSize( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetPointStyle",
+    "s": [
+      "SetPointStyle( <Point>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetSeed",
+    "s": [
+      "SetSeed( <Integer> )"
+    ]
+  },
+  {
+    "n": "SetSpinSpeed",
+    "s": [
+      "SetSpinSpeed( <Number> )"
+    ]
+  },
+  {
+    "n": "SetTooltipMode",
+    "s": [
+      "SetTooltipMode( <Object>, <Number> )"
+    ]
+  },
+  {
+    "n": "SetTrace",
+    "s": [
+      "SetTrace( <Object>, <true | false> )"
+    ]
+  },
+  {
+    "n": "SetValue",
+    "s": [
+      "SetValue( <Boolean>, <0|1> )",
+      "SetValue( <Object>, <Object> )"
+    ]
+  },
+  {
+    "n": "SetViewDirection",
+    "s": [
+      "SetViewDirection( <Direction> )",
+      "SetViewDirection( )"
+    ]
+  },
+  {
+    "n": "SetVisibleInView",
+    "s": [
+      "SetVisibleInView( <Object>, <View Number 1|2|-1>, <Boolean> )"
+    ]
+  },
+  {
+    "n": "ShowAxes",
+    "s": [
+      "ShowAxes( )",
+      "ShowAxes( <Boolean> )"
+    ]
+  },
+  {
+    "n": "ShowGrid",
+    "s": [
+      "ShowGrid( )",
+      "ShowGrid( <Boolean> )"
+    ]
+  },
+  {
+    "n": "ShowLabel",
+    "s": [
+      "ShowLabel( <Object>, <Boolean> )"
+    ]
+  },
+  {
+    "n": "ShowLayer",
+    "s": [
+      "ShowLayer( <Number> )"
+    ]
+  },
+  {
+    "n": "Slider",
+    "s": [
+      "Slider( <Min>, <Max>, <Increment>, <Speed>, <Width>,<Is Angle>, <Horizontal>, <Animating>, <Boolean Random>)"
+    ]
+  },
+  {
+    "n": "StartAnimation",
+    "s": [
+      "StartAnimation( )",
+      "StartAnimation( <Boolean> )"
+    ]
+  },
+  {
+    "n": "StartRecord",
+    "s": [
+      "StartRecord( )",
+      "StartRecord( <Boolean> )"
+    ]
+  },
+  {
+    "n": "Turtle",
+    "s": [
+      "Turtle()"
+    ]
+  },
+  {
+    "n": "TurtleBack",
+    "s": [
+      "TurtleBack( <Turtle>, <Distance> )"
+    ]
+  },
+  {
+    "n": "TurtleDown",
+    "s": [
+      "TurtleDown( <Turtle> )"
+    ]
+  },
+  {
+    "n": "TurtleForward",
+    "s": [
+      "TurtleForward( <Turtle>, <Distance> )"
+    ]
+  },
+  {
+    "n": "TurtleLeft",
+    "s": [
+      "TurtleLeft( <Turtle>, <Angle> )"
+    ]
+  },
+  {
+    "n": "TurtleRight",
+    "s": [
+      "TurtleRight( <Turtle>, <Angle> )"
+    ]
+  },
+  {
+    "n": "TurtleUp",
+    "s": [
+      "TurtleUp( <Turtle> )"
+    ]
+  },
+  {
+    "n": "UpdateConstruction",
+    "s": [
+      "UpdateConstruction( )",
+      "UpdateConstruction( <Number of times> )"
+    ]
+  },
+  {
+    "n": "ZoomIn",
+    "s": [
+      "ZoomIn( )",
+      "ZoomIn( <Scale Factor> )"
+    ]
+  },
+  {
+    "n": "ZoomOut",
+    "s": [
+      "ZoomOut( <Scale Factor> )",
+      "ZoomOut( <Scale Factor>, <Center Point> )"
+    ]
+  }
+]

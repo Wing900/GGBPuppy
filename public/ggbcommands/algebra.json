@@ -1,0 +1,616 @@
+[
+  {
+    "n": "AreEqual",
+    "s": [
+      "AreEqual( <Object>, <Object> )"
+    ]
+  },
+  {
+    "n": "Assume",
+    "s": [
+      "Assume( <Condition>, <Expression> )"
+    ]
+  },
+  {
+    "n": "BinomialCoefficient",
+    "s": [
+      "nCr( <Number n>, <Number r> )"
+    ]
+  },
+  {
+    "n": "CFactor",
+    "s": [
+      "CFactor( <Expression> )",
+      "CFactor( <Expression>, <Variable> )"
+    ]
+  },
+  {
+    "n": "CIFactor",
+    "s": [
+      "CIFactor( <Expression> )",
+      "CIFactor( <Expression>, <Variable> )"
+    ]
+  },
+  {
+    "n": "Coefficients",
+    "s": [
+      "Coefficients( <Polynomial> )",
+      "Coefficients( <Conic> )"
+    ]
+  },
+  {
+    "n": "CommonDenominator",
+    "s": [
+      "CommonDenominator( <Expression>, <Expression> )"
+    ]
+  },
+  {
+    "n": "CompleteSquare",
+    "s": [
+      "CompleteSquare( <Quadratic Function> )"
+    ]
+  },
+  {
+    "n": "ComplexRoot",
+    "s": [
+      "ComplexRoot( <Polynomial> )"
+    ]
+  },
+  {
+    "n": "ContinuedFraction",
+    "s": [
+      "ContinuedFraction( <Number> )",
+      "ContinuedFraction( <Number>, <Level> )"
+    ]
+  },
+  {
+    "n": "CountIf",
+    "s": [
+      "CountIf( <Condition>, <List> )",
+      "CountIf( <Condition>, <Variable>, <List> )"
+    ]
+  },
+  {
+    "n": "CSolutions",
+    "s": [
+      "CSolutions( <Equation> )",
+      "CSolutions( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "CSolve",
+    "s": [
+      "CSolve( <Equation> )",
+      "CSolve( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "Curve",
+    "s": [
+      "Curve( <Expression>, <Expression>, <Parameter Variable>, <Start Value>, <End Value> )",
+      "Curve( <Expression> , <Expression> , <Expression> , <Parameter Variable> , <Start Value> , <End Value> )"
+    ]
+  },
+  {
+    "n": "Degree",
+    "s": [
+      "Degree( <Polynomial> )"
+    ]
+  },
+  {
+    "n": "Denominator",
+    "s": [
+      "Denominator( <Function> )",
+      "Denominator( <Number> )"
+    ]
+  },
+  {
+    "n": "Derivative",
+    "s": [
+      "Derivative( <Function> )",
+      "Derivative( <Function>, <Number> )"
+    ]
+  },
+  {
+    "n": "Div",
+    "s": [
+      "Div( <Dividend Number>, <Divisor Number> )",
+      "Div( <Dividend Polynomial>, <Divisor Polynomial> )"
+    ]
+  },
+  {
+    "n": "Division",
+    "s": [
+      "Division( <Dividend Number>, <Divisor Number> )",
+      "Division( <Dividend Polynomial>, <Divisor Polynomial> )"
+    ]
+  },
+  {
+    "n": "Divisors",
+    "s": [
+      "Divisors( <Number> )"
+    ]
+  },
+  {
+    "n": "DivisorsList",
+    "s": [
+      "DivisorsList( <Number> )"
+    ]
+  },
+  {
+    "n": "DivisorsSum",
+    "s": [
+      "DivisorsSum( <Number> )"
+    ]
+  },
+  {
+    "n": "Eliminate",
+    "s": [
+      "Eliminate( <List of Polynomials>, <List of Variables> )"
+    ]
+  },
+  {
+    "n": "Expand",
+    "s": [
+      "Expand( <Expression> )"
+    ]
+  },
+  {
+    "n": "ExtendedGCD",
+    "s": [
+      "ExtendedGCD( <Integer>,<Integer> )",
+      "ExtendedGCD( <Polynomial>, <Polynomial> )"
+    ]
+  },
+  {
+    "n": "Factor",
+    "s": [
+      "Factor( <Polynomial> )",
+      "Factor( <Number> )"
+    ]
+  },
+  {
+    "n": "Factors",
+    "s": [
+      "Factors( <Polynomial> )",
+      "Factors( <Number> )"
+    ]
+  },
+  {
+    "n": "FromBase",
+    "s": [
+      "FromBase( \"<Number as Text>\", <Base> )"
+    ]
+  },
+  {
+    "n": "Function",
+    "s": [
+      "Function( <List of Numbers> )",
+      "Function(Function, Start x-value, End x-value)"
+    ]
+  },
+  {
+    "n": "GCD",
+    "s": [
+      "GCD( <Number>, <Number> )",
+      "GCD( <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "GroebnerDegRevLex",
+    "s": [
+      "GroebnerDegRevLex( <List of Polynomials> )",
+      "GroebnerDegRevLex( <List of Polynomials>, <List of Variables> )"
+    ]
+  },
+  {
+    "n": "GroebnerLex",
+    "s": [
+      "GroebnerLex( <List of Polynomials> )",
+      "GroebnerLex( <List of Polynomials>, <List of Variables> )"
+    ]
+  },
+  {
+    "n": "GroebnerLexDeg",
+    "s": [
+      "GroebnerLexDeg( <List of Polynomials> )",
+      "GroebnerLexDeg( <List of Polynomials>, <List of Variables> )"
+    ]
+  },
+  {
+    "n": "If",
+    "s": [
+      "If( <Condition>, <Then> )",
+      "If( <Condition>, <Then>, <Else> )"
+    ]
+  },
+  {
+    "n": "IFactor",
+    "s": [
+      "IFactor( <Polynomial> )",
+      "IFactor( <Expression> )"
+    ]
+  },
+  {
+    "n": "ImplicitDerivative",
+    "s": [
+      "ImplicitDerivative( <f(x, y)> )"
+    ]
+  },
+  {
+    "n": "Integral",
+    "s": [
+      "Integral( <Function> )",
+      "Integral( <Function>, <Variable> )"
+    ]
+  },
+  {
+    "n": "IntegralBetween",
+    "s": [
+      "IntegralBetween( <Function>, <Function>, <Number>, <Number> )",
+      "IntegralBetween( <Function>, <Function>, <Number>, <Number>, <Boolean Evaluate> )"
+    ]
+  },
+  {
+    "n": "IntegralSymbolic",
+    "s": [
+      "IntegralSymbolic(<Function>)",
+      "IntegralSymbolic(<Function>, <Variable>)"
+    ]
+  },
+  {
+    "n": "InverseLaplace",
+    "s": [
+      "InverseLaplace( <Function> )",
+      "InverseLaplace( <Function>, <Variable> )"
+    ]
+  },
+  {
+    "n": "IsDefined",
+    "s": [
+      "IsDefined( <Object> )"
+    ]
+  },
+  {
+    "n": "IsFactored",
+    "s": [
+      "IsFactored( <Polynomial> )"
+    ]
+  },
+  {
+    "n": "IsInRegion",
+    "s": [
+      "IsInRegion( <Point>, <Region> )"
+    ]
+  },
+  {
+    "n": "IsInteger",
+    "s": [
+      "IsInteger( <Number> )"
+    ]
+  },
+  {
+    "n": "IsPrime",
+    "s": [
+      "IsPrime( <Number> )"
+    ]
+  },
+  {
+    "n": "IsTangent",
+    "s": [
+      "IsTangent( <Line>, <Conic> )"
+    ]
+  },
+  {
+    "n": "IsVertexForm",
+    "s": [
+      "IsVertexForm(<function>)"
+    ]
+  },
+  {
+    "n": "KeepIf",
+    "s": [
+      "KeepIf( <Condition>, <List> )",
+      "KeepIf( <Condition>, <Variable>, <List> )"
+    ]
+  },
+  {
+    "n": "Laplace",
+    "s": [
+      "Laplace( <Function> )",
+      "Laplace( <Function>, <Variable> )"
+    ]
+  },
+  {
+    "n": "LCM",
+    "s": [
+      "LCM( <Number>, <Number> )",
+      "LCM( <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "LeftSide",
+    "s": [
+      "LeftSide( <Equation> )"
+    ]
+  },
+  {
+    "n": "Limit",
+    "s": [
+      "Limit( <Function>, <Value> )",
+      "Limit( <Expression>, <Value> )"
+    ]
+  },
+  {
+    "n": "LimitAbove",
+    "s": [
+      "LimitAbove( <Function>, <Value> )",
+      "LimitAbove( <Expression>, <Value> )"
+    ]
+  },
+  {
+    "n": "LimitBelow",
+    "s": [
+      "LimitBelow( <Function>, <Value> )",
+      "LimitBelow( <Expression>, <Value> )"
+    ]
+  },
+  {
+    "n": "Max",
+    "s": [
+      "Max( <List> )",
+      "Max( <Interval> )"
+    ]
+  },
+  {
+    "n": "Maximize",
+    "s": [
+      "Maximize( <Dependent number>, <Free number> )",
+      "Maximize( <Dependent Number>, <Point on Path> )"
+    ]
+  },
+  {
+    "n": "Min",
+    "s": [
+      "Min( <List> )",
+      "Min( <Interval> )"
+    ]
+  },
+  {
+    "n": "Minimize",
+    "s": [
+      "Minimize( <Dependent number>, <Free number> )",
+      "Minimize( <Dependent Number>, <Point on Path> )"
+    ]
+  },
+  {
+    "n": "MixedNumber",
+    "s": [
+      "MixedNumber( <Number> )"
+    ]
+  },
+  {
+    "n": "Mod",
+    "s": [
+      "Mod( <Dividend Number>, <Divisor Number> )",
+      "Mod( <Dividend Polynomial>, <Divisor Polynomial> )"
+    ]
+  },
+  {
+    "n": "ModularExponent",
+    "s": [
+      "ModularExponent( <Number>, <Number>, <Number> )"
+    ]
+  },
+  {
+    "n": "NextPrime",
+    "s": [
+      "NextPrime( <Number> )"
+    ]
+  },
+  {
+    "n": "NIntegral",
+    "s": [
+      "NIntegral( <Function> )",
+      "NIntegral( <Function>, <Start x-Value>, <End x-Value> )"
+    ]
+  },
+  {
+    "n": "Normalize",
+    "s": [
+      "Normalize( <List of Numbers> )",
+      "Normalize( <List of Points> )"
+    ]
+  },
+  {
+    "n": "nPr function",
+    "s": [
+      "nPr ( <Number n>, <Number r> )"
+    ]
+  },
+  {
+    "n": "NSolutions",
+    "s": [
+      "NSolutions( <Equation> )",
+      "NSolutions( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "NSolve",
+    "s": [
+      "NSolve( <Equation> )",
+      "NSolve( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "Numerator",
+    "s": [
+      "Numerator( <Function> )",
+      "Numerator( <Number> )"
+    ]
+  },
+  {
+    "n": "Numeric",
+    "s": [
+      "Numeric( <Expression> )",
+      "Numeric( <Expression>, <Significant Figures> )"
+    ]
+  },
+  {
+    "n": "ParseToNumber",
+    "s": [
+      "ParseToNumber( <Number>, <Text> )",
+      "ParseToNumber( <Text> )"
+    ]
+  },
+  {
+    "n": "PartialFractions",
+    "s": [
+      "PartialFractions( <Function> )",
+      "PartialFractions( <Function>, <Variable> )"
+    ]
+  },
+  {
+    "n": "PlotSolve",
+    "s": [
+      "PlotSolve( <Equation in x> )"
+    ]
+  },
+  {
+    "n": "Polynomial",
+    "s": [
+      "Polynomial( <Function> )",
+      "Polynomial( <List of Points> )"
+    ]
+  },
+  {
+    "n": "PreviousPrime",
+    "s": [
+      "PreviousPrime( <Number> )"
+    ]
+  },
+  {
+    "n": "PrimeFactors",
+    "s": [
+      "PrimeFactors( <Number> )"
+    ]
+  },
+  {
+    "n": "Product",
+    "s": [
+      "Product( <List of Raw Data> )",
+      "Product( <List of Numbers>, <Number of Elements> )"
+    ]
+  },
+  {
+    "n": "Rationalize",
+    "s": [
+      "Rationalize( <Number> )"
+    ]
+  },
+  {
+    "n": "Relation",
+    "s": [
+      "Relation( <List> )",
+      "Relation( <Object>, <Object> )"
+    ]
+  },
+  {
+    "n": "RightSide",
+    "s": [
+      "RightSide( <Equation> )"
+    ]
+  },
+  {
+    "n": "Root",
+    "s": [
+      "Root( <Polynomial> )",
+      "Root( <Function>, <Initial x-Value> )"
+    ]
+  },
+  {
+    "n": "RootList",
+    "s": [
+      "RootList( <List> )"
+    ]
+  },
+  {
+    "n": "Simplify",
+    "s": [
+      "Simplify( <Function> )",
+      "Simplify( <Text> )"
+    ]
+  },
+  {
+    "n": "Solutions",
+    "s": [
+      "Solutions( <Equation> )",
+      "Solutions( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "Solve",
+    "s": [
+      "Solve( <Equation in x> )",
+      "Solve( <Equation>, <Variable> )"
+    ]
+  },
+  {
+    "n": "SolveCubic",
+    "s": [
+      "SolveCubic( <Cubic Polynomial> )"
+    ]
+  },
+  {
+    "n": "SolveODE",
+    "s": [
+      "SolveODE( <f'(x, y)> )",
+      "SolveODE( <f'(x, y)>, <Point on f> )"
+    ]
+  },
+  {
+    "n": "SolveQuartic",
+    "s": [
+      "SolveQuartic( <Quartic Polynomial> )"
+    ]
+  },
+  {
+    "n": "Substitute",
+    "s": [
+      "Substitute( <Expression>, <from>, <to> )",
+      "Substitute( <Expression>, <Substitution List> )"
+    ]
+  },
+  {
+    "n": "Sum",
+    "s": [
+      "Sum( <List> )",
+      "Sum( <List>, <Number of Elements> )"
+    ]
+  },
+  {
+    "n": "TaylorPolynomial",
+    "s": [
+      "TaylorPolynomial( <Function>, <x-Value>, <Order Number> )",
+      "TaylorPolynomial( <Expression>, <x-Value>, <Order Number> )"
+    ]
+  },
+  {
+    "n": "ToBase",
+    "s": [
+      "ToBase( <Number>, <Base> )"
+    ]
+  },
+  {
+    "n": "ToExponential",
+    "s": [
+      "ToExponential( <Complex Number> )"
+    ]
+  },
+  {
+    "n": "ToPoint",
+    "s": [
+      "ToPoint( <Complex Number> )"
+    ]
+  }
+]

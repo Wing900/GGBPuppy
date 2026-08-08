@@ -1,0 +1,453 @@
+[
+  {
+    "n": "Angle",
+    "s": [
+      "Angle( <Vector>, <Vector> )",
+      "Angle( <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "Arc",
+    "s": [
+      "Arc( <Circle>, <Point M >, <Point N> )",
+      "Arc( <Ellipse>, <Point M>, <Point N> )"
+    ]
+  },
+  {
+    "n": "Area",
+    "s": [
+      "Area( <Point>, …​, <Point> )",
+      "Area( <Conic> )"
+    ]
+  },
+  {
+    "n": "AreCollinear",
+    "s": [
+      "AreCollinear( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "AreConcurrent",
+    "s": [
+      "AreConcurrent( <Line>, <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "AreConcyclic",
+    "s": [
+      "AreConcyclic( <Point>, <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "AreCongruent",
+    "s": [
+      "AreCongruent( <Object>, <Object> )"
+    ]
+  },
+  {
+    "n": "AreParallel",
+    "s": [
+      "AreParallel( <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "ArePerpendicular",
+    "s": [
+      "ArePerpendicular( <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "AxisStepX",
+    "s": [
+      "AxisStepX( )"
+    ]
+  },
+  {
+    "n": "AxisStepY",
+    "s": [
+      "AxisStepY( )"
+    ]
+  },
+  {
+    "n": "Barycenter",
+    "s": [
+      "Barycenter( <List of Points>, <List of Weights> )"
+    ]
+  },
+  {
+    "n": "Bottom",
+    "s": [
+      "Bottom( <Quadric> )"
+    ]
+  },
+  {
+    "n": "CASLoaded",
+    "s": [
+      "CASLoaded()"
+    ]
+  },
+  {
+    "n": "Center",
+    "s": [
+      "Center( <Conic> )",
+      "Center( <Quadric> )"
+    ]
+  },
+  {
+    "n": "Centroid",
+    "s": [
+      "Centroid( <Polygon> )"
+    ]
+  },
+  {
+    "n": "CircularArc",
+    "s": [
+      "CircularArc( <Midpoint>, <Point A>, <Point B> )"
+    ]
+  },
+  {
+    "n": "CircularSector",
+    "s": [
+      "CircularSector( <Midpoint>, <Point A>, <Point B> )"
+    ]
+  },
+  {
+    "n": "CircumcircularArc",
+    "s": [
+      "CircumcircularArc( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "CircumcircularSector",
+    "s": [
+      "CircumcircularSector( <Point>, <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "Circumference",
+    "s": [
+      "Circumference(Conic)"
+    ]
+  },
+  {
+    "n": "ClosestPoint",
+    "s": [
+      "ClosestPoint( <Path>, <Point> )",
+      "ClosestPoint( <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "ClosestPointRegion",
+    "s": [
+      "ClosestPointRegion( <Region>, <Point> )"
+    ]
+  },
+  {
+    "n": "ConjugateDiameter",
+    "s": [
+      "ConjugateDiameter( <Line>, <Conic> )",
+      "ConjugateDiameter( <Vector>, <Conic> )"
+    ]
+  },
+  {
+    "n": "ConstructionStep",
+    "s": [
+      "ConstructionStep()",
+      "ConstructionStep( <Object> )"
+    ]
+  },
+  {
+    "n": "ConvexHull",
+    "s": [
+      "ConvexHull( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Corner",
+    "s": [
+      "Corner( <Number of Corner> )",
+      "Corner( <Graphics View>, <Number of Corner> )"
+    ]
+  },
+  {
+    "n": "CrossRatio",
+    "s": [
+      "CrossRatio( <Point A>, <Point B>, <Point C>, <Point D> )"
+    ]
+  },
+  {
+    "n": "Curvature",
+    "s": [
+      "Curvature( <Point>, <Object> )"
+    ]
+  },
+  {
+    "n": "DelaunayTriangulation",
+    "s": [
+      "DelaunayTriangulation( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Directrix",
+    "s": [
+      "Directrix( <Conic> )"
+    ]
+  },
+  {
+    "n": "Distance",
+    "s": [
+      "Distance( <Point>, <Object> )",
+      "Distance( <Line>, <Line> )"
+    ]
+  },
+  {
+    "n": "DynamicCoordinates",
+    "s": [
+      "DynamicCoordinates( <Point>, <x-Coordinate>, <y-Coordinate> )",
+      "DynamicCoordinates( <Point>, <x-Coordinate>, <y-Coordinate>, <z-Coordinate> )"
+    ]
+  },
+  {
+    "n": "Eccentricity",
+    "s": [
+      "Eccentricity( <Conic> )"
+    ]
+  },
+  {
+    "n": "Ends",
+    "s": [
+      "Ends( <Quadric> )"
+    ]
+  },
+  {
+    "n": "Envelope",
+    "s": [
+      "Envelope( <Path>, <Point> )"
+    ]
+  },
+  {
+    "n": "Focus",
+    "s": [
+      "Focus( <Conic> )"
+    ]
+  },
+  {
+    "n": "InteriorAngles",
+    "s": [
+      "InteriorAngles( <Polygon> )"
+    ]
+  },
+  {
+    "n": "Length",
+    "s": [
+      "Length( <Object> )",
+      "Length( <Function>, <Start x-Value>, <End x-Value> )"
+    ]
+  },
+  {
+    "n": "LinearEccentricity",
+    "s": [
+      "LinearEccentricity( <Conic> )"
+    ]
+  },
+  {
+    "n": "Locus",
+    "s": [
+      "Locus( <Point Creating Locus Line Q>, <Point P>)",
+      "Locus( <Point Creating Locus Line Q>, <Slider t>)"
+    ]
+  },
+  {
+    "n": "LocusEquation",
+    "s": [
+      "LocusEquation( <Locus> )",
+      "LocusEquation( <Point Creating Locus Line Q>, <Point P> )"
+    ]
+  },
+  {
+    "n": "MajorAxis",
+    "s": [
+      "MajorAxis( <Conic> )"
+    ]
+  },
+  {
+    "n": "MinimumSpanningTree",
+    "s": [
+      "MinimumSpanningTree( <List of Points> )"
+    ]
+  },
+  {
+    "n": "MinorAxis",
+    "s": [
+      "MinorAxis( <Conic> )"
+    ]
+  },
+  {
+    "n": "Name",
+    "s": [
+      "Name( <Object> )"
+    ]
+  },
+  {
+    "n": "Object",
+    "s": [
+      "Object( <Name of Object as Text> )"
+    ]
+  },
+  {
+    "n": "OsculatingCircle",
+    "s": [
+      "OsculatingCircle( <Point>, <Function> )",
+      "OsculatingCircle( <Point>, <Curve> )"
+    ]
+  },
+  {
+    "n": "Parameter",
+    "s": [
+      "Parameter( <Parabola> )"
+    ]
+  },
+  {
+    "n": "PathParameter",
+    "s": [
+      "PathParameter( <Point On Path> )"
+    ]
+  },
+  {
+    "n": "Perimeter",
+    "s": [
+      "Perimeter( <Polygon> )",
+      "Perimeter( <Conic> )"
+    ]
+  },
+  {
+    "n": "PointIn",
+    "s": [
+      "PointIn( <Region> )"
+    ]
+  },
+  {
+    "n": "Prove",
+    "s": [
+      "Prove( <Boolean Expression> )"
+    ]
+  },
+  {
+    "n": "ProveDetails",
+    "s": [
+      "ProveDetails( <Boolean Expression> )"
+    ]
+  },
+  {
+    "n": "Radius",
+    "s": [
+      "Radius( <Conic> )"
+    ]
+  },
+  {
+    "n": "Sector",
+    "s": [
+      "Sector( <Conic>, <Point>, <Point> )",
+      "Sector( <Conic>, <Parameter Value>, <Parameter Value> )"
+    ]
+  },
+  {
+    "n": "Semicircle",
+    "s": [
+      "Semicircle( <Point>, <Point> )"
+    ]
+  },
+  {
+    "n": "SemiMajorAxisLength",
+    "s": [
+      "SemiMajorAxisLength( <Conic> )"
+    ]
+  },
+  {
+    "n": "SemiMinorAxisLength",
+    "s": [
+      "SemiMinorAxisLength( <Conic> )"
+    ]
+  },
+  {
+    "n": "SetConstructionStep",
+    "s": [
+      "SetConstructionStep( <Number> )"
+    ]
+  },
+  {
+    "n": "ShortestDistance",
+    "s": [
+      "ShortestDistance( <List of Segments>, <Start Point>, <End Point>, <Boolean Weighted> )"
+    ]
+  },
+  {
+    "n": "Side",
+    "s": [
+      "Side( <Quadric> )"
+    ]
+  },
+  {
+    "n": "Slope",
+    "s": [
+      "Slope( <Line> )"
+    ]
+  },
+  {
+    "n": "SlowPlot",
+    "s": [
+      "SlowPlot( <Function> )",
+      "SlowPlot( <Function >, <Boolean Repeat >)"
+    ]
+  },
+  {
+    "n": "ToolImage",
+    "s": [
+      "ToolImage( <Number> )",
+      "ToolImage( <Number>, <Point> )"
+    ]
+  },
+  {
+    "n": "Top",
+    "s": [
+      "Top( <Quadric> )"
+    ]
+  },
+  {
+    "n": "TravelingSalesman",
+    "s": [
+      "TravelingSalesman( <List of Points> )"
+    ]
+  },
+  {
+    "n": "TriangleCenter",
+    "s": [
+      "TriangleCenter( <Point>, <Point>, <Point>, <Number> )"
+    ]
+  },
+  {
+    "n": "TriangleCurve",
+    "s": [
+      "TriangleCurve( <Point P>, <Point Q>, <Point R>, <Equation in A, B, C> )"
+    ]
+  },
+  {
+    "n": "Trilinear",
+    "s": [
+      "Trilinear( <Point>, <Point>, <Point>, <Number>, <Number>, <Number> )"
+    ]
+  },
+  {
+    "n": "Vertex",
+    "s": [
+      "Vertex( <Conic> )",
+      "Vertex( <Inequality> )"
+    ]
+  },
+  {
+    "n": "Voronoi",
+    "s": [
+      "Voronoi( <List of Points> )"
+    ]
+  }
+]

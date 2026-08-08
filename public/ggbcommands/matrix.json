@@ -1,0 +1,164 @@
+[
+  {
+    "n": "ApplyMatrix",
+    "s": [
+      "ApplyMatrix( <Matrix>, <Object> )"
+    ]
+  },
+  {
+    "n": "CharacteristicPolynomial",
+    "s": [
+      "CharacteristicPolynomial( <Matrix> )"
+    ]
+  },
+  {
+    "n": "Cross",
+    "s": [
+      "Cross( <Vector u> , <Vector v> )"
+    ]
+  },
+  {
+    "n": "CurvatureVector",
+    "s": [
+      "CurvatureVector( <Point>, <Object> )"
+    ]
+  },
+  {
+    "n": "Determinant",
+    "s": [
+      "Determinant( <Matrix> )"
+    ]
+  },
+  {
+    "n": "Dimension",
+    "s": [
+      "Dimension( <Object> )"
+    ]
+  },
+  {
+    "n": "Direction",
+    "s": [
+      "Direction( <Line> )"
+    ]
+  },
+  {
+    "n": "Dot",
+    "s": [
+      "Dot( <Vector>, <Vector> )"
+    ]
+  },
+  {
+    "n": "Eigenvalues",
+    "s": [
+      "Eigenvalues( <Matrix> )"
+    ]
+  },
+  {
+    "n": "Eigenvectors",
+    "s": [
+      "Eigenvectors( <Matrix> )"
+    ]
+  },
+  {
+    "n": "Identity",
+    "s": [
+      "Identity( <Number> )"
+    ]
+  },
+  {
+    "n": "Invert",
+    "s": [
+      "Invert( <Matrix> )",
+      "Invert( <Function> )"
+    ]
+  },
+  {
+    "n": "JordanDiagonalization",
+    "s": [
+      "JordanDiagonalization( <Matrix> )"
+    ]
+  },
+  {
+    "n": "LUDecomposition",
+    "s": [
+      "LUDecomposition( <Matrix> )"
+    ]
+  },
+  {
+    "n": "MatrixRank",
+    "s": [
+      "MatrixRank( <Matrix> )"
+    ]
+  },
+  {
+    "n": "MinimalPolynomial",
+    "s": [
+      "MinimalPolynomial( <Matrix> )"
+    ]
+  },
+  {
+    "n": "PerpendicularVector",
+    "s": [
+      "PerpendicularVector( <Line> )",
+      "PerpendicularVector( <Segment> )"
+    ]
+  },
+  {
+    "n": "QRDecomposition",
+    "s": [
+      "QRDecomposition( <Matrix> )"
+    ]
+  },
+  {
+    "n": "ReducedRowEchelonForm",
+    "s": [
+      "ReducedRowEchelonForm( <Matrix> )"
+    ]
+  },
+  {
+    "n": "SVD",
+    "s": [
+      "SVD( <Matrix> )"
+    ]
+  },
+  {
+    "n": "ToComplex",
+    "s": [
+      "ToComplex( <Vector> )"
+    ]
+  },
+  {
+    "n": "ToPolar",
+    "s": [
+      "ToPolar( <Vector> )",
+      "ToPolar( <Complex Number> )"
+    ]
+  },
+  {
+    "n": "Transpose",
+    "s": [
+      "Transpose( <Matrix> )"
+    ]
+  },
+  {
+    "n": "UnitPerpendicularVector",
+    "s": [
+      "UnitPerpendicularVector( <Line>)",
+      "UnitPerpendicularVector( <Segment> )"
+    ]
+  },
+  {
+    "n": "UnitVector",
+    "s": [
+      "UnitVector( <Vector> )",
+      "UnitVector( <Line> )"
+    ]
+  },
+  {
+    "n": "Vector",
+    "s": [
+      "Vector( <Point> )",
+      "Vector( <Start Point>, <End Point> )"
+    ]
+  }
+]

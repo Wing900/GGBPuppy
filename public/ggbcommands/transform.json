@@ -1,0 +1,49 @@
+[
+  {
+    "n": "AffineRatio",
+    "s": [
+      "AffineRatio( <Point A>, <Point B>, <Point C> )"
+    ]
+  },
+  {
+    "n": "Dilate (Enlarge)",
+    "s": [
+      "Dilate( <Object>, <Dilation Factor> )",
+      "Dilate( <Object>, <Dilation Factor>, <Dilation Center Point> )"
+    ]
+  },
+  {
+    "n": "Reflect",
+    "s": [
+      "Reflect( <Object>, <Point> )",
+      "Reflect( <Object>, <Line> )"
+    ]
+  },
+  {
+    "n": "Rotate",
+    "s": [
+      "Rotate( <Object>, <Angle> )",
+      "Rotate( <Object>, <Angle>, <Point> )"
+    ]
+  },
+  {
+    "n": "Shear",
+    "s": [
+      "Shear( <Object>, <Line>, <Ratio> )"
+    ]
+  },
+  {
+    "n": "Stretch",
+    "s": [
+      "Stretch( <Object>, <Vector> )",
+      "Stretch( <Object>, <Line>, <Ratio> )"
+    ]
+  },
+  {
+    "n": "Translate",
+    "s": [
+      "Translate( <Object>, <Vector> )",
+      "Translate( <Vector>, <Start Point> )"
+    ]
+  }
+]

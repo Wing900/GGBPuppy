@@ -1,0 +1,269 @@
+[
+  {
+    "n": "Append",
+    "s": [
+      "Append( <List>, <Object> )",
+      "Append( <Object>, <List> )"
+    ]
+  },
+  {
+    "n": "DataFunction",
+    "s": [
+      "DataFunction( <List of Numbers>, <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "Difference",
+    "s": [
+      "Difference( <Polygon>, <Polygon> )"
+    ]
+  },
+  {
+    "n": "Element",
+    "s": [
+      "Element( <List>, <Position of Element n> )",
+      "Element( <Matrix>, <Row>, <Column> )"
+    ]
+  },
+  {
+    "n": "First",
+    "s": [
+      "First( <List> )",
+      "First( <List>, <Number n of elements> )"
+    ]
+  },
+  {
+    "n": "Flatten",
+    "s": [
+      "Flatten( <List> )"
+    ]
+  },
+  {
+    "n": "FormulaText",
+    "s": [
+      "FormulaText( <Object> )",
+      "FormulaText( <Object>, <Boolean for Substitution of Variables> )"
+    ]
+  },
+  {
+    "n": "FractionText",
+    "s": [
+      "FractionText( <Number> )",
+      "FractionText( <Point> )"
+    ]
+  },
+  {
+    "n": "IndexOf",
+    "s": [
+      "IndexOf( <Object>, <List> )",
+      "IndexOf( <Object>, <List>, <Start Index> )"
+    ]
+  },
+  {
+    "n": "Insert",
+    "s": [
+      "Insert( <Object>, <List>, <Position> )",
+      "Insert( <List>, <List>, <Position> )"
+    ]
+  },
+  {
+    "n": "Intersect",
+    "s": [
+      "Intersect( <Object>, <Object> )",
+      "Intersect( <Object>, <Object>, <Index of Intersection Point> )"
+    ]
+  },
+  {
+    "n": "Intersection",
+    "s": [
+      "Intersection( <List>, <List> )"
+    ]
+  },
+  {
+    "n": "Join",
+    "s": [
+      "Join( <List>, <List>, …​ )",
+      "Join( <List of Lists> )"
+    ]
+  },
+  {
+    "n": "Last",
+    "s": [
+      "Last( <List> )",
+      "Last( <Text> )"
+    ]
+  },
+  {
+    "n": "LetterToUnicode",
+    "s": [
+      "LetterToUnicode( \"<Letter>\" )"
+    ]
+  },
+  {
+    "n": "Ordinal",
+    "s": [
+      "Ordinal( <Integer> )"
+    ]
+  },
+  {
+    "n": "PointList",
+    "s": [
+      "PointList( <List> )"
+    ]
+  },
+  {
+    "n": "Remove",
+    "s": [
+      "Remove( <List>, <List> )"
+    ]
+  },
+  {
+    "n": "RemoveUndefined",
+    "s": [
+      "RemoveUndefined( <List> )"
+    ]
+  },
+  {
+    "n": "ReplaceAll",
+    "s": [
+      "ReplaceAll( <Text>, <Text to Match>, <Text to Replace> )"
+    ]
+  },
+  {
+    "n": "Reverse",
+    "s": [
+      "Reverse( <List> )"
+    ]
+  },
+  {
+    "n": "RotateText",
+    "s": [
+      "RotateText( <Text>, <Angle> )"
+    ]
+  },
+  {
+    "n": "Sample",
+    "s": [
+      "Sample( <List>, <Size> )",
+      "Sample( <List>, <Size>, <With Replacement> )"
+    ]
+  },
+  {
+    "n": "ScientificText",
+    "s": [
+      "ScientificText( <Number> )",
+      "ScientificText( <Number>, <Precision> )"
+    ]
+  },
+  {
+    "n": "SelectedElement",
+    "s": [
+      "SelectedElement( <List> )"
+    ]
+  },
+  {
+    "n": "SelectedIndex",
+    "s": [
+      "SelectedIndex( <List> )",
+      "SetValue( <drop-down list>, <Number n > )"
+    ]
+  },
+  {
+    "n": "Sequence",
+    "s": [
+      "Sequence( <End Value > )",
+      "Sequence( <Start value k >, <End value n > )"
+    ]
+  },
+  {
+    "n": "Shuffle",
+    "s": [
+      "Shuffle( <List> )"
+    ]
+  },
+  {
+    "n": "Sort",
+    "s": [
+      "Sort( <List> )",
+      "Sort( <Values>, <Keys> )"
+    ]
+  },
+  {
+    "n": "Split",
+    "s": [
+      "Split( <Text>, <List of Texts to split on>)"
+    ]
+  },
+  {
+    "n": "SurdText",
+    "s": [
+      "SurdText( <Point> )",
+      "SurdText( <Number> )"
+    ]
+  },
+  {
+    "n": "TableText",
+    "s": [
+      "TableText( <List>, <List>, …​ )",
+      "TableText( <List>, <List>, …​, <Alignment of Text> )"
+    ]
+  },
+  {
+    "n": "Take",
+    "s": [
+      "Take( <List>, <Start Position> )",
+      "Take( <Text>, <Start Position> )"
+    ]
+  },
+  {
+    "n": "Text",
+    "s": [
+      "Text( <Object> )",
+      "Text( <Object>, <Boolean for Substitution of Variables> )"
+    ]
+  },
+  {
+    "n": "TextToUnicode",
+    "s": [
+      "TextToUnicode( \"<Text>\" )"
+    ]
+  },
+  {
+    "n": "UnicodeToLetter",
+    "s": [
+      "UnicodeToLetter( <Integer> )"
+    ]
+  },
+  {
+    "n": "UnicodeToText",
+    "s": [
+      "UnicodeToText( <List of Integers> )"
+    ]
+  },
+  {
+    "n": "Union",
+    "s": [
+      "Union( <List>, <List> )",
+      "Union( <Polygon>, <Polygon> )"
+    ]
+  },
+  {
+    "n": "Unique",
+    "s": [
+      "Unique( <List> )"
+    ]
+  },
+  {
+    "n": "VerticalText",
+    "s": [
+      "VerticalText( <Text> )",
+      "VerticalText( <Text>, <Point> )"
+    ]
+  },
+  {
+    "n": "Zip",
+    "s": [
+      "Zip( <Expression>, <Var1>, <List1>, <Var2>, <List2>, …​)"
+    ]
+  }
+]

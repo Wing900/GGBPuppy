@@ -1,0 +1,798 @@
+[
+  {
+    "n": "ANOVA",
+    "s": [
+      "ANOVA( <List>, <List>, …​)"
+    ]
+  },
+  {
+    "n": "BarChart",
+    "s": [
+      "BarChart( <List of Data>, <List of Frequencies> )",
+      "BarChart( <List of Raw Data>, <Width of Bars>, <Vertical Scale Factor (optional)> )"
+    ]
+  },
+  {
+    "n": "Bernoulli",
+    "s": [
+      "Bernoulli( <Probability p>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "BetaDist",
+    "s": [
+      "BetaDist( <Number α>, <Number β>, <Variable value> )",
+      "BetaDist( <Number α>, <Number β>, <Variable value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "BinomialDist",
+    "s": [
+      "BinomialDist( <Number of Trials>, <Probability of Success> )",
+      "BinomialDist( <Number of Trials>, <Probability of Success>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "BoxPlot",
+    "s": [
+      "BoxPlot( yOffset, yScale, List of Raw Data )",
+      "BoxPlot( yOffset, yScale, Start Value, Q1, Median, Q3, End Value )"
+    ]
+  },
+  {
+    "n": "Cauchy",
+    "s": [
+      "Cauchy( <Median>, <Scale>, <Variable value> )",
+      "Cauchy( <Median>, <Scale>, <Variable value>, <Boolean Cumulative>)"
+    ]
+  },
+  {
+    "n": "ChiSquared",
+    "s": [
+      "ChiSquared( <Degrees of Freedom>, <Variable Value> )",
+      "ChiSquared( <Degrees of Freedom>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "ChiSquaredTest",
+    "s": [
+      "ChiSquaredTest( <Matrix> )",
+      "ChiSquaredTest( <Observed List>, <Expected List> )"
+    ]
+  },
+  {
+    "n": "Classes",
+    "s": [
+      "Classes( <List of Data>, <Start>, <Width of Classes> )",
+      "Classes( <List of Data>, <Number of Classes> )"
+    ]
+  },
+  {
+    "n": "ContingencyTable",
+    "s": [
+      "ContingencyTable( <List of Text>, <List of Text> )",
+      "ContingencyTable( <List of Text>, <List of Text>, <Options> )"
+    ]
+  },
+  {
+    "n": "CorrelationCoefficient",
+    "s": [
+      "CorrelationCoefficient( <List of x-coordinates>, <List of y-coordinates> )",
+      "CorrelationCoefficient( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Covariance",
+    "s": [
+      "Covariance( <List of Numbers>, <List of Numbers> )",
+      "Covariance( <List of Points> )"
+    ]
+  },
+  {
+    "n": "DotPlot",
+    "s": [
+      "DotPlot( <List of Raw Data> )",
+      "DotPlot( <List of Raw Data>, <Stack Adjacent Dots (optional)>, <Scale Factor (optional)> )"
+    ]
+  },
+  {
+    "n": "Erlang",
+    "s": [
+      "Erlang( <Shape>, <Rate>, <Variable Value> )",
+      "Erlang( <Shape>, <Rate>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Exponential",
+    "s": [
+      "Exponential( <Lambda>, <Variable Value> )",
+      "Exponential( <Lambda>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "FDistribution",
+    "s": [
+      "FDistribution( <Numerator Degrees of Freedom>, <Denominator Degrees of Freedom>, <Variable Value> )",
+      "FDistribution( <Numerator Degrees of Freedom>, <Denominator Degrees of Freedom>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Fit",
+    "s": [
+      "Fit( <List of Points>, <List of Functions> )",
+      "Fit( <List of points>, <Function> )"
+    ]
+  },
+  {
+    "n": "FitExp",
+    "s": [
+      "FitExp( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitGrowth",
+    "s": [
+      "FitGrowth( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitImplicit",
+    "s": [
+      "FitImplicit( <List of Points>, <Order> )"
+    ]
+  },
+  {
+    "n": "FitLine",
+    "s": [
+      "FitLine( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitLineX",
+    "s": [
+      "FitLineX( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitLog",
+    "s": [
+      "FitLog( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitLogistic",
+    "s": [
+      "FitLogistic( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitPoly",
+    "s": [
+      "FitPoly( <List of Points>, <Degree of Polynomial> )",
+      "FitPoly( <Freehand Function>, <Degree of Polynomial> )"
+    ]
+  },
+  {
+    "n": "FitPow",
+    "s": [
+      "FitPow( <List of Points> )"
+    ]
+  },
+  {
+    "n": "FitSin",
+    "s": [
+      "FitSin( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Frequency",
+    "s": [
+      "Frequency( <List of Raw Data> )",
+      "Frequency( <Boolean Cumulative>, <List of Raw Data> )"
+    ]
+  },
+  {
+    "n": "FrequencyPolygon",
+    "s": [
+      "FrequencyPolygon( <List of Class Boundaries>, <List of Heights> )",
+      "FrequencyPolygon( <List of Class Boundaries>, <List of Raw Data>, <Boolean Use Density>, <Density Scale Factor (optional)> )"
+    ]
+  },
+  {
+    "n": "FrequencyTable",
+    "s": [
+      "FrequencyTable( <List of Raw Data> )",
+      "FrequencyTable( <Boolean Cumulative>, <List of Raw Data> )"
+    ]
+  },
+  {
+    "n": "Gamma",
+    "s": [
+      "Gamma( <Alpha>, <Beta>, <Variable Value> )",
+      "Gamma( <Alpha>, <Beta>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "GeometricMean",
+    "s": [
+      "GeometricMean(List of Numbers)"
+    ]
+  },
+  {
+    "n": "HarmonicMean",
+    "s": [
+      "HarmonicMean( <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "Histogram",
+    "s": [
+      "Histogram( <List of Class Boundaries>, <List of Heights> )",
+      "Histogram( <List of Class Boundaries>, <List of Raw Data>, <Boolean Use Density>, <Density Scale Factor>(optional) )"
+    ]
+  },
+  {
+    "n": "HistogramRight",
+    "s": [
+      "HistogramRight( <List of Class Boundaries>, <List of Heights> )",
+      "HistogramRight( <List of Class Boundaries>, <List of Raw Data>, <Boolean Use Density> , <Density Scale Factor> (optional) )"
+    ]
+  },
+  {
+    "n": "HyperGeometric",
+    "s": [
+      "HyperGeometric( <Population Size>, <Number of Successes>, <Sample Size>)",
+      "HyperGeometric( <Population Size>, <Number of Successes>, <Sample Size>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "InverseBeta",
+    "s": [
+      "InverseBeta( <Number α>, <Number β>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseBinomial",
+    "s": [
+      "InverseBinomial( <Number of Trials>, <Probability of Success>, <Cumulative Probability> )"
+    ]
+  },
+  {
+    "n": "InverseBinomialMinimumTrials",
+    "s": [
+      "InverseBinomialMinimumTrials(Cumulative Probability, Probability of Success, Number of Successes)"
+    ]
+  },
+  {
+    "n": "InverseCauchy",
+    "s": [
+      "InverseCauchy( <Median>, <Scale>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseChiSquared",
+    "s": [
+      "InverseChiSquared( <Degrees of Freedom>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseExponential",
+    "s": [
+      "InverseExponential( <Lambda>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseFDistribution",
+    "s": [
+      "InverseFDistribution( <Numerator Degrees of Freedom>, <Denominator Degrees of Freedom>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseGamma",
+    "s": [
+      "InverseGamma( <Alpha>, <Beta>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseHyperGeometric",
+    "s": [
+      "InverseHyperGeometric( <Population Size>, <Number of Successes>, <Sample Size>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseLogistic",
+    "s": [
+      "InverseLogistic( <Mean>, <Scale>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseLogNormal",
+    "s": [
+      "InverseLogNormal( <Mean>, <Standard Deviation>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseNormal",
+    "s": [
+      "InverseNormal( <Mean>, <Standard Deviation>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InversePascal",
+    "s": [
+      "InversePascal( <n>, <p>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InversePoisson",
+    "s": [
+      "InversePoisson( <Mean>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseTDistribution",
+    "s": [
+      "InverseTDistribution( <Degrees of Freedom>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseWeibull",
+    "s": [
+      "InverseWeibull( <Shape>, <Scale>, <Probability> )"
+    ]
+  },
+  {
+    "n": "InverseZipf",
+    "s": [
+      "InverseZipf( <Number of Elements>, <Exponent>, <Probability> )"
+    ]
+  },
+  {
+    "n": "LineGraph",
+    "s": [
+      "LineGraph (<List of x-coordinates>, <List of y-coordinates>)"
+    ]
+  },
+  {
+    "n": "Logistic",
+    "s": [
+      "Logistic( <Mean>, <Scale>, <Variable Value> )",
+      "Logistic( <Mean>, <Scale>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "LogNormal",
+    "s": [
+      "LogNormal( <Mean>, <Standard Deviation>, <Variable Value> )",
+      "LogNormal( <Mean>, <Standard Deviation>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "MAD",
+    "s": [
+      "MAD( <List of Numbers> )",
+      "MAD( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "Mean",
+    "s": [
+      "Mean( <List of Raw Data> )",
+      "Mean( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "MeanX",
+    "s": [
+      "MeanX( <List of Points> )"
+    ]
+  },
+  {
+    "n": "MeanY",
+    "s": [
+      "MeanY( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Median",
+    "s": [
+      "Median( <List of Raw Data> )",
+      "Median( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "Mode",
+    "s": [
+      "Mode( <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "Normal",
+    "s": [
+      "Normal( <Mean>, <Standard Deviation>, <Variable Value> )",
+      "Normal( <Mean>, <Standard Deviation>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "NormalQuantilePlot",
+    "s": [
+      "NormalQuantilePlot( <List of Raw Data> )"
+    ]
+  },
+  {
+    "n": "OrdinalRank",
+    "s": [
+      "OrdinalRank( <List> )"
+    ]
+  },
+  {
+    "n": "Pascal",
+    "s": [
+      "Pascal( <n>, <p> )",
+      "Pascal( <n>, <p>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Percentile",
+    "s": [
+      "Percentile( <List of Numbers>, <Percent> )"
+    ]
+  },
+  {
+    "n": "PieChart",
+    "s": [
+      "PieChart(< List of Frequencies >)",
+      "PieChart(< List of Frequencies >, < Center >, < Radius >)"
+    ]
+  },
+  {
+    "n": "Poisson",
+    "s": [
+      "Poisson( <Mean> )",
+      "Poisson( <Mean>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Quartile1",
+    "s": [
+      "Quartile1( <List of Raw Data> )",
+      "Quartile1( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "Quartile3",
+    "s": [
+      "Quartile3( <List of Raw Data> )",
+      "Quartile3( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "RandomBetween",
+    "s": [
+      "RandomBetween( <Minimum Integer> , <Maximum Integer> )",
+      "RandomBetween( <Minimum Integer> , <Maximum Integer> , <Boolean Fixed> )"
+    ]
+  },
+  {
+    "n": "RandomBinomial",
+    "s": [
+      "RandomBinomial( <Number of Trials>, <Probability> )"
+    ]
+  },
+  {
+    "n": "RandomDiscrete",
+    "s": [
+      "RandomDiscrete( <List>, <List> )"
+    ]
+  },
+  {
+    "n": "RandomElement",
+    "s": [
+      "RandomElement( <List> )"
+    ]
+  },
+  {
+    "n": "RandomNormal",
+    "s": [
+      "RandomNormal( <Mean>, <Standard Deviation> )"
+    ]
+  },
+  {
+    "n": "RandomPointIn",
+    "s": [
+      "RandomPointIn( <Region> )",
+      "RandomPointIn( <List of Points> )"
+    ]
+  },
+  {
+    "n": "RandomPoisson",
+    "s": [
+      "RandomPoisson( <Mean> )"
+    ]
+  },
+  {
+    "n": "RandomPolynomial",
+    "s": [
+      "RandomPolynomial( <Degree> , <Minimum for Coefficients>, <Maximum for Coefficients> )",
+      "RandomPolynomial( <Variable>, <Degree> , <Minimum for Coefficients>, <Maximum for Coefficients> )"
+    ]
+  },
+  {
+    "n": "RandomUniform",
+    "s": [
+      "RandomUniform( <Min>, <Max> )",
+      "RandomUniform( <Min>, <Max>, <Number of Samples n> )"
+    ]
+  },
+  {
+    "n": "ResidualPlot",
+    "s": [
+      "ResidualPlot( <List of Points>, <Function> )"
+    ]
+  },
+  {
+    "n": "RootMeanSquare",
+    "s": [
+      "RootMeanSquare( <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "RSquare",
+    "s": [
+      "RSquare( <List of Points>, <Function> )"
+    ]
+  },
+  {
+    "n": "SampleSD",
+    "s": [
+      "SampleSD( <List of Raw Data> )",
+      "SampleSD( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "SampleSDX",
+    "s": [
+      "SampleSDX( <List of Points> )"
+    ]
+  },
+  {
+    "n": "SampleSDY",
+    "s": [
+      "SampleSDY( <List of Points> )"
+    ]
+  },
+  {
+    "n": "SampleVariance",
+    "s": [
+      "SampleVariance( <List of Raw Data> )",
+      "SampleVariance( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "SD",
+    "s": [
+      "SD( <List of Raw Data> )",
+      "SD( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "SDX",
+    "s": [
+      "SDX( <List of Points> )"
+    ]
+  },
+  {
+    "n": "SDY",
+    "s": [
+      "SDY( <List of Points> )"
+    ]
+  },
+  {
+    "n": "SigmaXX",
+    "s": [
+      "SigmaXX( <List of Points> )",
+      "SigmaXX( <List of Raw Data> )"
+    ]
+  },
+  {
+    "n": "SigmaXY",
+    "s": [
+      "SigmaXY( <List of Points> )",
+      "SigmaXY( <List of x-coordinates>, <List of y-coordinates> )"
+    ]
+  },
+  {
+    "n": "SigmaYY",
+    "s": [
+      "SigmaYY( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Spearman",
+    "s": [
+      "Spearman( <List of Points> )",
+      "Spearman( <List of Numbers>, <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "StemPlot",
+    "s": [
+      "StemPlot( <List> )",
+      "StemPlot( <List>, <Adjustment -1|0|1> )"
+    ]
+  },
+  {
+    "n": "StepGraph",
+    "s": [
+      "StepGraph( <List of Points> )",
+      "StepGraph( <List of Points>, <Boolean Join> )"
+    ]
+  },
+  {
+    "n": "StickGraph",
+    "s": [
+      "StickGraph( <List of Points> )",
+      "StickGraph( <List of Points>, <Boolean Horizontal> )"
+    ]
+  },
+  {
+    "n": "SumSquaredErrors",
+    "s": [
+      "SumSquaredErrors( <List of Points>, <Function> )"
+    ]
+  },
+  {
+    "n": "Sxx",
+    "s": [
+      "Sxx( <List of Numbers> )",
+      "Sxx( <List of Points> )"
+    ]
+  },
+  {
+    "n": "Sxy",
+    "s": [
+      "Sxy( <List of Points> )",
+      "Sxy( <List of Numbers>, <List of Numbers> )"
+    ]
+  },
+  {
+    "n": "Syy",
+    "s": [
+      "Syy( <List of Points> )"
+    ]
+  },
+  {
+    "n": "TDistribution",
+    "s": [
+      "TDistribution( <Degrees of Freedom>, <Variable Value> )",
+      "TDistribution( <Degrees of Freedom>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "TiedRank",
+    "s": [
+      "TiedRank( <List> )"
+    ]
+  },
+  {
+    "n": "TMean2Estimate",
+    "s": [
+      "TMean2Estimate( <List of Sample Data 1>, <List of Sample Data 2>, <Confidence Level>, <Boolean Pooled> )",
+      "TMean2Estimate( <Sample Mean 1>, <Sample Standard Deviation 1>, <Sample Size 1>, <Sample Mean 2>, <Sample Standard Deviation 2>, <Sample Size 2>, <Confidence Level>, <Boolean Pooled> )"
+    ]
+  },
+  {
+    "n": "TMeanEstimate",
+    "s": [
+      "TMeanEstimate( <List of Sample Data>, <Confidence level> )",
+      "TMeanEstimate( <Sample Mean>, <Sample Standard Deviation>, <Sample Size>, <Confidence level> )"
+    ]
+  },
+  {
+    "n": "Triangular",
+    "s": [
+      "Triangular( <Lower Bound>, <Upper Bound>, <Mode>, <Variable Value> )",
+      "Triangular( <Lower Bound>, <Upper Bound>, <Mode>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "TTest",
+    "s": [
+      "TTest( <List of Sample Data>, <Hypothesized Mean>, <Tail> )",
+      "TTest( <Sample Mean>, <Sample Standard Deviation>, <Sample Size>, <Hypothesized Mean>, <Tail> )"
+    ]
+  },
+  {
+    "n": "TTest2",
+    "s": [
+      "TTest2( <List of Sample Data 1>, <List of Sample Data 2>, <Tail>, <Boolean Pooled> )",
+      "TTest2( <Sample Mean 1>, <Sample Standard Deviation 1>, <Sample Size 1>, <Sample Mean 2>, <Sample Standard Deviation 2>,<Sample Size 2>, <Tail>, <Boolean Pooled> )"
+    ]
+  },
+  {
+    "n": "TTestPaired",
+    "s": [
+      "TTestPaired( <List of Sample Data 1>, <List of Sample Data 2>, <Tail> )"
+    ]
+  },
+  {
+    "n": "Uniform",
+    "s": [
+      "Uniform( <Lower Bound>, <Upper Bound>, <Variable Value> )",
+      "Uniform( <Lower Bound>, <Upper Bound>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Variance",
+    "s": [
+      "Variance( <List of Raw Data> )",
+      "Variance( <List of Numbers>, <List of Frequencies> )"
+    ]
+  },
+  {
+    "n": "Weibull",
+    "s": [
+      "Weibull( <Shape>, <Scale>, <Variable Value> )",
+      "Weibull( <Shape>, <Scale>, <Variable Value>, <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "Zipf",
+    "s": [
+      "Zipf( <Number of Elements>, <Exponent> )",
+      "Zipf( <Number of Elements>, <Exponent> , <Boolean Cumulative> )"
+    ]
+  },
+  {
+    "n": "ZMean2Estimate",
+    "s": [
+      "ZMean2Estimate( <List of Sample Data 1>, <List of Sample Data 2>, <σ1>, <σ2>, <Confidence Level> )",
+      "ZMean2Estimate( <Sample Mean 1>, <σ1>, <Sample Size 1>, <Sample Mean 2 >, <σ2>, <Sample Size 2>, <Confidence Level>)"
+    ]
+  },
+  {
+    "n": "ZMean2Test",
+    "s": [
+      "ZMean2Test( <List of Sample Data 1>, <σ1>, <List of Sample Data 2>, <σ2>, <Tail> )",
+      "ZMean2Test( <Sample Mean 1 >, <σ1>, <Sample Size 1>, <Sample Mean 2 >, <σ2>, <Sample Size 2>, <Tail> )"
+    ]
+  },
+  {
+    "n": "ZMeanEstimate",
+    "s": [
+      "ZMeanEstimate( <List of Sample Data>, <σ>, <Confidence Level> )",
+      "ZMeanEstimate( <Sample Mean>, <σ>, <Sample Size>, <Confidence Level> )"
+    ]
+  },
+  {
+    "n": "ZMeanTest",
+    "s": [
+      "ZMeanTest( <List of Sample Data>, <σ>, <Hypothesized Mean>, <Tail> )",
+      "ZMeanTest( <Sample Mean>, <σ>, <Sample Size>, <Hypothesized Mean>, <Tail> )"
+    ]
+  },
+  {
+    "n": "ZProportion2Estimate",
+    "s": [
+      "ZProportion2Estimate( <Sample Proportion 1 >, <Sample Size 1>, <Sample Proportion 2 >, <Sample Size 2>, <Confidence Level> )"
+    ]
+  },
+  {
+    "n": "ZProportion2Test",
+    "s": [
+      "ZProportion2Test( <Sample Proportion 1>, <Sample Size 1>, <Sample Proportion 2>, <Sample Size 2>, <Tail> )"
+    ]
+  },
+  {
+    "n": "ZProportionEstimate",
+    "s": [
+      "ZProportionEstimate ( <Sample Proportion >, <Sample Size >, <Confidence Level> )"
+    ]
+  },
+  {
+    "n": "ZProportionTest",
+    "s": [
+      "ZProportionTest( <Sample Proportion>, <Sample Size>, <Hypothesized Proportion>, <Tail> )"
+    ]
+  }
+]
