@@ -1,5 +1,5 @@
-<svg width="64" height="64" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-  <g transform="rotate(10) translate(0 -5)">
+<svg width="64" height="64" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-10 -22) rotate(10 60 72)">
     <path d="M30 45 L15 70 L45 70 Z" fill="#424242"/>
     <path d="M90 45 L75 70 L105 70 Z" fill="#424242"/>
     <rect x="30" y="55" width="60" height="45" rx="12" fill="#424242"/>
