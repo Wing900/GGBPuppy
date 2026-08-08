@@ -1,23 +1,32 @@
-import { createOpenAI } from '@ai-sdk/openai';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 
 /**
  * 模型工厂：把第三方 API 的 baseURL / apiKey / model 三要素组合成一个
  * Vercel AI SDK LanguageModel。三个值全部来自外部传入（env），代码零写死，
  * 换 provider 只改 env 不改代码。
  *
- * @param {{ apiKey: string, baseURL: string, model: string }} config
- * @returns {import('@ai-sdk/openai').OpenAIProviderLanguageModel}
+ * 用 @ai-sdk/openai-compatible 而非 @ai-sdk/openai，是因为它支持
+ * transformRequestBody：阿里云 qwen reasoning 模型默认开启深度思考，
+ * 复杂任务（如勾股树）思考会爆炸（实测 15 万字符 / 16 分钟），
+ * 通过注入 enable_thinking:false 关闭思考，让模型直接输出代码。
+ *
+ * @param {{ apiKey: string, baseURL: string, model: string, disableThinking?: boolean }} config
+ * @returns {import('@ai-sdk/openai-compatible').OpenAICompatibleChatLanguageModel}
  */
 export function createModel(config) {
   if (!config || !config.apiKey || !config.model) {
     throw new Error('createModel requires apiKey and model');
   }
-  const provider = createOpenAI({
+  const provider = createOpenAICompatible({
     baseURL: config.baseURL,
-    apiKey: config.apiKey
+    name: 'ggbpuppy-provider',
+    apiKey: config.apiKey,
+    transformRequestBody: (args) => {
+      if (config.disableThinking) {
+        return { ...args, enable_thinking: false };
+      }
+      return args;
+    }
   });
-  // AI SDK 5 的 createOpenAI 默认走 responses API（v4 规范），
-  // 第三方 OpenAI 兼容端点（Ollama/DeepSeek 等）只实现 chat completions（v2 规范）。
-  // 必须显式用 provider.chat() 切到 chat completions。
-  return provider.chat(config.model);
+  return provider.chatModel(config.model);
 }

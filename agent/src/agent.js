@@ -9,7 +9,7 @@ import { AGENT_PROMPT } from './prompt.js';
  * - maxSteps：允许 agent 多步工具循环（前端 tool 会往返多次）
  * - prompt：GGB 建模助手系统提示（自动执行版）
  *
- * @param {{ apiKey: string, baseURL: string, model: string, maxSteps?: number }} config
+ * @param {{ apiKey: string, baseURL: string, model: string, maxSteps?: number, disableThinking?: boolean }} config
  * @returns {import('@copilotkit/runtime/v2').BuiltInAgent}
  */
 export function buildDefaultAgent(config) {

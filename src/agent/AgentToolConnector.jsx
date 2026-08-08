@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useAgentTools } from './useAgentTools';
+import { useAgentStateSync } from './useAgentStateSync';
 
 /**
  * 在 CopilotKitProvider 内注册 agent 前端工具。
@@ -30,6 +31,9 @@ export function AgentToolConnector({ ggbApplet, code, setCode }) {
     getCode: () => codeRef.current,
     setCode
   });
+
+  // 兜底：agent 用 AGUI 发代码时，提取并写入编辑器
+  useAgentStateSync({ setCode });
 
   return null;
 }

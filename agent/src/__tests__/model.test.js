@@ -1,12 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 
-vi.mock('@ai-sdk/openai', () => ({
-  createOpenAI: vi.fn(() => ({
-    chat: (modelId) => ({ id: modelId, _provider: 'mock-chat' })
+vi.mock('@ai-sdk/openai-compatible', () => ({
+  createOpenAICompatible: vi.fn((opts) => ({
+    chatModel: (modelId) => ({ id: modelId, _provider: 'mock-chat', _opts: opts })
   }))
 }));
 
-import { createOpenAI } from '@ai-sdk/openai';
+import { createOpenAICompatible } from '@ai-sdk/openai-compatible';
 import { createModel } from '../model.js';
 
 describe('createModel', () => {
@@ -17,11 +17,34 @@ describe('createModel', () => {
       model: 'deepseek-chat'
     });
 
-    expect(createOpenAI).toHaveBeenCalledWith({
+    expect(createOpenAICompatible).toHaveBeenCalledWith({
       baseURL: 'https://api.example.com/v1',
-      apiKey: 'sk-test'
+      name: 'ggbpuppy-provider',
+      apiKey: 'sk-test',
+      transformRequestBody: expect.any(Function)
     });
     expect(model).toMatchObject({ id: 'deepseek-chat' });
+  });
+
+  it('disableThinking 时 transformRequestBody 注入 enable_thinking:false', () => {
+    const model = createModel({
+      apiKey: 'sk-test',
+      baseURL: 'https://api.example.com/v1',
+      model: 'deepseek-chat',
+      disableThinking: true
+    });
+    const transformed = model._opts.transformRequestBody({ model: 'x', temperature: 0.7 });
+    expect(transformed).toEqual({ model: 'x', temperature: 0.7, enable_thinking: false });
+  });
+
+  it('未开 disableThinking 时 transformRequestBody 原样返回', () => {
+    const model = createModel({
+      apiKey: 'sk-test',
+      baseURL: 'https://api.example.com/v1',
+      model: 'deepseek-chat'
+    });
+    const transformed = model._opts.transformRequestBody({ model: 'x' });
+    expect(transformed).toEqual({ model: 'x' });
   });
 
   it('缺少 apiKey 或 model 时抛错', () => {
