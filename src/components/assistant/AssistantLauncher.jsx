@@ -6,57 +6,93 @@ import { CopilotChat } from '@copilotkit/react-core/v2';
 const FAB_SIZE = 56;
 const PANEL_WIDTH = 400;
 const PANEL_HEIGHT = 725;
-const HALF_HIDE = -FAB_SIZE / 2;
+const HALF_HIDE = -FAB_SIZE / 2; // 半遮面：露出一半
+
+const centerY = () =>
+  typeof window !== 'undefined' ? Math.max(8, (window.innerHeight - FAB_SIZE) / 2) : 200;
 
 /**
- * 通用拖拽：mousedown/touchstart 时动态绑 document 事件，
- * mouseup/touchend 必触发并立即移除监听 —— 绝不"黏住"。
+ * 圆形 puppy 助手按钮 + 对话面板。
+ *
+ * 拖拽状态机（单一 dragRef）：
+ *   - pointerdown 启动拖拽（记录起点 + 原点）
+ *   - document pointermove 更新位置
+ *   - document pointerup / window blur 结束拖拽（监听绝不残留）
+ *   - 位移 > 3px 记为"拖动"，否则视为"点击"
+ *
+ * 规则：
+ *   - 对话框【关闭】时 FAB 可拖动
+ *   - 对话框【打开】时 FAB 锁定（不可拖动）
+ *   - 点 FAB（非拖动）→ 展开/收起对话框
+ *   - 面板 header 可拖动；× 关闭
  */
-function startDrag(startClientX, startClientY, origin, setPos, onMoved) {
-  let moved = false;
-  const onMove = (ev) => {
-    const cx = ev.clientX ?? ev.touches?.[0]?.clientX;
-    const cy = ev.clientY ?? ev.touches?.[0]?.clientY;
-    if (cx == null) return;
-    const dx = cx - startClientX;
-    const dy = cy - startClientY;
-    if (Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
-    setPos({ x: origin.x + dx, y: origin.y + dy });
-  };
-  const onUp = () => {
-    document.removeEventListener('pointermove', onMove);
-    document.removeEventListener('pointerup', onUp);
-    window.removeEventListener('blur', onUp);
-    onMoved?.(moved);
-  };
-  // pointer 事件统一 mouse+touch；绑 document 保证任何位置松开都触发；blur 兜底窗口失焦
-  document.addEventListener('pointermove', onMove);
-  document.addEventListener('pointerup', onUp);
-  window.addEventListener('blur', onUp);
-}
-
 const AssistantLauncher = ({ labels = {} }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [fabPos, setFabPos] = useState(() => ({
-    x: HALF_HIDE,
-    y: typeof window !== 'undefined' ? Math.max(8, (window.innerHeight - FAB_SIZE) / 2) : 200
-  }));
+  const [fabPos, setFabPos] = useState(() => ({ x: HALF_HIDE, y: centerY() }));
   const [panelPos, setPanelPos] = useState(null);
+
+  const dragRef = useRef(null); // { type, startX, startY, originX, originY, moved }
   const fabMoved = useRef(false);
 
+  const defaultPanelPos = useCallback(
+    () => ({ x: fabPos.x + FAB_SIZE + 8, y: Math.max(8, fabPos.y - 100) }),
+    [fabPos]
+  );
+
+  const startDrag = useCallback(
+    (type, e) => {
+      if (type === 'fab' && isOpen) return; // 对话框打开时 FAB 锁定
+      const origin = type === 'fab' ? fabPos : panelPos || defaultPanelPos();
+      dragRef.current = {
+        type,
+        startX: e.clientX,
+        startY: e.clientY,
+        originX: origin.x,
+        originY: origin.y,
+        moved: false
+      };
+    },
+    [isOpen, fabPos, panelPos, defaultPanelPos]
+  );
+
+  // 全局拖拽监听（只绑一次）
   useEffect(() => {
-    setFabPos((p) => ({ ...p, y: Math.max(8, (window.innerHeight - FAB_SIZE) / 2) }));
+    const onMove = (e) => {
+      const d = dragRef.current;
+      if (!d) return;
+      const dx = e.clientX - d.startX;
+      const dy = e.clientY - d.startY;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) d.moved = true;
+      const pos = { x: d.originX + dx, y: d.originY + dy };
+      if (d.type === 'fab') setFabPos(pos);
+      else setPanelPos(pos);
+    };
+    const onUp = () => {
+      if (dragRef.current?.type === 'fab') fabMoved.current = dragRef.current.moved;
+      dragRef.current = null;
+    };
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp);
+    window.addEventListener('blur', onUp);
+    return () => {
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      window.removeEventListener('blur', onUp);
+    };
   }, []);
 
-  const onFabPointerDown = useCallback((e) => {
-    const startX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
-    const startY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
-    fabMoved.current = false;
-    startDrag(startX, startY, { ...fabPos }, setFabPos, (m) => { fabMoved.current = m; });
-  }, [fabPos]);
+  // mount 后校准垂直居中
+  useEffect(() => {
+    setFabPos((p) => ({ ...p, y: centerY() }));
+  }, []);
+
+  const onFabPointerDown = useCallback((e) => startDrag('fab', e), [startDrag]);
 
   const onFabClick = useCallback(() => {
-    if (fabMoved.current) { fabMoved.current = false; return; }
+    if (fabMoved.current) {
+      fabMoved.current = false;
+      return;
+    }
     setIsOpen((v) => !v);
   }, []);
 
@@ -65,20 +101,16 @@ const AssistantLauncher = ({ labels = {} }) => {
     setIsOpen(false);
   }, []);
 
-  const onHeaderPointerDown = useCallback((e) => {
-    // 点 × 按钮时不启动拖拽
-    if (e.target.closest('[data-close-btn]')) return;
-    const startX = e.clientX ?? e.touches?.[0]?.clientX ?? 0;
-    const startY = e.clientY ?? e.touches?.[0]?.clientY ?? 0;
-    const origin = panelPos || {
-      x: fabPos.x + FAB_SIZE + 8,
-      y: Math.max(8, fabPos.y - 100)
-    };
-    startDrag(startX, startY, origin, setPanelPos);
-  }, [panelPos, fabPos]);
+  const onHeaderPointerDown = useCallback(
+    (e) => {
+      if (e.target.closest('[data-close-btn]')) return; // 点 × 不启动拖拽
+      startDrag('panel', e);
+    },
+    [startDrag]
+  );
 
-  const panelLeft = panelPos ? panelPos.x : fabPos.x + FAB_SIZE + 8;
-  const panelTop = panelPos ? panelPos.y : Math.max(8, fabPos.y - 100);
+  const panelLeft = panelPos ? panelPos.x : defaultPanelPos().x;
+  const panelTop = panelPos ? panelPos.y : defaultPanelPos().y;
 
   return (
     <>
@@ -155,7 +187,7 @@ const AssistantLauncher = ({ labels = {} }) => {
           backgroundColor: 'var(--color-bg-secondary)',
           border: '1px solid var(--color-border)',
           boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
-          cursor: 'grab',
+          cursor: isOpen ? 'default' : 'grab',
           touchAction: 'none'
         }}
         title="GGBPuppy 助手"
