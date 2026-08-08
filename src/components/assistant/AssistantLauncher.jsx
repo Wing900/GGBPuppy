@@ -49,7 +49,7 @@ const AssistantLauncher = ({ labels = {} }) => {
   const fabMoved = useRef(false);
 
   const defaultPanelPos = useCallback(
-    () => ({ x: fabPos.x + FAB_SIZE + 8, y: Math.max(8, fabPos.y - 100) }),
+    () => ({ x: fabPos.x + FAB_SIZE + 8, y: 8 }),
     [fabPos]
   );
 
