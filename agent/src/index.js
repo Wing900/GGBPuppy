@@ -11,6 +11,7 @@ import { buildRuntime } from './runtime.js';
  */
 export default {
   async fetch(request, env) {
+    console.log('[agent] request:', request.method, request.url);
     const runtime = buildRuntime({
       apiKey: env.OPENAI_API_KEY,
       baseURL: env.OPENAI_BASE_URL,
