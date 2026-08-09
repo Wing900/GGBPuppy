@@ -12,10 +12,11 @@ import {
   restoreSceneData
 } from '../services/share';
 import { LAYOUT } from '../config/appConfig';
+import { AGENT_RUNTIME_URL } from '../config/runtimeConfig';
 
 const EditorLayout = ({ shareId: initialShareId }) => {
-  // Agent 后端地址（未配置则不渲染助手）
-  const agentRuntimeUrl = import.meta.env.VITE_AGENT_RUNTIME_URL;
+  // Agent 后端地址：允许 Cloudflare 环境变量覆盖，生产环境有公开默认值。
+  const agentRuntimeUrl = AGENT_RUNTIME_URL;
   const [ggbApplet, setGgbApplet] = useState(null);
   const hasRunRef = useRef(false);
   const editorRef = useRef(null);
@@ -209,9 +210,11 @@ const EditorLayout = ({ shareId: initialShareId }) => {
       className="flex flex-col relative"
       style={{
         backgroundColor: 'var(--color-bg-primary)',
-        minHeight: 'var(--app-viewport-height)',
+        height: 'var(--app-viewport-height)',
+        minHeight: 0,
         padding: LAYOUT.pagePadding,
-        overflowX: 'hidden'
+        overflow: 'hidden',
+        boxSizing: 'border-box'
       }}
     >
       <AppHeader
@@ -234,15 +237,16 @@ const EditorLayout = ({ shareId: initialShareId }) => {
         className="flex-1 w-full max-w-[1600px] mx-auto grid gap-6"
         style={{
           gridTemplateColumns: `${LAYOUT.editorColumnWidth} 1fr`,
-          minHeight: LAYOUT.mainHeight
+          minHeight: 0
         }}
       >
-        <div className="flex flex-col gap-4">
+        <div className="flex min-h-0 flex-col gap-4">
           <div
             ref={editorRef}
             className="editor-scroll-container"
             style={{
-              height: LAYOUT.editorHeight,
+              flex: 1,
+              minHeight: 0,
               border: '1px solid rgba(var(--text-secondary-rgb), 0.2)',
               borderRadius: 0,
               boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
@@ -271,7 +275,7 @@ const EditorLayout = ({ shareId: initialShareId }) => {
           </div>
         </div>
 
-        <div className="overflow-hidden flex flex-col" style={{ border: '1px solid rgba(var(--text-secondary-rgb), 0.2)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
+        <div className="min-h-0 overflow-hidden flex flex-col" style={{ border: '1px solid rgba(var(--text-secondary-rgb), 0.2)', boxShadow: '0 1px 3px rgba(var(--text-secondary-rgb), 0.05)' }}>
           <GGBViewer key={enable3D ? '3d' : '2d'} enable3D={enable3D} onReady={handleGGBReady} />
         </div>
       </main>
