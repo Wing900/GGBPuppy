@@ -4,7 +4,7 @@ import { buildDefaultAgent } from './agent.js';
 /**
  * 装配 CopilotRuntime，注册 default agent。
  *
- * @param {{ apiKey: string, baseURL: string, model: string, maxSteps?: number, disableThinking?: boolean }} config
+ * @param {Parameters<typeof buildDefaultAgent>[0]} config
  * @returns {import('@copilotkit/runtime/v2').CopilotRuntime}
  */
 export function buildRuntime(config) {

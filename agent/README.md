@@ -66,6 +66,19 @@ npm test          # vitest run
 
 当前覆盖：`model` 工厂、`agent` 装配、`runtime` 装配、Worker 入口集成冒烟（CORS + 装配）。全部不依赖真实 LLM / API key。
 
+## 长对话 Context Policy
+
+Worker 在模型调用前执行有界上下文策略，前端仍保留完整聊天记录。策略按 user turn 成组裁剪，确保 assistant tool call 与 tool result 同进同出；被裁剪轮次只保留紧凑的用户请求摘要。
+
+默认值可通过 Worker env 覆盖：
+
+- `AGENT_CONTEXT_MAX_TURNS=6`
+- `AGENT_CONTEXT_MAX_MESSAGES=32`
+- `AGENT_CONTEXT_MAX_CHARS=48000`
+- `AGENT_CONTEXT_DIGEST_CHARS=4000`
+- `AGENT_MAX_OUTPUT_TOKENS=4096`
+- `AGENT_MAX_RETRIES=2`
+
 ## 本地端到端验证（已跑通）
 
 方式 A（Cloudflare 运行时，推荐）：
